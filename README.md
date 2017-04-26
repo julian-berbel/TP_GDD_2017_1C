@@ -2,9 +2,9 @@
 
 ### Integrantes
 * Berbel Alt, Julián
-* ?, Agustín
+* Labarque, Agustín
+* Lepetic, Gonzalo
 * ?, Esteban
-* ?, Gonzalo
 
 ## Enlaces relacionados
 #### Diagrama Entidad-Relación
