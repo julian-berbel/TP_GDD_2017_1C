@@ -3,15 +3,6 @@ GO
 
 /* Eliminacion de preexistentes*/
 
-IF OBJECT_ID('LOS_MODERADAMENTE_ADECUADOS.Rendicion','U') IS NOT NULL
-    DROP TABLE LOS_MODERADAMENTE_ADECUADOS.Rendicion;
-
-IF OBJECT_ID('LOS_MODERADAMENTE_ADECUADOS.Turno','U') IS NOT NULL
-    DROP TABLE LOS_MODERADAMENTE_ADECUADOS.Turno;
-
-IF OBJECT_ID('LOS_MODERADAMENTE_ADECUADOS.Vehiculo','U') IS NOT NULL
-    DROP TABLE LOS_MODERADAMENTE_ADECUADOS.Vehiculo;
-
 IF OBJECT_ID('LOS_MODERADAMENTE_ADECUADOS.Item_Factura','U') IS NOT NULL
     DROP TABLE LOS_MODERADAMENTE_ADECUADOS.Item_Factura;
 
@@ -20,6 +11,15 @@ IF OBJECT_ID('LOS_MODERADAMENTE_ADECUADOS.Factura','U') IS NOT NULL
 
 IF OBJECT_ID('LOS_MODERADAMENTE_ADECUADOS.Viaje','U') IS NOT NULL
     DROP TABLE LOS_MODERADAMENTE_ADECUADOS.Viaje;
+
+IF OBJECT_ID('LOS_MODERADAMENTE_ADECUADOS.Vehiculo','U') IS NOT NULL
+    DROP TABLE LOS_MODERADAMENTE_ADECUADOS.Vehiculo;
+
+IF OBJECT_ID('LOS_MODERADAMENTE_ADECUADOS.Rendicion','U') IS NOT NULL
+    DROP TABLE LOS_MODERADAMENTE_ADECUADOS.Rendicion;
+
+IF OBJECT_ID('LOS_MODERADAMENTE_ADECUADOS.Turno','U') IS NOT NULL
+    DROP TABLE LOS_MODERADAMENTE_ADECUADOS.Turno;
 
 IF OBJECT_ID('LOS_MODERADAMENTE_ADECUADOS.Rol_X_Usuario','U') IS NOT NULL
     DROP TABLE LOS_MODERADAMENTE_ADECUADOS.Rol_X_Usuario;
@@ -65,7 +65,7 @@ CREATE TABLE LOS_MODERADAMENTE_ADECUADOS.Funcionalidad_X_Rol(
 
 CREATE TABLE LOS_MODERADAMENTE_ADECUADOS.Usuario(
     usua_id INT IDENTITY PRIMARY KEY,
-    usua_user NVARCHAR(200) UNIQUE,
+    usua_user NVARCHAR(200),
     usua_pass VARBINARY(200),
     usua_dni NVARCHAR(200),
     usua_nombre NVARCHAR(200),
@@ -131,3 +131,16 @@ CREATE TABLE LOS_MODERADAMENTE_ADECUADOS.Item_Factura(
     item_viaje INT NOT NULL FOREIGN KEY REFERENCES LOS_MODERADAMENTE_ADECUADOS.Viaje(viaj_id));
 	
 /* Migración */
+
+INSERT [LOS_MODERADAMENTE_ADECUADOS].Rol (rol_nombre, rol_detalle, rol_habilitado)
+values ('Cliente', 'Rol de cliente', 1), ('Chofer', 'Rol de chofer', 1), ('Administrador', 'Rol de administrador', 1)
+
+
+
+/*INSERT [LOS_MODERADAMENTE_ADECUADOS].Usuario (usua_nombre, usua_apellido, usua_dni, usua_domicilio, usua_telefono, usua_mail, usua_fecha_nacimiento)
+select [Chofer_Nombre], [Chofer_Apellido], [Chofer_Dni], [Chofer_Direccion], [Chofer_Telefono], [Chofer_Mail], [Chofer_Fecha_Nac]
+from [gd_esquema].Maestra*/
+
+/*INSERT [LOS_MODERADAMENTE_ADECUADOS].Vehiculo (vehi_patente, vehi_marca, vehi_modelo, vehi_chofer) 
+select distinct [Auto_Patente],[Auto_Marca],[Auto_Modelo], (select top 1 usua_id from LOS_MODERADAMENTE_ADECUADOS.Usuario where usua_dni = Chofer_Dni)
+from [gd_esquema].Maestra*/
