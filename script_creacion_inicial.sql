@@ -77,7 +77,7 @@ CREATE TABLE LOS_MODERADAMENTE_ADECUADOS.Usuario(
     usua_intentos TINYINT);
 
 CREATE TABLE LOS_MODERADAMENTE_ADECUADOS.Cliente(
-    clie_id INT PRIMARY KEY REFERENCES LOS_MODERADAMENTE_ADECUADOS.Usuario(usua_id),
+    clie_id INT IDENTITY(2,1) PRIMARY KEY REFERENCES LOS_MODERADAMENTE_ADECUADOS.Usuario(usua_id),
     clie_dni NUMERIC(18,0) UNIQUE,
     clie_nombre VARCHAR(255),
 	clie_apellido VARCHAR(255),
@@ -177,23 +177,27 @@ INSERT [LOS_MODERADAMENTE_ADECUADOS].Usuario (usua_user, usua_pass, usua_habilit
 	VALUES ('admin', HASHBYTES('SHA256', 'w23e'), 1, 0)
 
 INSERT [LOS_MODERADAMENTE_ADECUADOS].Usuario (usua_user, usua_pass, usua_habilitado, usua_intentos)
-	SELECT CONVERT(varchar(20), Chofer_Dni), HASHBYTES('SHA256', CONVERT(varchar(20), Chofer_Dni)), 1, 0
+	SELECT DISTINCT CONVERT(varchar(20), Chofer_Dni), HASHBYTES('SHA256', CONVERT(varchar(20), Chofer_Dni)), 1, 0
 	FROM [gd_esquema].Maestra
+	ORDER BY CONVERT(varchar(20), Chofer_Dni)
 
 INSERT [LOS_MODERADAMENTE_ADECUADOS].Usuario (usua_user, usua_pass, usua_habilitado, usua_intentos)
-	SELECT CONVERT(varchar(20), Cliente_Dni), HASHBYTES('SHA256', CONVERT(varchar(20), Cliente_Dni)), 1, 0
+	SELECT DISTINCT CONVERT(varchar(20), Cliente_Dni), HASHBYTES('SHA256', CONVERT(varchar(20), Cliente_Dni)), 1, 0
 	FROM [gd_esquema].Maestra
+	ORDER BY CONVERT(varchar(20), Cliente_Dni)
 
 --Cliente
-/*
+
 INSERT [LOS_MODERADAMENTE_ADECUADOS].Cliente (clie_dni, clie_nombre, clie_apellido, clie_fecha_nacimiento)
-	SELECT Cliente_Dni, Cliente_Nombre, Cliente_Apellido, Cliente_Fecha_Nac
+	SELECT DISTINCT Chofer_Dni, Chofer_Nombre, Chofer_Apellido, Chofer_Fecha_Nac
 	FROM [gd_esquema].Maestra
-	
+	ORDER BY Chofer_Dni
+
 INSERT [LOS_MODERADAMENTE_ADECUADOS].Cliente (clie_dni, clie_nombre, clie_apellido, clie_fecha_nacimiento)
-	SELECT Chofer_Dni, Chofer_Nombre, Chofer_Apellido, Chofer_Fecha_Nac
+	SELECT DISTINCT Cliente_Dni, Cliente_Nombre, Cliente_Apellido, Cliente_Fecha_Nac
 	FROM [gd_esquema].Maestra
-*/
+	ORDER BY Cliente_Dni
+
 --Contacto
 
 --Rol_X_Usuario
