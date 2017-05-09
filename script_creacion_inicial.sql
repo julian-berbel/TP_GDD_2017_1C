@@ -24,6 +24,12 @@ IF OBJECT_ID('LOS_MODERADAMENTE_ADECUADOS.Turno','U') IS NOT NULL
 IF OBJECT_ID('LOS_MODERADAMENTE_ADECUADOS.Rol_X_Usuario','U') IS NOT NULL
     DROP TABLE LOS_MODERADAMENTE_ADECUADOS.Rol_X_Usuario;
 
+IF OBJECT_ID('LOS_MODERADAMENTE_ADECUADOS.Contacto','U') IS NOT NULL
+    DROP TABLE LOS_MODERADAMENTE_ADECUADOS.Contacto;
+	
+IF OBJECT_ID('LOS_MODERADAMENTE_ADECUADOS.Cliente','U') IS NOT NULL
+    DROP TABLE LOS_MODERADAMENTE_ADECUADOS.Cliente;
+	
 IF OBJECT_ID('LOS_MODERADAMENTE_ADECUADOS.Usuario','U') IS NOT NULL
     DROP TABLE LOS_MODERADAMENTE_ADECUADOS.Usuario;
 
@@ -65,18 +71,24 @@ CREATE TABLE LOS_MODERADAMENTE_ADECUADOS.Funcionalidad_X_Rol(
 
 CREATE TABLE LOS_MODERADAMENTE_ADECUADOS.Usuario(
     usua_id INT IDENTITY PRIMARY KEY,
-    usua_user NVARCHAR(200),
+    usua_user NVARCHAR(200) UNIQUE,
     usua_pass VARBINARY(200),
-    usua_dni NVARCHAR(200),
-    usua_nombre NVARCHAR(200),
-	usua_apellido NVARCHAR(200),
-	usua_mail NVARCHAR(200),
-	usua_telefono NVARCHAR(200),
-	usua_domicilio NVARCHAR(200),
-	usua_codigo_postal NVARCHAR(20),
-	usua_fecha_nacimiento DATETIME,
 	usua_habilitado BIT,
     usua_intentos TINYINT);
+
+CREATE TABLE LOS_MODERADAMENTE_ADECUADOS.Cliente(
+    clie_id INT PRIMARY KEY REFERENCES LOS_MODERADAMENTE_ADECUADOS.Usuario(usua_id),
+    clie_dni NVARCHAR(200),
+    clie_nombre NVARCHAR(200),
+	clie_apellido NVARCHAR(200),
+	clie_fecha_nacimiento DATETIME);
+
+CREATE TABLE LOS_MODERADAMENTE_ADECUADOS.Contacto(
+    cont_id INT PRIMARY KEY REFERENCES LOS_MODERADAMENTE_ADECUADOS.Cliente(clie_id),
+	cont_mail NVARCHAR(200),
+	cont_telefono NVARCHAR(200),
+	cont_domicilio NVARCHAR(200),
+	cont_codigo_postal NVARCHAR(20));
 
 CREATE TABLE LOS_MODERADAMENTE_ADECUADOS.Rol_X_Usuario(
     cod_rol TINYINT NOT NULL FOREIGN KEY REFERENCES LOS_MODERADAMENTE_ADECUADOS.Rol(rol_id),
@@ -132,15 +144,58 @@ CREATE TABLE LOS_MODERADAMENTE_ADECUADOS.Item_Factura(
 	
 /* Migración */
 
+--Rol
+
 INSERT [LOS_MODERADAMENTE_ADECUADOS].Rol (rol_nombre, rol_detalle, rol_habilitado)
-values ('Cliente', 'Rol de cliente', 1), ('Chofer', 'Rol de chofer', 1), ('Administrador', 'Rol de administrador', 1)
+VALUES	('Cliente', 'Rol de cliente', 1), 
+		('Chofer', 'Rol de chofer', 1), 
+		('Administrador', 'Rol de administrador', 1)
 
+--Funcionalidad
 
+INSERT [LOS_MODERADAMENTE_ADECUADOS].Funcionalidad (func_descripcion)
+VALUES	('ABM de Rol'),
+		('Registro de Usuario'),
+		('ABM de Clientes'),
+		('ABM de Automovil'),
+		('ABM de Turno'),
+		('ABM de Chofer'),
+		('Registro de Viaje'),
+		('Facturacion de Clientes'),
+		('Listado Estadistico')
 
-/*INSERT [LOS_MODERADAMENTE_ADECUADOS].Usuario (usua_nombre, usua_apellido, usua_dni, usua_domicilio, usua_telefono, usua_mail, usua_fecha_nacimiento)
-select [Chofer_Nombre], [Chofer_Apellido], [Chofer_Dni], [Chofer_Direccion], [Chofer_Telefono], [Chofer_Mail], [Chofer_Fecha_Nac]
+--Funcionalidad_X_Rol
+
+INSERT [LOS_MODERADAMENTE_ADECUADOS].Funcionalidad_X_Rol (cod_func, cod_rol)
+VALUES (1, 3), (2, 3), (3, 3), (4, 3), (5, 3), (6, 3), (7, 3), (8, 3), (9, 3)
+
+--Usuario
+
+INSERT [LOS_MODERADAMENTE_ADECUADOS].Usuario (usua_user, usua_pass, usua_habilitado, usua_intentos)
+VALUES ('admin', HASHBYTES('SHA256', 'w23e'), 1, 0)
+
+/*INSERT [LOS_MODERADAMENTE_ADECUADOS].Usuario (usua_user, usua_pass, usua_habilitado, usua_intentos)
+select [Chofer_Nombre], [Chofer_Apellido], 1, 0
 from [gd_esquema].Maestra*/
+
+--Cliente
+
+--Contacto
+
+--Rol_X_Usuario
+
+--Turno
+
+--Rendicion
+
+--Vehiculo
 
 /*INSERT [LOS_MODERADAMENTE_ADECUADOS].Vehiculo (vehi_patente, vehi_marca, vehi_modelo, vehi_chofer) 
 select distinct [Auto_Patente],[Auto_Marca],[Auto_Modelo], (select top 1 usua_id from LOS_MODERADAMENTE_ADECUADOS.Usuario where usua_dni = Chofer_Dni)
 from [gd_esquema].Maestra*/
+
+--Viaje
+
+--Factura
+
+--Item_Factura
