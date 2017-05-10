@@ -106,7 +106,7 @@ CREATE TABLE LOS_MODERADAMENTE_ADECUADOS.Turno(
 
 CREATE TABLE LOS_MODERADAMENTE_ADECUADOS.Rendicion(
     rend_numero INT PRIMARY KEY,
---    rend_turno TINYINT NOT NULL FOREIGN KEY REFERENCES LOS_MODERADAMENTE_ADECUADOS.Turno(turn_id),
+    rend_turno TINYINT NOT NULL FOREIGN KEY REFERENCES LOS_MODERADAMENTE_ADECUADOS.Turno(turn_id),
 	rend_chofer INT NOT NULL FOREIGN KEY REFERENCES LOS_MODERADAMENTE_ADECUADOS.Usuario(usua_id),
 	rend_fecha DATETIME,
 	rend_importe_total NUMERIC(10,2));
@@ -174,15 +174,15 @@ INSERT [LOS_MODERADAMENTE_ADECUADOS].Funcionalidad_X_Rol (cod_func, cod_rol)
 --Usuario
 
 INSERT [LOS_MODERADAMENTE_ADECUADOS].Usuario (usua_user, usua_pass, usua_habilitado, usua_intentos)
-	VALUES ('admin', HASHBYTES('SHA256', 'w23e'), 1, 0)
+	VALUES ('admin', HASHBYTES('SHA2_256', 'w23e'), 1, 0)
 
 INSERT [LOS_MODERADAMENTE_ADECUADOS].Usuario (usua_user, usua_pass, usua_habilitado, usua_intentos)
-	SELECT DISTINCT CONVERT(varchar(20), Chofer_Dni), HASHBYTES('SHA256', CONVERT(varchar(20), Chofer_Dni)), 1, 0
+	SELECT DISTINCT CONVERT(varchar(20), Chofer_Dni), HASHBYTES('SHA2_256', CONVERT(varchar(20), Chofer_Dni)), 1, 0
 	FROM [gd_esquema].Maestra
 	ORDER BY CONVERT(varchar(20), Chofer_Dni)
 
 INSERT [LOS_MODERADAMENTE_ADECUADOS].Usuario (usua_user, usua_pass, usua_habilitado, usua_intentos)
-	SELECT DISTINCT CONVERT(varchar(20), Cliente_Dni), HASHBYTES('SHA256', CONVERT(varchar(20), Cliente_Dni)), 1, 0
+	SELECT DISTINCT CONVERT(varchar(20), Cliente_Dni), HASHBYTES('SHA2_256', CONVERT(varchar(20), Cliente_Dni)), 1, 0
 	FROM [gd_esquema].Maestra
 	ORDER BY CONVERT(varchar(20), Cliente_Dni)
 
@@ -201,14 +201,14 @@ INSERT [LOS_MODERADAMENTE_ADECUADOS].Cliente (clie_dni, clie_nombre, clie_apelli
 --Contacto
 
 INSERT [LOS_MODERADAMENTE_ADECUADOS].Contacto (cont_mail, cont_telefono, cont_domicilio)
-	SELECT a.Chofer_Mail, a.Chofer_Telefono, a.Chofer_Fecha_Nac
-	FROM (SELECT DISTINCT Chofer_Dni, Chofer_Mail, Chofer_Telefono, Chofer_Fecha_Nac
+	SELECT a.Chofer_Mail, a.Chofer_Telefono, a.Chofer_Direccion
+	FROM (SELECT DISTINCT Chofer_Dni, Chofer_Mail, Chofer_Telefono, Chofer_Direccion
 		  FROM [gd_esquema].Maestra) a
 	ORDER BY a.Chofer_Dni
 
 INSERT [LOS_MODERADAMENTE_ADECUADOS].Contacto (cont_mail, cont_telefono, cont_domicilio)
-	SELECT a.Cliente_Mail, a.Cliente_Telefono, a.Cliente_Fecha_Nac
-	FROM (SELECT DISTINCT Cliente_Dni, Cliente_Mail, Cliente_Telefono, Cliente_Fecha_Nac
+	SELECT a.Cliente_Mail, a.Cliente_Telefono, a.Cliente_Direccion
+	FROM (SELECT DISTINCT Cliente_Dni, Cliente_Mail, Cliente_Telefono, Cliente_Direccion
 		  FROM [gd_esquema].Maestra) a
 	ORDER BY a.Cliente_Dni
 
@@ -225,29 +225,45 @@ INSERT [LOS_MODERADAMENTE_ADECUADOS].Turno (turn_descripcion, turn_hora_inicio, 
 
 --Rendicion
 
-INSERT [LOS_MODERADAMENTE_ADECUADOS].Rendicion (rend_numero, rend_chofer, rend_fecha, rend_importe_total)
-	SELECT Rendicion_Nro, clie_id, Rendicion_Fecha, sum(Rendicion_Importe) 
+INSERT [LOS_MODERADAMENTE_ADECUADOS].Rendicion (rend_numero, rend_turno, rend_chofer, rend_fecha, rend_importe_total)
+	SELECT Rendicion_Nro, t.turn_id, clie_id, Rendicion_Fecha, sum(Rendicion_Importe) 
 	FROM [gd_esquema].Maestra m 
 		JOIN [LOS_MODERADAMENTE_ADECUADOS].Cliente c ON m.Chofer_Dni = c.clie_dni
+		JOIN LOS_MODERADAMENTE_ADECUADOS.Turno t ON m.Turno_Descripcion = t.turn_descripcion
 	WHERE Rendicion_Nro IS NOT NULL
-	GROUP BY Rendicion_Nro, clie_id, Rendicion_Fecha
+	GROUP BY Rendicion_Nro, t.turn_id, clie_id, Rendicion_Fecha
 
 --Vehiculo
 
 INSERT [LOS_MODERADAMENTE_ADECUADOS].Vehiculo (vehi_chofer, vehi_patente, vehi_licencia, vehi_rodado, vehi_marca, vehi_modelo, vehi_habilitado) 
 	SELECT DISTINCT c.clie_id, Auto_Patente, Auto_Licencia, Auto_Rodado, Auto_Marca, Auto_Modelo, 1
 	FROM [gd_esquema].Maestra m
-		 JOIN [LOS_MODERADAMENTE_ADECUADOS].Cliente c ON m.Chofer_Dni = c.clie_dni
+		JOIN [LOS_MODERADAMENTE_ADECUADOS].Cliente c ON m.Chofer_Dni = c.clie_dni
 
 --Viaje
 INSERT [LOS_MODERADAMENTE_ADECUADOS].Viaje (viaj_chofer, viaj_vehiculo, viaj_cliente, viaj_turno, viaj_kms, viaj_inicio, viaj_fin) 
-	SELECT chofer.clie_id, v.vehi_id, cliente.clie_id, t.turn_id, Viaje_Cant_Kilometros, Viaje_Fecha, Viaje_Fecha
+	SELECT DISTINCT chofer.clie_id, v.vehi_id, cliente.clie_id, t.turn_id, Viaje_Cant_Kilometros, Viaje_Fecha, Viaje_Fecha
 	FROM [gd_esquema].Maestra m
-		 JOIN [LOS_MODERADAMENTE_ADECUADOS].Cliente chofer ON m.Chofer_Dni = chofer.clie_dni
-		 JOIN [LOS_MODERADAMENTE_ADECUADOS].Cliente cliente ON m.Cliente_Dni = cliente.clie_dni
-		 JOIN [LOS_MODERADAMENTE_ADECUADOS].Vehiculo v ON chofer.clie_id = v.vehi_chofer
-		 JOIN [LOS_MODERADAMENTE_ADECUADOS].Turno t ON t.turn_descripcion = m.Turno_Descripcion
+		JOIN [LOS_MODERADAMENTE_ADECUADOS].Cliente chofer ON m.Chofer_Dni = chofer.clie_dni
+		JOIN [LOS_MODERADAMENTE_ADECUADOS].Cliente cliente ON m.Cliente_Dni = cliente.clie_dni
+		JOIN [LOS_MODERADAMENTE_ADECUADOS].Vehiculo v ON chofer.clie_id = v.vehi_chofer
+		JOIN [LOS_MODERADAMENTE_ADECUADOS].Turno t ON t.turn_descripcion = m.Turno_Descripcion
 
 --Factura
 
+INSERT [LOS_MODERADAMENTE_ADECUADOS].Factura (fact_id, fact_cliente, fact_fecha_inicio, fact_fecha_fin, fact_importe_total) 
+	SELECT DISTINCT Factura_Nro, cliente.clie_id, Factura_Fecha_Inicio, Factura_Fecha_Fin, sum(Rendicion_Importe)
+	FROM [gd_esquema].Maestra m
+		JOIN [LOS_MODERADAMENTE_ADECUADOS].Cliente cliente ON m.Cliente_Dni = cliente.clie_dni
+	WHERE Factura_Nro IS NOT NULL
+	GROUP BY Factura_Nro, cliente.clie_id, Factura_Fecha_Inicio, Factura_Fecha_Fin
+
 --Item_Factura
+
+INSERT LOS_MODERADAMENTE_ADECUADOS.Item_Factura (item_factura, item_viaje)
+	SELECT DISTINCT factura.fact_id, viaje.viaj_id
+	FROM gd_esquema.Maestra m
+		JOIN LOS_MODERADAMENTE_ADECUADOS.Cliente chofer ON m.Chofer_Dni = chofer.clie_dni
+		JOIN LOS_MODERADAMENTE_ADECUADOS.Cliente cliente ON m.Cliente_Dni = cliente.clie_dni
+		JOIN LOS_MODERADAMENTE_ADECUADOS.Factura factura ON m.Factura_Nro = factura.fact_id
+		JOIN LOS_MODERADAMENTE_ADECUADOS.Viaje viaje ON viaje.viaj_chofer = chofer.clie_id AND viaje.viaj_fin = m.Viaje_Fecha AND viaje.viaj_cliente = cliente.clie_id
