@@ -3,9 +3,6 @@ GO
 
 /* Eliminacion de preexistentes*/
 
-IF OBJECT_ID('LOS_MODERADAMENTE_ADECUADOS.Item_Factura','U') IS NOT NULL
-    DROP TABLE LOS_MODERADAMENTE_ADECUADOS.Item_Factura;
-
 IF OBJECT_ID('LOS_MODERADAMENTE_ADECUADOS.Factura','U') IS NOT NULL
     DROP TABLE LOS_MODERADAMENTE_ADECUADOS.Factura;
 
@@ -145,11 +142,6 @@ CREATE TABLE LOS_MODERADAMENTE_ADECUADOS.Factura(
     fact_fecha_inicio DATETIME,
     fact_fecha_fin DATETIME,
     fact_importe_total NUMERIC(18,2));
-
-CREATE TABLE LOS_MODERADAMENTE_ADECUADOS.Item_Factura(
-    cod_factura INT NOT NULL FOREIGN KEY REFERENCES LOS_MODERADAMENTE_ADECUADOS.Factura(fact_numero),
-    cod_viaje INT NOT NULL FOREIGN KEY REFERENCES LOS_MODERADAMENTE_ADECUADOS.Viaje(viaj_id)
-	PRIMARY KEY (cod_factura, cod_viaje));
 	
 /* Migración */
 
@@ -272,13 +264,3 @@ INSERT [LOS_MODERADAMENTE_ADECUADOS].Factura (fact_numero, fact_cliente, fact_fe
 		JOIN [LOS_MODERADAMENTE_ADECUADOS].Usuario cliente ON m.Cliente_Dni = cliente.usua_dni
 	WHERE Factura_Nro IS NOT NULL
 	GROUP BY Factura_Nro, cliente.usua_id, Factura_Fecha_Inicio, Factura_Fecha_Fin
-
---Item_Factura
-
-INSERT LOS_MODERADAMENTE_ADECUADOS.Item_Factura (cod_factura, cod_viaje)
-	SELECT DISTINCT factura.fact_numero, viaje.viaj_id
-	FROM gd_esquema.Maestra m
-		JOIN LOS_MODERADAMENTE_ADECUADOS.Usuario chofer ON m.Chofer_Dni = chofer.usua_dni
-		JOIN LOS_MODERADAMENTE_ADECUADOS.Usuario cliente ON m.Cliente_Dni = cliente.usua_dni
-		JOIN LOS_MODERADAMENTE_ADECUADOS.Factura factura ON m.Factura_Nro = factura.fact_numero
-		JOIN LOS_MODERADAMENTE_ADECUADOS.Viaje viaje ON viaje.viaj_chofer = chofer.usua_id AND viaje.viaj_fin = m.Viaje_Fecha AND viaje.viaj_cliente = cliente.usua_id

@@ -1,4 +1,4 @@
-# GDD - TP UBER - GRUPO A DETERMINAR
+# GDD - TP UBER - GRUPO LOS_MODERADAMENTE_ADECUADOS
 
 ### Integrantes
 * Berbel Alt, Julián
