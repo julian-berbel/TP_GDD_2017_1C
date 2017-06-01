@@ -1,3 +1,11 @@
 E:\src\UberFrba\UberFrba\bin\Debug\UberFrba.exe.config
 C:\Users\Windows7\Desktop\Gestión de Datos\TP Uber Frba 1.0 - 1C 2017\Aplicacion Desktop\UberFrba\bin\Debug\UberFrba.exe.config
 C:\Users\Windows7\Documents\Downloads\UTN\GDD\TP_GDD_2017_1C\src\bin\Debug\UberFrba.exe.config
+C:\Users\JuliVM\Desktop\TP_GDD_2017_1C\TP\src\bin\Debug\UberFrba.exe.config
+C:\Users\JuliVM\Desktop\TP_GDD_2017_1C\TP\src\bin\Debug\UberFrba.exe
+C:\Users\JuliVM\Desktop\TP_GDD_2017_1C\TP\src\bin\Debug\UberFrba.pdb
+C:\Users\JuliVM\Desktop\TP_GDD_2017_1C\TP\src\obj\Debug\UberFrba.csprojResolveAssemblyReference.cache
+C:\Users\JuliVM\Desktop\TP_GDD_2017_1C\TP\src\obj\Debug\UberFrba.Properties.Resources.resources
+C:\Users\JuliVM\Desktop\TP_GDD_2017_1C\TP\src\obj\Debug\UberFrba.csproj.GenerateResource.Cache
+C:\Users\JuliVM\Desktop\TP_GDD_2017_1C\TP\src\obj\Debug\UberFrba.exe
+C:\Users\JuliVM\Desktop\TP_GDD_2017_1C\TP\src\obj\Debug\UberFrba.pdb
