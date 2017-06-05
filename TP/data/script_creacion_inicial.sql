@@ -3,9 +3,15 @@ GO
 
 /* Eliminacion de preexistentes*/
 
+IF OBJECT_ID('LOS_MODERADAMENTE_ADECUADOS.Item_Factura','U') IS NOT NULL
+    DROP TABLE LOS_MODERADAMENTE_ADECUADOS.Item_Factura;
+	
 IF OBJECT_ID('LOS_MODERADAMENTE_ADECUADOS.Factura','U') IS NOT NULL
     DROP TABLE LOS_MODERADAMENTE_ADECUADOS.Factura;
 
+IF OBJECT_ID('LOS_MODERADAMENTE_ADECUADOS.Item_Rendicion','U') IS NOT NULL
+    DROP TABLE LOS_MODERADAMENTE_ADECUADOS.Item_Rendicion;
+	
 IF OBJECT_ID('LOS_MODERADAMENTE_ADECUADOS.Viaje','U') IS NOT NULL
     DROP TABLE LOS_MODERADAMENTE_ADECUADOS.Viaje;
 
@@ -14,6 +20,12 @@ IF OBJECT_ID('LOS_MODERADAMENTE_ADECUADOS.Turno_X_Vehiculo','U') IS NOT NULL
 
 IF OBJECT_ID('LOS_MODERADAMENTE_ADECUADOS.Vehiculo','U') IS NOT NULL
     DROP TABLE LOS_MODERADAMENTE_ADECUADOS.Vehiculo;
+	
+IF OBJECT_ID('LOS_MODERADAMENTE_ADECUADOS.Modelo','U') IS NOT NULL
+    DROP TABLE LOS_MODERADAMENTE_ADECUADOS.Modelo;
+	
+IF OBJECT_ID('LOS_MODERADAMENTE_ADECUADOS.Marca','U') IS NOT NULL
+    DROP TABLE LOS_MODERADAMENTE_ADECUADOS.Marca;
 
 IF OBJECT_ID('LOS_MODERADAMENTE_ADECUADOS.Rendicion','U') IS NOT NULL
     DROP TABLE LOS_MODERADAMENTE_ADECUADOS.Rendicion;
@@ -26,6 +38,12 @@ IF OBJECT_ID('LOS_MODERADAMENTE_ADECUADOS.Rol_X_Login_Usuario','U') IS NOT NULL
 
 IF OBJECT_ID('LOS_MODERADAMENTE_ADECUADOS.Contacto','U') IS NOT NULL
     DROP TABLE LOS_MODERADAMENTE_ADECUADOS.Contacto;
+	
+IF OBJECT_ID('LOS_MODERADAMENTE_ADECUADOS.Cliente','U') IS NOT NULL
+    DROP TABLE LOS_MODERADAMENTE_ADECUADOS.Cliente;
+	
+IF OBJECT_ID('LOS_MODERADAMENTE_ADECUADOS.Chofer','U') IS NOT NULL
+    DROP TABLE LOS_MODERADAMENTE_ADECUADOS.Chofer;
 	
 IF OBJECT_ID('LOS_MODERADAMENTE_ADECUADOS.Usuario','U') IS NOT NULL
     DROP TABLE LOS_MODERADAMENTE_ADECUADOS.Usuario;
@@ -57,7 +75,7 @@ GO
 CREATE TABLE LOS_MODERADAMENTE_ADECUADOS.Rol(
     rol_id TINYINT IDENTITY PRIMARY KEY,
     rol_nombre NVARCHAR(200) NOT NULL,
-	rol_detalle NVARCHAR(200),
+	rol_detalle NVARCHAR(200) NOT NULL,
     rol_habilitado BIT NOT NULL);
 
 CREATE TABLE LOS_MODERADAMENTE_ADECUADOS.Funcionalidad(
@@ -82,13 +100,21 @@ CREATE TABLE LOS_MODERADAMENTE_ADECUADOS.Usuario(
     usua_nombre VARCHAR(255) NOT NULL,
 	usua_apellido VARCHAR(255) NOT NULL,
 	usua_fecha_nacimiento DATETIME NOT NULL);
+	
+CREATE TABLE LOS_MODERADAMENTE_ADECUADOS.Cliente(
+    clie_id INT PRIMARY KEY REFERENCES LOS_MODERADAMENTE_ADECUADOS.Usuario(usua_id),
+    clie_codigo_postal NUMERIC(18,0) NOT NULL,
+    clie_habilitado BIT NOT NULL);
+	
+CREATE TABLE LOS_MODERADAMENTE_ADECUADOS.Chofer(
+    chof_id INT PRIMARY KEY REFERENCES LOS_MODERADAMENTE_ADECUADOS.Usuario(usua_id),
+    chof_habilitado BIT NOT NULL);
 
 CREATE TABLE LOS_MODERADAMENTE_ADECUADOS.Contacto(
     cont_id INT IDENTITY(2,1) PRIMARY KEY REFERENCES LOS_MODERADAMENTE_ADECUADOS.Usuario(usua_id),
 	cont_mail NVARCHAR(255),
 	cont_telefono NUMERIC(18,0) UNIQUE NOT NULL,
-	cont_domicilio NVARCHAR(255) NOT NULL,
-	cont_codigo_postal NUMERIC(18,0) NOT NULL);
+	cont_domicilio NVARCHAR(255) NOT NULL);
 
 CREATE TABLE LOS_MODERADAMENTE_ADECUADOS.Rol_X_Login_Usuario(
     cod_rol TINYINT FOREIGN KEY REFERENCES LOS_MODERADAMENTE_ADECUADOS.Rol(rol_id),
@@ -107,29 +133,42 @@ CREATE TABLE LOS_MODERADAMENTE_ADECUADOS.Turno(
 CREATE TABLE LOS_MODERADAMENTE_ADECUADOS.Rendicion(
 	rend_numero INT PRIMARY KEY,
     rend_turno TINYINT NOT NULL FOREIGN KEY REFERENCES LOS_MODERADAMENTE_ADECUADOS.Turno(turn_id),
-	rend_chofer INT NOT NULL FOREIGN KEY REFERENCES LOS_MODERADAMENTE_ADECUADOS.Usuario(usua_id),
+	rend_chofer INT NOT NULL FOREIGN KEY REFERENCES LOS_MODERADAMENTE_ADECUADOS.Chofer(chof_id),
 	rend_fecha DATETIME NOT NULL,
 	rend_importe_total NUMERIC(10,2) NOT NULL);
 
+CREATE TABLE LOS_MODERADAMENTE_ADECUADOS.Marca(
+    marc_id TINYINT IDENTITY PRIMARY KEY,
+    marc_nombre VARCHAR(255) NOT NULL);
+
+CREATE TABLE LOS_MODERADAMENTE_ADECUADOS.Modelo(
+    mode_id INT IDENTITY PRIMARY KEY,
+    mode_codigo VARCHAR(255) NOT NULL,
+	mode_marca TINYINT NOT NULL FOREIGN KEY REFERENCES LOS_MODERADAMENTE_ADECUADOS.Marca(marc_id));
+
 CREATE TABLE LOS_MODERADAMENTE_ADECUADOS.Vehiculo(
     vehi_id INT IDENTITY PRIMARY KEY,
-    vehi_chofer INT NOT NULL FOREIGN KEY REFERENCES LOS_MODERADAMENTE_ADECUADOS.Usuario(usua_id),
+    vehi_chofer INT NOT NULL FOREIGN KEY REFERENCES LOS_MODERADAMENTE_ADECUADOS.Chofer(chof_id),
 	vehi_patente VARCHAR(10) UNIQUE NOT NULL,
-	vehi_licencia VARCHAR(26), --PREGUNTAR
-	vehi_rodado VARCHAR(10), --PREGUNTAR
-	vehi_marca VARCHAR(255) NOT NULL,
-	vehi_modelo VARCHAR(255) NOT NULL,
+	vehi_licencia VARCHAR(26),
+	vehi_rodado VARCHAR(10),
+	vehi_modelo INT NOT NULL FOREIGN KEY REFERENCES LOS_MODERADAMENTE_ADECUADOS.Modelo(mode_id),
 	vehi_habilitado BIT NOT NULL);
 
 CREATE TABLE LOS_MODERADAMENTE_ADECUADOS.Viaje(
     viaj_id INT IDENTITY PRIMARY KEY,
-    viaj_chofer INT NOT NULL FOREIGN KEY REFERENCES LOS_MODERADAMENTE_ADECUADOS.Usuario(usua_id),
+    viaj_chofer INT NOT NULL FOREIGN KEY REFERENCES LOS_MODERADAMENTE_ADECUADOS.Chofer(chof_id),
     viaj_vehiculo INT NOT NULL FOREIGN KEY REFERENCES LOS_MODERADAMENTE_ADECUADOS.Vehiculo(vehi_id),
-	viaj_cliente INT NOT NULL FOREIGN KEY REFERENCES LOS_MODERADAMENTE_ADECUADOS.Usuario(usua_id),
+	viaj_cliente INT NOT NULL FOREIGN KEY REFERENCES LOS_MODERADAMENTE_ADECUADOS.Cliente(clie_id),
 	viaj_turno TINYINT NOT NULL FOREIGN KEY REFERENCES LOS_MODERADAMENTE_ADECUADOS.Turno(turn_id),
 	viaj_kms NUMERIC(18,0) NOT NULL CHECK (viaj_kms>0),
     viaj_inicio DATETIME NOT NULL,
     viaj_fin DATETIME NOT NULL);
+	
+CREATE TABLE LOS_MODERADAMENTE_ADECUADOS.Item_Rendicion(
+    cod_rend INT FOREIGN KEY REFERENCES LOS_MODERADAMENTE_ADECUADOS.Rendicion(rend_numero),
+    cod_viaje INT FOREIGN KEY REFERENCES LOS_MODERADAMENTE_ADECUADOS.Viaje(viaj_id),
+    PRIMARY KEY (cod_rend, cod_viaje));
 	
 CREATE TABLE LOS_MODERADAMENTE_ADECUADOS.Turno_X_Vehiculo(
 	cod_turno TINYINT FOREIGN KEY REFERENCES LOS_MODERADAMENTE_ADECUADOS.Turno(turn_id),
@@ -138,10 +177,15 @@ CREATE TABLE LOS_MODERADAMENTE_ADECUADOS.Turno_X_Vehiculo(
 
 CREATE TABLE LOS_MODERADAMENTE_ADECUADOS.Factura(
     fact_numero INT PRIMARY KEY,
-    fact_cliente INT NOT NULL FOREIGN KEY REFERENCES LOS_MODERADAMENTE_ADECUADOS.Usuario(usua_id),
+    fact_cliente INT NOT NULL FOREIGN KEY REFERENCES LOS_MODERADAMENTE_ADECUADOS.Cliente(clie_id),
     fact_fecha_inicio DATETIME NOT NULL,
     fact_fecha_fin DATETIME NOT NULL,
     fact_importe_total NUMERIC(18,2) NOT NULL);
+	
+CREATE TABLE LOS_MODERADAMENTE_ADECUADOS.Item_Factura(
+    cod_factura INT FOREIGN KEY REFERENCES LOS_MODERADAMENTE_ADECUADOS.Factura(fact_numero),
+    cod_viaje INT FOREIGN KEY REFERENCES LOS_MODERADAMENTE_ADECUADOS.Viaje(viaj_id),
+    PRIMARY KEY (cod_factura, cod_viaje));
 	
 /* Migración */
 
@@ -167,7 +211,7 @@ VALUES	('ABM de Rol'),
 --Funcionalidad_X_Rol
 
 INSERT LOS_MODERADAMENTE_ADECUADOS.Funcionalidad_X_Rol (cod_func, cod_rol)
-	VALUES (1, 3), (2, 3), (3, 3), (4, 3), (5, 3), (6, 3), (7, 3), (8, 3)
+	VALUES (1, 1), (2, 1), (3, 1), (4, 1), (5, 1), (6, 1), (7, 1), (8, 1)
 
 --Login_Usuario
 
@@ -184,12 +228,20 @@ INSERT LOS_MODERADAMENTE_ADECUADOS.Login_Usuario (logi_user, logi_pass, logi_hab
 	FROM gd_esquema.Maestra
 	ORDER BY CONVERT(varchar(20), Cliente_Dni)
 
---Usuario
+--Usuario - Chofer
 
 INSERT LOS_MODERADAMENTE_ADECUADOS.Usuario (usua_dni, usua_nombre, usua_apellido, usua_fecha_nacimiento)
 	SELECT DISTINCT Chofer_Dni, Chofer_Nombre, Chofer_Apellido, Chofer_Fecha_Nac
 	FROM gd_esquema.Maestra
 	ORDER BY Chofer_Dni
+
+--Chofer
+
+INSERT LOS_MODERADAMENTE_ADECUADOS.Chofer (chof_id, chof_habilitado)
+	SELECT usua_id, 1
+	FROM LOS_MODERADAMENTE_ADECUADOS.Usuario
+
+--Usuario - Cliente
 
 INSERT LOS_MODERADAMENTE_ADECUADOS.Usuario (usua_dni, usua_nombre, usua_apellido, usua_fecha_nacimiento)
 	SELECT DISTINCT Cliente_Dni, Cliente_Nombre, Cliente_Apellido, Cliente_Fecha_Nac
@@ -198,17 +250,24 @@ INSERT LOS_MODERADAMENTE_ADECUADOS.Usuario (usua_dni, usua_nombre, usua_apellido
 
 --Contacto
 
-INSERT LOS_MODERADAMENTE_ADECUADOS.Contacto (cont_mail, cont_telefono, cont_domicilio, cont_codigo_postal)
-	SELECT a.Chofer_Mail, a.Chofer_Telefono, a.Chofer_Direccion, ROUND(10000*RAND(), 0)
+INSERT LOS_MODERADAMENTE_ADECUADOS.Contacto (cont_mail, cont_telefono, cont_domicilio)
+	SELECT a.Chofer_Mail, a.Chofer_Telefono, a.Chofer_Direccion
 	FROM (SELECT DISTINCT Chofer_Dni, Chofer_Mail, Chofer_Telefono, Chofer_Direccion
 		  FROM gd_esquema.Maestra) a
 	ORDER BY a.Chofer_Dni
 
-INSERT LOS_MODERADAMENTE_ADECUADOS.Contacto (cont_mail, cont_telefono, cont_domicilio, cont_codigo_postal)
-	SELECT a.Cliente_Mail, a.Cliente_Telefono, a.Cliente_Direccion, ROUND(10000*RAND(), 0)
+INSERT LOS_MODERADAMENTE_ADECUADOS.Contacto (cont_mail, cont_telefono, cont_domicilio)
+	SELECT a.Cliente_Mail, a.Cliente_Telefono, a.Cliente_Direccion
 	FROM (SELECT DISTINCT Cliente_Dni, Cliente_Mail, Cliente_Telefono, Cliente_Direccion
 		  FROM gd_esquema.Maestra) a
 	ORDER BY a.Cliente_Dni
+
+--Cliente
+
+INSERT LOS_MODERADAMENTE_ADECUADOS.Cliente (clie_id, clie_codigo_postal, clie_habilitado)
+	SELECT DISTINCT usua_id,  ROUND(10000*RAND(), 0), 1
+	FROM LOS_MODERADAMENTE_ADECUADOS.Usuario
+		JOIN gd_esquema.Maestra ON usua_dni = Cliente_Dni
 
 --Rol_X_Login_Usuario
 
@@ -216,17 +275,13 @@ INSERT LOS_MODERADAMENTE_ADECUADOS.Rol_X_Login_Usuario (cod_rol, cod_login)
 VALUES (1,1)
 
 INSERT LOS_MODERADAMENTE_ADECUADOS.Rol_X_Login_Usuario (cod_rol, cod_login)
-	SELECT 2,logi_id
-	FROM LOS_MODERADAMENTE_ADECUADOS.Login_Usuario lu
-	JOIN (SELECT DISTINCT Cliente_Dni FROM gd_esquema.Maestra) m
-	ON lu.logi_user=CONVERT(varchar(20), m.Cliente_Dni)
+	SELECT 2, clie_id
+	FROM LOS_MODERADAMENTE_ADECUADOS.Cliente
 
 INSERT LOS_MODERADAMENTE_ADECUADOS.Rol_X_Login_Usuario (cod_rol, cod_login)
-	SELECT 3,logi_id
-	FROM LOS_MODERADAMENTE_ADECUADOS.Login_Usuario lu
-	JOIN (SELECT DISTINCT Chofer_Dni FROM gd_esquema.Maestra) m
-	ON lu.logi_user=CONVERT(varchar(20), m.Chofer_Dni)
-	
+	SELECT 3, chof_id
+	FROM LOS_MODERADAMENTE_ADECUADOS.Chofer
+
 --Turno
 
 INSERT LOS_MODERADAMENTE_ADECUADOS.Turno (turn_descripcion, turn_hora_inicio, turn_hora_fin, turn_valor_kilometro, turn_precio_base, turn_habilitado)
@@ -243,13 +298,27 @@ INSERT LOS_MODERADAMENTE_ADECUADOS.Rendicion (rend_numero, rend_turno, rend_chof
 	WHERE Rendicion_Nro IS NOT NULL
 	GROUP BY Rendicion_Nro, t.turn_id, c.usua_id, Rendicion_Fecha
 
+--Marca
+
+INSERT LOS_MODERADAMENTE_ADECUADOS.Marca(marc_nombre)
+    SELECT DISTINCT Auto_Marca
+	FROM gd_esquema.Maestra
+
+--Modelo
+
+INSERT LOS_MODERADAMENTE_ADECUADOS.Modelo(mode_codigo, mode_marca)
+    SELECT DISTINCT Auto_Modelo, marc_id
+	FROM gd_esquema.Maestra
+		JOIN LOS_MODERADAMENTE_ADECUADOS.Marca ON marc_nombre = Auto_Marca
+	
 --Vehiculo
 
-INSERT LOS_MODERADAMENTE_ADECUADOS.Vehiculo (vehi_chofer, vehi_patente, vehi_licencia, vehi_rodado, vehi_marca, vehi_modelo, vehi_habilitado) 
-	SELECT DISTINCT c.usua_id, Auto_Patente, Auto_Licencia, Auto_Rodado, Auto_Marca, Auto_Modelo, 1
+INSERT LOS_MODERADAMENTE_ADECUADOS.Vehiculo (vehi_chofer, vehi_patente, vehi_licencia, vehi_rodado, vehi_modelo, vehi_habilitado) 
+	SELECT DISTINCT u.usua_id, Auto_Patente, Auto_Licencia, Auto_Rodado, mode_id, 1
 	FROM gd_esquema.Maestra m
-		JOIN LOS_MODERADAMENTE_ADECUADOS.Usuario c ON m.Chofer_Dni = c.usua_dni
-		
+		JOIN LOS_MODERADAMENTE_ADECUADOS.Usuario u ON m.Chofer_Dni = u.usua_dni
+		JOIN LOS_MODERADAMENTE_ADECUADOS.Modelo ON mode_codigo = m.Auto_Modelo
+
 --Turno_X_Vehiculo
 
 INSERT LOS_MODERADAMENTE_ADECUADOS.Turno_X_Vehiculo (cod_turno, cod_vehiculo)
@@ -261,18 +330,38 @@ INSERT LOS_MODERADAMENTE_ADECUADOS.Turno_X_Vehiculo (cod_turno, cod_vehiculo)
 --Viaje
 
 INSERT LOS_MODERADAMENTE_ADECUADOS.Viaje (viaj_chofer, viaj_vehiculo, viaj_cliente, viaj_turno, viaj_kms, viaj_inicio, viaj_fin)
-	SELECT DISTINCT chofer.usua_id, v.vehi_id, cliente.usua_id, t.turn_id, Viaje_Cant_Kilometros, Viaje_Fecha, Viaje_Fecha
+	SELECT DISTINCT ch.chof_id, v.vehi_id, cl.clie_id, t.turn_id, m.Viaje_Cant_Kilometros, m.Viaje_Fecha, m.Viaje_Fecha
 	FROM gd_esquema.Maestra m
 		JOIN LOS_MODERADAMENTE_ADECUADOS.Usuario chofer ON m.Chofer_Dni = chofer.usua_dni
+		JOIN LOS_MODERADAMENTE_ADECUADOS.Chofer ch ON chofer.usua_id = ch.chof_id
 		JOIN LOS_MODERADAMENTE_ADECUADOS.Usuario cliente ON m.Cliente_Dni = cliente.usua_dni
+		JOIN LOS_MODERADAMENTE_ADECUADOS.Cliente cl ON cliente.usua_id = cl.clie_id
 		JOIN LOS_MODERADAMENTE_ADECUADOS.Vehiculo v ON chofer.usua_id = v.vehi_chofer
 		JOIN LOS_MODERADAMENTE_ADECUADOS.Turno t ON t.turn_descripcion = m.Turno_Descripcion
+
+--Item_Rendicion
+
+INSERT LOS_MODERADAMENTE_ADECUADOS.Item_Rendicion (cod_rend, cod_viaje)
+	SELECT rend_numero, viaj_id
+	FROM LOS_MODERADAMENTE_ADECUADOS.Rendicion
+		JOIN LOS_MODERADAMENTE_ADECUADOS.Viaje ON CONVERT(DATE, rend_fecha) = CONVERT(DATE, viaj_inicio)
+												AND viaj_turno = rend_turno
+												AND viaj_chofer = rend_chofer
 
 --Factura
 
 INSERT LOS_MODERADAMENTE_ADECUADOS.Factura (fact_numero, fact_cliente, fact_fecha_inicio, fact_fecha_fin, fact_importe_total) 
-	SELECT DISTINCT Factura_Nro, cliente.usua_id, Factura_Fecha_Inicio, Factura_Fecha_Fin, sum(Viaje_Cant_Kilometros*Turno_Valor_Kilometro+Turno_Precio_Base)
+	SELECT DISTINCT Factura_Nro, cliente.clie_id, Factura_Fecha_Inicio, Factura_Fecha_Fin, sum(Viaje_Cant_Kilometros*Turno_Valor_Kilometro+Turno_Precio_Base)
 	FROM gd_esquema.Maestra m
-		JOIN LOS_MODERADAMENTE_ADECUADOS.Usuario cliente ON m.Cliente_Dni = cliente.usua_dni
+		JOIN LOS_MODERADAMENTE_ADECUADOS.Usuario c ON m.Cliente_Dni = c.usua_dni
+		JOIN LOS_MODERADAMENTE_ADECUADOS.Cliente cliente ON cliente.clie_id = c.usua_id
 	WHERE Factura_Nro IS NOT NULL
-	GROUP BY Factura_Nro, cliente.usua_id, Factura_Fecha_Inicio, Factura_Fecha_Fin
+	GROUP BY Factura_Nro, cliente.clie_id, Factura_Fecha_Inicio, Factura_Fecha_Fin
+
+--Item_Factura
+
+INSERT LOS_MODERADAMENTE_ADECUADOS.Item_Factura (cod_factura, cod_viaje)
+	SELECT DISTINCT factura.fact_numero, viaje.viaj_id
+	FROM LOS_MODERADAMENTE_ADECUADOS.Factura factura
+		JOIN LOS_MODERADAMENTE_ADECUADOS.Viaje viaje ON viaje.viaj_cliente = factura.fact_cliente
+													AND CONVERT(DATE, viaje.viaj_inicio) BETWEEN CONVERT(DATE, factura.fact_fecha_inicio) AND CONVERT(DATE, factura.fact_fecha_fin)
