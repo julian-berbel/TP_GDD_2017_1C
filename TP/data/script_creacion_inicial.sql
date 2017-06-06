@@ -374,11 +374,11 @@ GO
 
 CREATE PROC LOS_MODERADAMENTE_ADECUADOS.SPLOGIN
 	@usuario varchar(20),
-	@contrasenia varchar(256)
+	@contrasenia varbinary(256)
 AS
 BEGIN
 
-	DECLARE @pass varchar(256), @intentos TINYINT
+	DECLARE @pass varbinary(256), @intentos TINYINT
 
 	SELECT @pass=logi_pass, @intentos=logi_intentos
 	FROM LOS_MODERADAMENTE_ADECUADOS.Login_Usuario
@@ -396,7 +396,7 @@ BEGIN
 		RETURN
 	END
 
-	IF (@pass <> HASHBYTES('SHA2_256', @contrasenia)) 
+	IF (@pass <> @contrasenia) 
 	BEGIN
 		UPDATE LOS_MODERADAMENTE_ADECUADOS.Login_Usuario SET logi_intentos = @intentos + 1
 		WHERE logi_user = @usuario
