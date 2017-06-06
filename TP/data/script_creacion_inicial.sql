@@ -59,6 +59,9 @@ IF OBJECT_ID('LOS_MODERADAMENTE_ADECUADOS.Funcionalidad','U') IS NOT NULL
 
 IF OBJECT_ID('LOS_MODERADAMENTE_ADECUADOS.Rol','U') IS NOT NULL
     DROP TABLE LOS_MODERADAMENTE_ADECUADOS.Rol;
+
+IF OBJECT_ID('LOS_MODERADAMENTE_ADECUADOS.SPLOGIN') IS NOT NULL
+    DROP PROCEDURE LOS_MODERADAMENTE_ADECUADOS.SPLOGIN;
 	
 IF EXISTS (SELECT SCHEMA_NAME FROM INFORMATION_SCHEMA.SCHEMATA WHERE SCHEMA_NAME = 'LOS_MODERADAMENTE_ADECUADOS')
     DROP SCHEMA LOS_MODERADAMENTE_ADECUADOS
@@ -90,7 +93,7 @@ CREATE TABLE LOS_MODERADAMENTE_ADECUADOS.Funcionalidad_X_Rol(
 CREATE TABLE LOS_MODERADAMENTE_ADECUADOS.Login_Usuario(
     logi_id INT IDENTITY PRIMARY KEY,
     logi_user NVARCHAR(20) UNIQUE NOT NULL,
-    logi_pass VARBINARY(200) NOT NULL,
+    logi_pass VARBINARY(256) NOT NULL,
 	logi_habilitado BIT NOT NULL,
     logi_intentos TINYINT NOT NULL);
 
@@ -187,7 +190,7 @@ CREATE TABLE LOS_MODERADAMENTE_ADECUADOS.Item_Factura(
     cod_viaje INT FOREIGN KEY REFERENCES LOS_MODERADAMENTE_ADECUADOS.Viaje(viaj_id),
     PRIMARY KEY (cod_factura, cod_viaje));
 	
-/* Migración */
+/* Migracion */
 
 --Rol
 
@@ -365,3 +368,45 @@ INSERT LOS_MODERADAMENTE_ADECUADOS.Item_Factura (cod_factura, cod_viaje)
 	FROM LOS_MODERADAMENTE_ADECUADOS.Factura factura
 		JOIN LOS_MODERADAMENTE_ADECUADOS.Viaje viaje ON viaje.viaj_cliente = factura.fact_cliente
 													AND CONVERT(DATE, viaje.viaj_inicio) BETWEEN CONVERT(DATE, factura.fact_fecha_inicio) AND CONVERT(DATE, factura.fact_fecha_fin)
+GO
+
+/* Procedures */
+
+CREATE PROC LOS_MODERADAMENTE_ADECUADOS.SPLOGIN
+	@usuario varchar(20),
+	@contrasenia varchar(256)
+AS
+BEGIN
+
+	DECLARE @pass varchar(256), @intentos TINYINT
+
+	SELECT @pass=logi_pass, @intentos=logi_intentos
+	FROM LOS_MODERADAMENTE_ADECUADOS.Login_Usuario
+	WHERE logi_user = @usuario
+
+	IF (@pass IS NULL) 
+	BEGIN
+		RAISERROR ('Usuario inexistente!', 16, 1)
+		RETURN
+	END
+
+	IF (@intentos >= 3) 
+	BEGIN
+		RAISERROR ('Usuario inhabilitado!', 16, 1)
+		RETURN
+	END
+
+	IF (@pass <> HASHBYTES('SHA2_256', @contrasenia)) 
+	BEGIN
+		UPDATE LOS_MODERADAMENTE_ADECUADOS.Login_Usuario SET logi_intentos = @intentos + 1
+		WHERE logi_user = @usuario
+		DECLARE @error varchar(100)= 'Contrasenia Incorrecta! Intentos restantes: ' + str(2 - @intentos)
+		RAISERROR (@error, 16, 1)
+		RETURN
+	END
+
+	UPDATE LOS_MODERADAMENTE_ADECUADOS.Login_Usuario SET logi_intentos = 0
+	WHERE logi_user = @usuario
+
+END
+GO
