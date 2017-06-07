@@ -5,7 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using UberFrba.BD;
+using UberFrba.Dominio;
 using UberFrba.Login;
 
 namespace UberFrba

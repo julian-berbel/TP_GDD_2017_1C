@@ -68,8 +68,9 @@
     <Compile Include="Abm Rol\Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="BD\DB.cs" />
+    <Compile Include="Dominio\DB.cs" />
     <Compile Include="Dominio\Error.cs" />
+    <Compile Include="Dominio\Usuario.cs" />
     <Compile Include="Facturacion\Form1.cs">
       <SubType>Form</SubType>
     </Compile>

@@ -10,7 +10,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using UberFrba.BD;
+using UberFrba.Dominio;
 
 namespace UberFrba.Login
 {
@@ -32,19 +32,24 @@ namespace UberFrba.Login
 
             byte[] contrasenia = getHashSha256(textBoxContrasenia.Text);
 
-            try
+            if (DB.correrProcedimiento("SPLOGIN", "usuario", usuario, "contrasenia", contrasenia))
             {
-                DB.correrProcedimiento("SPLOGIN", "usuario", usuario, "contrasenia", contrasenia);
+                Usuario.cargar(usuario);
 
-                Debug.WriteLine("Login Exitoso!");
+                int cantidadDeRoles = Usuario.cantidadDeRoles();
+
+                if (cantidadDeRoles == 0) Error.show("El usuario seleccionado no tiene ningún rol asignado!");
+                else if (cantidadDeRoles > 1){
+                    Error.show("mas de uno!");
+                }else{
+                    Error.show("uno!");
+                }
             }
-            catch (Exception) { }
         }
 
         private byte[] getHashSha256(string texto)
         {
-            SHA256Managed crypt = new SHA256Managed();
-            return crypt.ComputeHash(Encoding.UTF8.GetBytes(texto), 0, Encoding.UTF8.GetByteCount(texto));
+            return new SHA256Managed().ComputeHash(Encoding.UTF8.GetBytes(texto), 0, Encoding.UTF8.GetByteCount(texto));
         }
     }
 }
