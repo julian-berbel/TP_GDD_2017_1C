@@ -11,6 +11,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using UberFrba.Dominio;
+using UberFrba.SeleccionarRol;
 
 namespace UberFrba.Login
 {
@@ -40,9 +41,11 @@ namespace UberFrba.Login
 
                 if (cantidadDeRoles == 0) Error.show("El usuario seleccionado no tiene ningún rol asignado!");
                 else if (cantidadDeRoles > 1){
-                    Error.show("mas de uno!");
+                    new SeleccionarRolForm().Show();
+                    this.Hide();
                 }else{
-                    Error.show("uno!");
+                    new SeleccionarRolForm().Show();
+                    this.Hide();
                 }
             }
         }

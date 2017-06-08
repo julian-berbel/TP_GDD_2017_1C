@@ -70,6 +70,7 @@
     </Compile>
     <Compile Include="Dominio\DB.cs" />
     <Compile Include="Dominio\Error.cs" />
+    <Compile Include="Dominio\Rol.cs" />
     <Compile Include="Dominio\Usuario.cs" />
     <Compile Include="Facturacion\Form1.cs">
       <SubType>Form</SubType>
@@ -109,6 +110,12 @@
     <Compile Include="Rendicion Viajes\Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="SeleccionarRol\SeleccionarRolForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SeleccionarRol\SeleccionarRolForm.Designer.cs">
+      <DependentUpon>SeleccionarRolForm.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="Login\LoginForm.resx">
       <DependentUpon>LoginForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -121,6 +128,9 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="SeleccionarRol\SeleccionarRolForm.resx">
+      <DependentUpon>SeleccionarRolForm.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

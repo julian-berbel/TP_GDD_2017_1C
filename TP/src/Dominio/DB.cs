@@ -18,9 +18,9 @@ namespace UberFrba.Dominio
 
         private static String esquema = "[LOS_MODERADAMENTE_ADECUADOS].";
         
-        private static String queryFuncion(String nombre, params object[] args)
+        private static String queryFuncion(String prefijo, String nombre, params object[] args)
         {
-            String query = "SELECT " + esquema + nombre + "(";
+            String query = prefijo + esquema + nombre + "(";
 
             for (int i = 0; i < args.Length; i += 2)
             {
@@ -58,9 +58,9 @@ namespace UberFrba.Dominio
             return comando;
         }
 
-        private static SqlCommand nuevaFuncion(String nombre, params object[] args)
+        private static SqlCommand nuevaFuncion(String prefijo, String nombre, params object[] args)
         {
-            String query = queryFuncion(nombre, args);
+            String query = queryFuncion(prefijo, nombre, args);
 
             return nuevoComando(query, args);
         }
@@ -74,9 +74,16 @@ namespace UberFrba.Dominio
 
         public static object correrFuncion(String nombre, params object[] args)
         {
-            SqlCommand comando = nuevaFuncion(nombre, args);
+            SqlCommand comando = nuevaFuncion("SELECT ", nombre, args);
 
             return ejecutarFuncion(comando);
+        }
+
+        public static DataTable correrFuncionDeTabla(String nombre, params object[] args)
+        {
+            SqlCommand comando = nuevaFuncion("SELECT * FROM ", nombre, args);
+
+            return ejecutarFuncionDeTabla(comando);
         }
 
         private static Boolean ejecutarProcedimiento(SqlCommand comando)
@@ -109,6 +116,26 @@ namespace UberFrba.Dominio
             miConexion.Close();
 
             return resultado;
+        }
+
+        private static DataTable ejecutarFuncionDeTabla(SqlCommand comando)
+        {
+            DataTable tabla = new DataTable();
+
+            try
+            {
+                miConexion.Open();
+                SqlDataAdapter adapter = new SqlDataAdapter(comando);
+                adapter.Fill(tabla);
+            }
+            catch (SqlException exception)
+            {
+                Error.show(exception.Message);
+            }
+
+            miConexion.Close();
+
+            return tabla;
         }
     }
 }
