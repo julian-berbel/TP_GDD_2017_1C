@@ -7,14 +7,15 @@ using System.Windows.Forms;
 
 namespace UberFrba.Dominio
 {
-    public class ReturningForm : Form
+    public abstract class ReturningForm : Form
     {
         protected Form caller;
-
+        
         protected override void OnFormClosing(FormClosingEventArgs e)
         {
             base.OnFormClosing(e);
             caller.Show();
         }
+
     }
 }

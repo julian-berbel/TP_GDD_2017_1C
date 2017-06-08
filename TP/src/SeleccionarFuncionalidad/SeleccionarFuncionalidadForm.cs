@@ -18,5 +18,28 @@ namespace UberFrba.SeleccionarFuncionalidad
             this.caller = caller;
             InitializeComponent();
         }
+
+        private void SeleccionarFuncionalidadForm_Load(object sender, EventArgs e)
+        {
+            Rol.rolSeleccionado.getFuncionalidades()
+                .ForEach(f => comboBoxFuncionalidades.Items.Add(f));
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void buttonAtras_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void buttonContinuar_Click(object sender, EventArgs e)
+        {
+            Funcionalidad funcionalidadSeleccionada = (Funcionalidad)comboBoxFuncionalidades.SelectedItem;
+            funcionalidadSeleccionada.elegir(this);
+            this.Hide();
+        }
     }
 }
