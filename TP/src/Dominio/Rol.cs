@@ -8,6 +8,7 @@ namespace UberFrba.Dominio
 {
     public class Rol
     {
+        public static Rol rolSeleccionado;
         public String nombre;
         public byte id;
 
