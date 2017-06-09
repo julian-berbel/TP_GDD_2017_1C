@@ -7,7 +7,7 @@ using System.Windows.Forms;
 
 namespace UberFrba.Dominio
 {
-    public abstract class ReturningForm : Form
+    public class ReturningForm : Form
     {
         protected Form caller;
         

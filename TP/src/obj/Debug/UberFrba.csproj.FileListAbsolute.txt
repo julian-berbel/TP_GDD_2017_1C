@@ -22,3 +22,14 @@ C:\Users\JuliVM\Desktop\TP_GDD_2017_1C\TP\src\obj\Debug\UberFrba.Login.LoginForm
 C:\Users\JuliVM\Desktop\TP_GDD_2017_1C\TP\src\obj\Debug\UberFrba.SeleccionarRol.SeleccionarRolForm.resources
 C:\Users\Windows7\Documents\Downloads\UTN\GDD\TP_GDD_2017_1C\TP\src\obj\Debug\UberFrba.SeleccionarRol.SeleccionarRolForm.resources
 C:\Users\Windows7\Documents\Downloads\UTN\GDD\TP_GDD_2017_1C\TP\src\obj\Debug\UberFrba.SeleccionarFuncionalidad.SeleccionarFuncionalidadForm.resources
+C:\Users\ABM\Desktop\TP_GDD_2017_1C\TP\src\bin\Debug\UberFrba.exe.config
+C:\Users\ABM\Desktop\TP_GDD_2017_1C\TP\src\obj\Debug\UberFrba.exe
+C:\Users\ABM\Desktop\TP_GDD_2017_1C\TP\src\obj\Debug\UberFrba.pdb
+C:\Users\ABM\Desktop\TP_GDD_2017_1C\TP\src\bin\Debug\UberFrba.exe
+C:\Users\ABM\Desktop\TP_GDD_2017_1C\TP\src\bin\Debug\UberFrba.pdb
+C:\Users\ABM\Desktop\TP_GDD_2017_1C\TP\src\obj\Debug\UberFrba.csprojResolveAssemblyReference.cache
+C:\Users\ABM\Desktop\TP_GDD_2017_1C\TP\src\obj\Debug\UberFrba.Login.LoginForm.resources
+C:\Users\ABM\Desktop\TP_GDD_2017_1C\TP\src\obj\Debug\UberFrba.Properties.Resources.resources
+C:\Users\ABM\Desktop\TP_GDD_2017_1C\TP\src\obj\Debug\UberFrba.SeleccionarFuncionalidad.SeleccionarFuncionalidadForm.resources
+C:\Users\ABM\Desktop\TP_GDD_2017_1C\TP\src\obj\Debug\UberFrba.SeleccionarRol.SeleccionarRolForm.resources
+C:\Users\ABM\Desktop\TP_GDD_2017_1C\TP\src\obj\Debug\UberFrba.csproj.GenerateResource.Cache
