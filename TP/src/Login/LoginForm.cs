@@ -23,11 +23,6 @@ namespace UberFrba.Login
             InitializeComponent();
         }
 
-        private void LoginForm_Load(object sender, EventArgs e)
-        {
-
-        }
-
         private void buttonLogin_Click(object sender, EventArgs e)
         {
             String usuario = textBoxUsuario.Text;

@@ -51,13 +51,16 @@
             this.textBoxUsuario.Name = "textBoxUsuario";
             this.textBoxUsuario.Size = new System.Drawing.Size(100, 20);
             this.textBoxUsuario.TabIndex = 1;
+            this.textBoxUsuario.Text = "16484858";
             // 
             // textBoxContrasenia
             // 
             this.textBoxContrasenia.Location = new System.Drawing.Point(92, 53);
             this.textBoxContrasenia.Name = "textBoxContrasenia";
+            this.textBoxContrasenia.PasswordChar = '*';
             this.textBoxContrasenia.Size = new System.Drawing.Size(100, 20);
             this.textBoxContrasenia.TabIndex = 2;
+            this.textBoxContrasenia.Text = "16484858";
             // 
             // labelUsuario
             // 
@@ -88,8 +91,8 @@
             this.Controls.Add(this.textBoxUsuario);
             this.Controls.Add(this.buttonLogin);
             this.Name = "LoginForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "LoginForm";
-            this.Load += new System.EventHandler(this.LoginForm_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
