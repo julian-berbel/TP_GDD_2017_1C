@@ -92,7 +92,7 @@ namespace UberFrba.Dominio
             try{
                 miConexion.Open();
                 comando.ExecuteNonQuery();
-            } catch(SqlException exception){
+            } catch (SqlException exception){
                 Error.show(exception.Message);
                 salioBien = false;
             }
@@ -108,12 +108,12 @@ namespace UberFrba.Dominio
             {
                 miConexion.Open();
                 resultado = comando.ExecuteScalar();
+                miConexion.Close();
             }
             catch (SqlException exception)
             {
                 Error.show(exception.Message);
             }
-            miConexion.Close();
 
             return resultado;
         }
@@ -124,18 +124,41 @@ namespace UberFrba.Dominio
 
             try
             {
-                miConexion.Open();
-                SqlDataAdapter adapter = new SqlDataAdapter(comando);
-                adapter.Fill(tabla);
+                using(SqlDataAdapter adapter = new SqlDataAdapter(comando))
+                {
+                    miConexion.Open();
+                    adapter.Fill(tabla);
+                    miConexion.Close();
+                }
             }
             catch (SqlException exception)
             {
                 Error.show(exception.Message);
             }
 
-            miConexion.Close();
-
             return tabla;
+        }
+
+        /*probando funciones*/
+
+        public static DataTable realizarSelectComunacho(String nombre, params object[] campos)
+        {
+            String query = querySelect("SELECT ", nombre, campos);
+            SqlCommand comando = new SqlCommand(query, miConexion);
+
+            return ejecutarFuncionDeTabla(comando);
+        }
+
+        private static String querySelect(String prefijo, String nombreTabla, params object[] campos)
+        {
+            String query = prefijo;
+
+            for(int i = 0; i < campos.Length; i++)
+            {
+                query += (string)campos[i] + (i == campos.Length - 1 ? " " : ", ");
+            }
+
+            return query += "FROM "+ esquema + nombreTabla;
         }
     }
 }

@@ -41,5 +41,6 @@ namespace UberFrba.SeleccionarFuncionalidad
             funcionalidadSeleccionada.elegir(this);
             this.Hide();
         }
+
     }
 }
