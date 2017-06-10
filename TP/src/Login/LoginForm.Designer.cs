@@ -84,7 +84,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(222, 143);
+            this.ClientSize = new System.Drawing.Size(219, 145);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.labelUsuario);
             this.Controls.Add(this.textBoxContrasenia);

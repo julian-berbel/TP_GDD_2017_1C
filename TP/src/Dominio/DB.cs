@@ -83,7 +83,7 @@ namespace UberFrba.Dominio
         {
             SqlCommand comando = nuevaFuncion("SELECT * FROM ", nombre, args);
 
-            return ejecutarFuncionDeTabla(comando);
+            return ejecutarComandoDeTabla(comando);
         }
 
         private static Boolean ejecutarProcedimiento(SqlCommand comando)
@@ -92,11 +92,12 @@ namespace UberFrba.Dominio
             try{
                 miConexion.Open();
                 comando.ExecuteNonQuery();
+                miConexion.Close();
             } catch (SqlException exception){
                 Error.show(exception.Message);
                 salioBien = false;
             }
-            miConexion.Close();
+            
             return salioBien;
         }
 
@@ -118,7 +119,8 @@ namespace UberFrba.Dominio
             return resultado;
         }
 
-        private static DataTable ejecutarFuncionDeTabla(SqlCommand comando)
+        //anteriormente "ejecutarFuncionDeTabla" --- puede ser una funcion o un procedimiento
+        private static DataTable ejecutarComandoDeTabla(SqlCommand comando)
         {
             DataTable tabla = new DataTable();
 
@@ -146,7 +148,7 @@ namespace UberFrba.Dominio
             String query = querySelect("SELECT ", nombre, campos);
             SqlCommand comando = new SqlCommand(query, miConexion);
 
-            return ejecutarFuncionDeTabla(comando);
+            return ejecutarComandoDeTabla(comando);
         }
 
         private static String querySelect(String prefijo, String nombreTabla, params object[] campos)
@@ -159,6 +161,13 @@ namespace UberFrba.Dominio
             }
 
             return query += "FROM "+ esquema + nombreTabla;
+        }
+
+        public static DataTable correProcedimientoDeTabla(String nombre, params object[] args)
+        {
+            SqlCommand comando = nuevoProcedimiento(nombre, args);
+
+            return ejecutarComandoDeTabla(comando);
         }
     }
 }
