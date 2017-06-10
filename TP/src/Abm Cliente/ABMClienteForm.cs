@@ -7,13 +7,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using UberFrba.Dominio;
 
 namespace UberFrba.Abm_Cliente
 {
-    public partial class Form1 : Form
+    public partial class ABMClienteForm : ReturningForm
     {
-        public Form1()
+        public ABMClienteForm(Form caller)
         {
+            this.caller = caller;
             InitializeComponent();
         }
     }

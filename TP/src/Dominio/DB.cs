@@ -86,6 +86,13 @@ namespace UberFrba.Dominio
             return ejecutarFuncionDeTabla(comando);
         }
 
+        public static DataTable correrQuery(String query)
+        {
+            SqlCommand comando = new SqlCommand(query, miConexion);
+
+            return ejecutarFuncionDeTabla(comando);
+        }
+
         private static Boolean ejecutarProcedimiento(SqlCommand comando)
         {
             Boolean salioBien = true;

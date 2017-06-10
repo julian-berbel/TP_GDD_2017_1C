@@ -7,13 +7,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using UberFrba.Dominio;
 
-namespace UberFrba.Abm_Automovil
+namespace UberFrba.Listado_Estadistico
 {
-    public partial class Form1 : Form
+    public partial class ListadoEstadisticoForm : ReturningForm
     {
-        public Form1()
+        public ListadoEstadisticoForm(Form caller)
         {
+            this.caller = caller;
             InitializeComponent();
         }
     }

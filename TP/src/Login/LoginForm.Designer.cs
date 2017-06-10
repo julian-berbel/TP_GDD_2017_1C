@@ -58,6 +58,7 @@
             this.textBoxContrasenia.Name = "textBoxContrasenia";
             this.textBoxContrasenia.Size = new System.Drawing.Size(100, 20);
             this.textBoxContrasenia.TabIndex = 2;
+            this.textBoxContrasenia.UseSystemPasswordChar = true;
             // 
             // labelUsuario
             // 

@@ -7,13 +7,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using UberFrba.Dominio;
 
 namespace UberFrba.Abm_Rol
 {
-    public partial class ABMRolForm : Form
+    public partial class ABMRolForm : ReturningForm
     {
-        public ABMRolForm()
+        public ABMRolForm(Form caller)
         {
+            this.caller = caller;
             InitializeComponent();
         }
     }

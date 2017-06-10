@@ -44,23 +44,23 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Abm Automovil\Form1.cs">
+    <Compile Include="Abm Automovil\ABMAutomovilForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Abm Automovil\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="Abm Automovil\ABMAutomovilForm.Designer.cs">
+      <DependentUpon>ABMAutomovilForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Abm Chofer\Form1.cs">
+    <Compile Include="Abm Automovil\EditarAutomovilForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Abm Chofer\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="Abm Automovil\EditarAutomovilForm.Designer.cs">
+      <DependentUpon>EditarAutomovilForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Abm Cliente\Form1.cs">
+    <Compile Include="Abm Cliente\ABMClienteForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Abm Cliente\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="Abm Cliente\ABMClienteForm.Designer.cs">
+      <DependentUpon>ABMClienteForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Abm Rol\ABMRolForm.cs">
       <SubType>Form</SubType>
@@ -68,8 +68,17 @@
     <Compile Include="Abm Rol\ABMRolForm.Designer.cs">
       <DependentUpon>ABMRolForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Abm Turno\ABMTurnoForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Abm Turno\ABMTurnoForm.Designer.cs">
+      <DependentUpon>ABMTurnoForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dominio\Automovil.cs" />
+    <Compile Include="Dominio\Chofer.cs" />
     <Compile Include="Dominio\DB.cs" />
     <Compile Include="Dominio\Error.cs" />
+    <Compile Include="Dominio\Exceptions\CampoVacioException.cs" />
     <Compile Include="Dominio\Funcionalidad.cs" />
     <Compile Include="Dominio\RepoFuncionalidades.cs" />
     <Compile Include="Dominio\ReturningForm.cs">
@@ -77,17 +86,17 @@
     </Compile>
     <Compile Include="Dominio\Rol.cs" />
     <Compile Include="Dominio\Usuario.cs" />
-    <Compile Include="Facturacion\Form1.cs">
+    <Compile Include="Facturacion\FacturacionForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Facturacion\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="Facturacion\FacturacionForm.Designer.cs">
+      <DependentUpon>FacturacionForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Listado Estadistico\Form1.cs">
+    <Compile Include="Listado Estadistico\ListadoEstadisticoForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Listado Estadistico\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="Listado Estadistico\ListadoEstadisticoForm.Designer.cs">
+      <DependentUpon>ListadoEstadisticoForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Login\LoginForm.cs">
       <SubType>Form</SubType>
@@ -97,17 +106,17 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Registro Viajes\Form1.cs">
+    <Compile Include="Registro Viajes\RegistroViajeForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Registro Viajes\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="Registro Viajes\RegistroViajeForm.Designer.cs">
+      <DependentUpon>RegistroViajeForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Rendicion Viajes\Form1.cs">
+    <Compile Include="Rendicion Viajes\RendicionForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Rendicion Viajes\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="Rendicion Viajes\RendicionForm.Designer.cs">
+      <DependentUpon>RendicionForm.cs</DependentUpon>
     </Compile>
     <Compile Include="SeleccionarFuncionalidad\SeleccionarFuncionalidadForm.cs">
       <SubType>Form</SubType>
@@ -121,6 +130,24 @@
     <Compile Include="SeleccionarRol\SeleccionarRolForm.Designer.cs">
       <DependentUpon>SeleccionarRolForm.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Abm Automovil\ABMAutomovilForm.resx">
+      <DependentUpon>ABMAutomovilForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Abm Automovil\EditarAutomovilForm.resx">
+      <DependentUpon>EditarAutomovilForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Abm Cliente\ABMClienteForm.resx">
+      <DependentUpon>ABMClienteForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Abm Rol\ABMRolForm.resx">
+      <DependentUpon>ABMRolForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Facturacion\FacturacionForm.resx">
+      <DependentUpon>FacturacionForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Listado Estadistico\ListadoEstadisticoForm.resx">
+      <DependentUpon>ListadoEstadisticoForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Login\LoginForm.resx">
       <DependentUpon>LoginForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -133,6 +160,12 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Registro Viajes\RegistroViajeForm.resx">
+      <DependentUpon>RegistroViajeForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Rendicion Viajes\RendicionForm.resx">
+      <DependentUpon>RendicionForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="SeleccionarFuncionalidad\SeleccionarFuncionalidadForm.resx">
       <DependentUpon>SeleccionarFuncionalidadForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -152,7 +185,9 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Abm Chofer\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

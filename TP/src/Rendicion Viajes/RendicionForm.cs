@@ -7,13 +7,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using UberFrba.Dominio;
 
-namespace UberFrba.Abm_Chofer
+namespace UberFrba.Rendicion_Viajes
 {
-    public partial class Form1 : Form
+    public partial class RendicionForm : ReturningForm
     {
-        public Form1()
+        public RendicionForm(Form caller)
         {
+            this.caller = caller;
             InitializeComponent();
         }
     }

@@ -7,13 +7,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using UberFrba.Dominio;
 
-namespace UberFrba.Listado_Estadistico
+namespace UberFrba.Abm_Turno
 {
-    public partial class Form1 : Form
+    public partial class ABMTurnoForm : ReturningForm
     {
-        public Form1()
+        public ABMTurnoForm(Form caller)
         {
+            this.caller = caller;
             InitializeComponent();
         }
     }

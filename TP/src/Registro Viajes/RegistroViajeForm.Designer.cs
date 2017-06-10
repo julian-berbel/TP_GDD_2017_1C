@@ -1,6 +1,6 @@
-﻿namespace UberFrba.Rendicion_Viajes
+﻿namespace UberFrba.Registro_Viajes
 {
-    partial class Form1
+    partial class RegistroViajeForm
     {
         /// <summary>
         /// Required designer variable.
@@ -28,9 +28,17 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
+            this.SuspendLayout();
+            // 
+            // RegistroViajeForm
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Text = "Form1";
+            this.ClientSize = new System.Drawing.Size(284, 262);
+            this.Name = "RegistroViajeForm";
+            this.Text = "RegistroViajeForm";
+            this.ResumeLayout(false);
+
         }
 
         #endregion
