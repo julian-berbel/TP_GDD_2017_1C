@@ -51,7 +51,7 @@
             this.textBoxUsuario.Name = "textBoxUsuario";
             this.textBoxUsuario.Size = new System.Drawing.Size(100, 20);
             this.textBoxUsuario.TabIndex = 1;
-            this.textBoxUsuario.Text = "16484858";
+            this.textBoxUsuario.Text = "admin";
             // 
             // textBoxContrasenia
             // 
@@ -59,8 +59,8 @@
             this.textBoxContrasenia.Name = "textBoxContrasenia";
             this.textBoxContrasenia.Size = new System.Drawing.Size(100, 20);
             this.textBoxContrasenia.TabIndex = 2;
+            this.textBoxContrasenia.Text = "w23e";
             this.textBoxContrasenia.UseSystemPasswordChar = true;
-            this.textBoxContrasenia.Text = "16484858";
             // 
             // labelUsuario
             // 

@@ -99,12 +99,12 @@ namespace UberFrba.Dominio
             try{
                 miConexion.Open();
                 comando.ExecuteNonQuery();
-                miConexion.Close();
             } catch (SqlException exception){
                 Error.show(exception.Message);
                 salioBien = false;
             }
-            
+
+            miConexion.Close();
             return salioBien;
         }
 

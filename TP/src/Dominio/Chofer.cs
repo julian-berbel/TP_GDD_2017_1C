@@ -11,10 +11,10 @@ namespace UberFrba.Dominio
     {
         public String nombre;
         public String apellido;
-        public int dni;
+        public decimal dni;
         public int id;
 
-        public Chofer(String nombre, String apellido, int dni, int id)
+        public Chofer(String nombre, String apellido, decimal dni, int id)
         {
             this.nombre = nombre;
             this.apellido = apellido;
@@ -24,13 +24,13 @@ namespace UberFrba.Dominio
 
         public static Chofer get(int id)
         {
-            DataTable data = DB.correrFuncionDeTabla("CHOFER_GET",
-                                    "id", id);
+            DataTable data = DB.correrFuncionDeTabla("USUARIO_GET",
+                                    "usuarioId", id);
 
             return data.AsEnumerable()
                     .Select(fila => new Chofer( fila.Field<String>("usua_nombre"),
-                                                fila.Field<String>("chof_nombre"),
-                                                fila.Field<int>("usua_dni"),
+                                                fila.Field<String>("usua_apellido"),
+                                                fila.Field<decimal>("usua_dni"),
                                                 id))
                     .First();
         }

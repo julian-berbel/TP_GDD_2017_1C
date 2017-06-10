@@ -31,7 +31,9 @@ namespace UberFrba.Abm_Automovil
 
         private void buttonEditar_Click(object sender, EventArgs e)
         {
-            
+            this.Hide();
+            new EditarAutomovilForm(dataGridViewAutomovil.SelectedRows[0].Cells).ShowDialog();
+            this.Show();
         }
 
         private void ABMAutomovilForm_Load(object sender, EventArgs e)

@@ -40,3 +40,4 @@ C:\Users\Windows7\Documents\Downloads\UTN\GDD\TP_GDD_2017_1C\TP\src\obj\Debug\Ub
 C:\Users\Windows7\Documents\Downloads\UTN\GDD\TP_GDD_2017_1C\TP\src\obj\Debug\UberFrba.Listado_Estadistico.ListadoEstadisticoForm.resources
 C:\Users\Windows7\Documents\Downloads\UTN\GDD\TP_GDD_2017_1C\TP\src\obj\Debug\UberFrba.Registro_Viajes.RegistroViajeForm.resources
 C:\Users\Windows7\Documents\Downloads\UTN\GDD\TP_GDD_2017_1C\TP\src\obj\Debug\UberFrba.Rendicion_Viajes.RendicionForm.resources
+C:\Users\Windows7\Documents\Downloads\UTN\GDD\TP_GDD_2017_1C\TP\src\obj\Debug\UberFrba.csprojResolveAssemblyReference.cache

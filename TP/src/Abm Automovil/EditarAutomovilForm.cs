@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -15,11 +16,11 @@ namespace UberFrba.Abm_Automovil
     public partial class EditarAutomovilForm : Form
     {
         private Boolean edicion = false;
-        private Automovil autoAEditar = null;
+        private int? autoAEditar = null;
 
         private Chofer chofer;
         private String patente;
-        private int licencia;
+        private String licencia;
         private String rodado;
         private String modelo;
         private String marca;
@@ -34,7 +35,11 @@ namespace UberFrba.Abm_Automovil
             set
             {
                 chofer = value;
-                textBoxChofer.Text = chofer.apellido + ", " + chofer.nombre;
+                if (chofer != null)
+                {
+                    Debug.WriteLine(chofer.apellido + ", " + chofer.nombre);
+                    textBoxChofer.Text = chofer.apellido + ", " + chofer.nombre;
+                }
             }
         }
 
@@ -52,11 +57,11 @@ namespace UberFrba.Abm_Automovil
             }
         }
 
-        public int Licencia
+        public string Licencia
         {
             get
             {
-                return Int32.Parse(textBoxLicencia.Text);
+                return textBoxLicencia.Text;
             }
 
             set
@@ -108,39 +113,47 @@ namespace UberFrba.Abm_Automovil
             }
         }
 
-        public EditarAutomovilForm(Automovil autoAEditar)
+        public EditarAutomovilForm(DataGridViewCellCollection autoAEditar)
         {
-            if(autoAEditar != null)
-            {
-                edicion = true;
-                Chofer = Chofer.get(autoAEditar.chofer.id);
-                Patente = autoAEditar.patente;
-                Licencia = autoAEditar.licencia;
-                Rodado = autoAEditar.rodado;
-                Modelo = autoAEditar.modelo;
-                Marca = autoAEditar.marca;
-            }
             InitializeComponent();
+
+            if (autoAEditar != null)
+            {
+                this.autoAEditar = (int) autoAEditar["vehi_id"].Value;
+                edicion = true;
+                Chofer = Chofer.get((int)autoAEditar["vehi_chofer"].Value);
+                Patente = (String)autoAEditar["vehi_patente"].Value;
+                Licencia = (String)autoAEditar["vehi_licencia"].Value;
+                Rodado = (String)autoAEditar["vehi_rodado"].Value;
+                Modelo = (String)autoAEditar["mode_codigo"].Value;
+                Marca = (String)autoAEditar["marc_nombre"].Value;
+            }
         }
 
         private void buttonAceptar_Click(object sender, EventArgs e)
         {
             try
             {
-                autoAEditar = new Automovil(chofer, patente, licencia, rodado, modelo, marca);
-                object[] parametros = { "chofer", Chofer.id,
+                if (edicion)
+                {
+                    DB.correrProcedimiento("AUTOMOVIL_UPDATE",
+                                        "automovilId", autoAEditar,
+                                        "chofer", Chofer.id,
                                         "patente", Patente,
                                         "licencia", Licencia,
                                         "rodado", Rodado,
                                         "modelo", Modelo,
-                                        "marca", Marca};
-                if (edicion)
-                {
-                    DB.correrProcedimiento("AUTOMOVIL_UPDATE", parametros);
+                                        "marca", Marca);
                 }
                 else
                 {
-                    DB.correrProcedimiento("AUTOMOVIL_NUEVO", parametros);
+                    DB.correrProcedimiento("AUTOMOVIL_NUEVO", 
+                                        "chofer", Chofer.id,
+                                        "patente", Patente,
+                                        "licencia", Licencia,
+                                        "rodado", Rodado,
+                                        "modelo", Modelo,
+                                        "marca", Marca);
                 }
             }catch (CampoVacioException exception)
             {
