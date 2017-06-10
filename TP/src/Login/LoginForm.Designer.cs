@@ -51,6 +51,7 @@
             this.textBoxUsuario.Name = "textBoxUsuario";
             this.textBoxUsuario.Size = new System.Drawing.Size(100, 20);
             this.textBoxUsuario.TabIndex = 1;
+            this.textBoxUsuario.Text = "16484858";
             // 
             // textBoxContrasenia
             // 
@@ -59,6 +60,7 @@
             this.textBoxContrasenia.Size = new System.Drawing.Size(100, 20);
             this.textBoxContrasenia.TabIndex = 2;
             this.textBoxContrasenia.UseSystemPasswordChar = true;
+            this.textBoxContrasenia.Text = "16484858";
             // 
             // labelUsuario
             // 
@@ -82,15 +84,15 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(222, 143);
+            this.ClientSize = new System.Drawing.Size(219, 145);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.labelUsuario);
             this.Controls.Add(this.textBoxContrasenia);
             this.Controls.Add(this.textBoxUsuario);
             this.Controls.Add(this.buttonLogin);
             this.Name = "LoginForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "LoginForm";
-            this.Load += new System.EventHandler(this.LoginForm_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

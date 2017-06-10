@@ -83,14 +83,14 @@ namespace UberFrba.Dominio
         {
             SqlCommand comando = nuevaFuncion("SELECT * FROM ", nombre, args);
 
-            return ejecutarFuncionDeTabla(comando);
+            return ejecutarComandoDeTabla(comando);
         }
 
         public static DataTable correrQuery(String query)
         {
             SqlCommand comando = new SqlCommand(query, miConexion);
 
-            return ejecutarFuncionDeTabla(comando);
+            return ejecutarComandoDeTabla(comando);
         }
 
         private static Boolean ejecutarProcedimiento(SqlCommand comando)
@@ -99,11 +99,12 @@ namespace UberFrba.Dominio
             try{
                 miConexion.Open();
                 comando.ExecuteNonQuery();
-            } catch(SqlException exception){
+                miConexion.Close();
+            } catch (SqlException exception){
                 Error.show(exception.Message);
                 salioBien = false;
             }
-            miConexion.Close();
+            
             return salioBien;
         }
 
@@ -115,34 +116,65 @@ namespace UberFrba.Dominio
             {
                 miConexion.Open();
                 resultado = comando.ExecuteScalar();
+                miConexion.Close();
             }
             catch (SqlException exception)
             {
                 Error.show(exception.Message);
             }
-            miConexion.Close();
 
             return resultado;
         }
 
-        private static DataTable ejecutarFuncionDeTabla(SqlCommand comando)
+        //anteriormente "ejecutarFuncionDeTabla" --- puede ser una funcion o un procedimiento
+        private static DataTable ejecutarComandoDeTabla(SqlCommand comando)
         {
             DataTable tabla = new DataTable();
 
             try
             {
-                miConexion.Open();
-                SqlDataAdapter adapter = new SqlDataAdapter(comando);
-                adapter.Fill(tabla);
+                using(SqlDataAdapter adapter = new SqlDataAdapter(comando))
+                {
+                    miConexion.Open();
+                    adapter.Fill(tabla);
+                    miConexion.Close();
+                }
             }
             catch (SqlException exception)
             {
                 Error.show(exception.Message);
             }
 
-            miConexion.Close();
-
             return tabla;
+        }
+
+        /*probando funciones*/
+
+        public static DataTable realizarSelectComunacho(String nombre, params object[] campos)
+        {
+            String query = querySelect("SELECT ", nombre, campos);
+            SqlCommand comando = new SqlCommand(query, miConexion);
+
+            return ejecutarComandoDeTabla(comando);
+        }
+
+        private static String querySelect(String prefijo, String nombreTabla, params object[] campos)
+        {
+            String query = prefijo;
+
+            for(int i = 0; i < campos.Length; i++)
+            {
+                query += (string)campos[i] + (i == campos.Length - 1 ? " " : ", ");
+            }
+
+            return query += "FROM "+ esquema + nombreTabla;
+        }
+
+        public static DataTable correProcedimientoDeTabla(String nombre, params object[] args)
+        {
+            SqlCommand comando = nuevoProcedimiento(nombre, args);
+
+            return ejecutarComandoDeTabla(comando);
         }
     }
 }
