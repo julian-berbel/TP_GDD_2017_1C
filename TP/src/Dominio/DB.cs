@@ -116,13 +116,13 @@ namespace UberFrba.Dominio
             {
                 miConexion.Open();
                 resultado = comando.ExecuteScalar();
-                miConexion.Close();
             }
             catch (SqlException exception)
             {
                 Error.show(exception.Message);
             }
 
+            miConexion.Close();
             return resultado;
         }
 
@@ -137,7 +137,6 @@ namespace UberFrba.Dominio
                 {
                     miConexion.Open();
                     adapter.Fill(tabla);
-                    miConexion.Close();
                 }
             }
             catch (SqlException exception)
@@ -145,6 +144,7 @@ namespace UberFrba.Dominio
                 Error.show(exception.Message);
             }
 
+            miConexion.Close();
             return tabla;
         }
 
