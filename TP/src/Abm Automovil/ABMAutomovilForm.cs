@@ -3,23 +3,38 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using UberFrba.Dominio;
 
 namespace UberFrba.Abm_Automovil
 {
-    public partial class ABMAutomovilForm : ReturningForm
+    public partial class ABMAutomovilForm : UberFrba.Abm_Automovil.TablaAutomovilForm
     {
-        public ABMAutomovilForm(Form caller)
+        public ABMAutomovilForm()
         {
-            this.caller = caller;
             InitializeComponent();
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        public ABMAutomovilForm(Form caller) : base(caller)
+        {
+            InitializeComponent();
+        }
+        
+        private void buttonNuevo_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            new EditarAutomovilForm().ShowDialog();
+            this.Mostrar();
+        }
+
+        private void buttonEditar_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            new EditarAutomovilForm(DataGridViewAutomovil.SelectedRows[0].Cells).ShowDialog();
+            this.Mostrar();
+        }
+
+        private void buttonBorrar_Click(object sender, EventArgs e)
         {
 
         }
@@ -27,19 +42,6 @@ namespace UberFrba.Abm_Automovil
         private void buttonVolver_Click(object sender, EventArgs e)
         {
             this.Close();
-        }
-
-        private void buttonEditar_Click(object sender, EventArgs e)
-        {
-            this.Hide();
-            new EditarAutomovilForm(dataGridViewAutomovil.SelectedRows[0].Cells).ShowDialog();
-            this.Show();
-        }
-
-        private void ABMAutomovilForm_Load(object sender, EventArgs e)
-        {
-            DataTable data = Automovil.getAutomoviles();
-            dataGridViewAutomovil.DataSource = data;
         }
     }
 }

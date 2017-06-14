@@ -56,6 +56,42 @@
     <Compile Include="Abm Automovil\EditarAutomovilForm.Designer.cs">
       <DependentUpon>EditarAutomovilForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Abm Automovil\SeleccionarAutomovilForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Abm Automovil\SeleccionarAutomovilForm.Designer.cs">
+      <DependentUpon>SeleccionarAutomovilForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Abm Automovil\TablaAutomovilForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Abm Automovil\TablaAutomovilForm.Designer.cs">
+      <DependentUpon>TablaAutomovilForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Abm Chofer\ABMChoferForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Abm Chofer\ABMChoferForm.Designer.cs">
+      <DependentUpon>ABMChoferForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Abm Chofer\EditarChoferForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Abm Chofer\EditarChoferForm.Designer.cs">
+      <DependentUpon>EditarChoferForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Abm Chofer\SeleccionarChoferForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Abm Chofer\SeleccionarChoferForm.Designer.cs">
+      <DependentUpon>SeleccionarChoferForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Abm Chofer\TablaChoferForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Abm Chofer\TablaChoferForm.Designer.cs">
+      <DependentUpon>TablaChoferForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Abm Cliente\ABMClienteForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -136,6 +172,21 @@
     <EmbeddedResource Include="Abm Automovil\EditarAutomovilForm.resx">
       <DependentUpon>EditarAutomovilForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Abm Automovil\SeleccionarAutomovilForm.resx">
+      <DependentUpon>SeleccionarAutomovilForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Abm Automovil\TablaAutomovilForm.resx">
+      <DependentUpon>TablaAutomovilForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Abm Chofer\ABMChoferForm.resx">
+      <DependentUpon>ABMChoferForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Abm Chofer\SeleccionarChoferForm.resx">
+      <DependentUpon>SeleccionarChoferForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Abm Chofer\TablaChoferForm.resx">
+      <DependentUpon>TablaChoferForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Abm Cliente\ABMClienteForm.resx">
       <DependentUpon>ABMClienteForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -185,9 +236,7 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Abm Chofer\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

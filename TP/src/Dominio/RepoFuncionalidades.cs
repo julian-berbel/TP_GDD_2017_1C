@@ -13,7 +13,7 @@ namespace UberFrba.Dominio
             new Funcionalidad(2, typeof(Abm_Cliente.ABMClienteForm)),
             new Funcionalidad(3, typeof(Abm_Automovil.ABMAutomovilForm)),
             new Funcionalidad(4, typeof(Abm_Turno.ABMTurnoForm)),
-           // new Funcionalidad(5, typeof(Abm_Chofer.ABMChoferForm)),
+            new Funcionalidad(5, typeof(Abm_Chofer.ABMChoferForm)),
             new Funcionalidad(6, typeof(Registro_Viajes.RegistroViajeForm)),
             new Funcionalidad(7, typeof(Facturacion.FacturacionForm)),
             new Funcionalidad(8, typeof(Listado_Estadistico.ListadoEstadisticoForm))};

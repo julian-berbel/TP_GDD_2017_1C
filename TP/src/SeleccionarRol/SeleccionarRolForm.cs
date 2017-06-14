@@ -15,9 +15,8 @@ namespace UberFrba.SeleccionarRol
     {
         private List<String> roles = new List<String>();
 
-        public SeleccionarRolForm(Form caller)
+        public SeleccionarRolForm(Form caller) : base(caller)
         {
-            this.caller = caller;
             InitializeComponent();
         }
 

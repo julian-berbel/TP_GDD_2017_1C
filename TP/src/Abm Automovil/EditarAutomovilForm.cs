@@ -35,11 +35,7 @@ namespace UberFrba.Abm_Automovil
             set
             {
                 chofer = value;
-                if (chofer != null)
-                {
-                    Debug.WriteLine(chofer.apellido + ", " + chofer.nombre);
-                    textBoxChofer.Text = chofer.apellido + ", " + chofer.nombre;
-                }
+                textBoxChofer.Text = chofer.apellido + ", " + chofer.nombre;
             }
         }
 
@@ -113,21 +109,23 @@ namespace UberFrba.Abm_Automovil
             }
         }
 
+        public EditarAutomovilForm()
+        {
+            InitializeComponent();
+        }
+
         public EditarAutomovilForm(DataGridViewCellCollection autoAEditar)
         {
             InitializeComponent();
 
-            if (autoAEditar != null)
-            {
-                this.autoAEditar = (int) autoAEditar["vehi_id"].Value;
-                edicion = true;
-                Chofer = Chofer.get((int)autoAEditar["vehi_chofer"].Value);
-                Patente = (String)autoAEditar["vehi_patente"].Value;
-                Licencia = (String)autoAEditar["vehi_licencia"].Value;
-                Rodado = (String)autoAEditar["vehi_rodado"].Value;
-                Modelo = (String)autoAEditar["mode_codigo"].Value;
-                Marca = (String)autoAEditar["marc_nombre"].Value;
-            }
+            this.autoAEditar = (int) autoAEditar["vehi_id"].Value;
+            edicion = true;
+            Chofer = Chofer.get((int)autoAEditar["vehi_chofer"].Value);
+            Patente = (String)autoAEditar["vehi_patente"].Value;
+            Licencia = (String)autoAEditar["vehi_licencia"].Value;
+            Rodado = (String)autoAEditar["vehi_rodado"].Value;
+            Modelo = (String)autoAEditar["mode_codigo"].Value;
+            Marca = (String)autoAEditar["marc_nombre"].Value;
         }
 
         private void buttonAceptar_Click(object sender, EventArgs e)
@@ -155,6 +153,7 @@ namespace UberFrba.Abm_Automovil
                                         "modelo", Modelo,
                                         "marca", Marca);
                 }
+                this.Close();
             }catch (CampoVacioException exception)
             {
                 Error.show(exception.Message);
@@ -164,6 +163,11 @@ namespace UberFrba.Abm_Automovil
         private void buttonCancelar_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void buttonSeleccionarChofer_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

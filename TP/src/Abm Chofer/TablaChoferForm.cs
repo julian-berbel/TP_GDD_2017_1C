@@ -9,11 +9,16 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using UberFrba.Dominio;
 
-namespace UberFrba.Registro_Viajes
+namespace UberFrba.Abm_Chofer
 {
-    public partial class RegistroViajeForm : ReturningForm
+    public partial class TablaChoferForm : ReturningForm
     {
-        public RegistroViajeForm(Form caller) : base(caller)
+        public TablaChoferForm(Form caller) : base(caller)
+        {
+            InitializeComponent();
+        }
+
+        public TablaChoferForm()
         {
             InitializeComponent();
         }

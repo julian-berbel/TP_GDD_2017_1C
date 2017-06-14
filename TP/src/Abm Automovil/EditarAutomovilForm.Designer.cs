@@ -42,6 +42,7 @@
             this.textBoxModelo = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
             this.textBoxMarca = new System.Windows.Forms.TextBox();
+            this.buttonSeleccionarChofer = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // buttonAceptar
@@ -161,11 +162,22 @@
             this.textBoxMarca.Size = new System.Drawing.Size(100, 20);
             this.textBoxMarca.TabIndex = 12;
             // 
+            // buttonSeleccionarChofer
+            // 
+            this.buttonSeleccionarChofer.Location = new System.Drawing.Point(171, 27);
+            this.buttonSeleccionarChofer.Name = "buttonSeleccionarChofer";
+            this.buttonSeleccionarChofer.Size = new System.Drawing.Size(31, 20);
+            this.buttonSeleccionarChofer.TabIndex = 14;
+            this.buttonSeleccionarChofer.Text = "...";
+            this.buttonSeleccionarChofer.UseVisualStyleBackColor = true;
+            this.buttonSeleccionarChofer.Click += new System.EventHandler(this.buttonSeleccionarChofer_Click);
+            // 
             // EditarAutomovilForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(231, 300);
+            this.Controls.Add(this.buttonSeleccionarChofer);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.textBoxMarca);
             this.Controls.Add(this.label5);
@@ -203,5 +215,6 @@
         private System.Windows.Forms.TextBox textBoxModelo;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.TextBox textBoxMarca;
+        private System.Windows.Forms.Button buttonSeleccionarChofer;
     }
 }

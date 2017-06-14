@@ -71,7 +71,6 @@
             this.label1.Size = new System.Drawing.Size(235, 13);
             this.label1.TabIndex = 3;
             this.label1.Text = "Seleccione la funcionalidad que desea acceder:";
-            this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // SeleccionarFuncionalidadForm
             // 
@@ -84,7 +83,6 @@
             this.Controls.Add(this.buttonContinuar);
             this.Name = "SeleccionarFuncionalidadForm";
             this.Text = "SeleccionarFuncionalidadForm";
-            this.Load += new System.EventHandler(this.SeleccionarFuncionalidadForm_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

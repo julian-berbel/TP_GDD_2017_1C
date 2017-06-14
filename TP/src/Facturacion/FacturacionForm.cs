@@ -13,9 +13,8 @@ namespace UberFrba.Facturacion
 {
     public partial class FacturacionForm : ReturningForm
     {
-        public FacturacionForm(Form caller)
+        public FacturacionForm(Form caller) : base(caller)
         {
-            this.caller = caller;
             InitializeComponent();
         }
     }

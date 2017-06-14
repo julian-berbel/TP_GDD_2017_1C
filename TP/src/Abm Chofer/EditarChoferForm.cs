@@ -7,13 +7,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using UberFrba.Dominio;
 
-namespace UberFrba.Registro_Viajes
+namespace UberFrba.Abm_Chofer
 {
-    public partial class RegistroViajeForm : ReturningForm
+    public partial class EditarChoferForm : Form
     {
-        public RegistroViajeForm(Form caller) : base(caller)
+        public EditarChoferForm()
         {
             InitializeComponent();
         }

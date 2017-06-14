@@ -22,8 +22,8 @@ namespace UberFrba.Dominio
 
         public void elegir(Form caller)
         {
-            Form ventana = (Form) Activator.CreateInstance(ventanaAAbrir, caller);
-            ventana.Show();
+            ReturningForm ventana = (ReturningForm) Activator.CreateInstance(ventanaAAbrir, caller);
+            ventana.Mostrar();
         }
 
         public override string ToString()

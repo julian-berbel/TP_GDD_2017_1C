@@ -13,9 +13,8 @@ namespace UberFrba.Rendicion_Viajes
 {
     public partial class RendicionForm : ReturningForm
     {
-        public RendicionForm(Form caller)
+        public RendicionForm(Form caller) : base(caller)
         {
-            this.caller = caller;
             InitializeComponent();
         }
     }

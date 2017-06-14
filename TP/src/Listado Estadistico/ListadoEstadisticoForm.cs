@@ -13,9 +13,8 @@ namespace UberFrba.Listado_Estadistico
 {
     public partial class ListadoEstadisticoForm : ReturningForm
     {
-        public ListadoEstadisticoForm(Form caller)
+        public ListadoEstadisticoForm(Form caller) : base(caller)
         {
-            this.caller = caller;
             InitializeComponent();
         }
     }

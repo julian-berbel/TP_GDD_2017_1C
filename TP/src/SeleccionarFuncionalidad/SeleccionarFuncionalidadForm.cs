@@ -13,26 +13,22 @@ namespace UberFrba.SeleccionarFuncionalidad
 {
     public partial class SeleccionarFuncionalidadForm : ReturningForm
     {
-        public SeleccionarFuncionalidadForm(Form caller)
+        public SeleccionarFuncionalidadForm(Form caller) : base(caller)
         {
-            this.caller = caller;
             InitializeComponent();
-        }
-
-        private void SeleccionarFuncionalidadForm_Load(object sender, EventArgs e)
-        {
-            Rol.rolSeleccionado.getFuncionalidades()
-                .ForEach(f => comboBoxFuncionalidades.Items.Add(f));
-        }
-
-        private void label1_Click(object sender, EventArgs e)
-        {
-
         }
 
         private void buttonAtras_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        public override void Mostrar()
+        {
+            base.Mostrar();
+            comboBoxFuncionalidades.Items.Clear();
+            Rol.rolSeleccionado.getFuncionalidades()
+                .ForEach(f => comboBoxFuncionalidades.Items.Add(f));
         }
 
         private void buttonContinuar_Click(object sender, EventArgs e)
