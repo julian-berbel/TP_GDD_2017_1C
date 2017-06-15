@@ -18,7 +18,7 @@ namespace UberFrba.Abm_Automovil
         
         private void buttonNuevo_Click(object sender, EventArgs e)
         {
-            new EditarAutomovilForm(this);
+            new EditarAutomovilForm(this).abrir();
         }
 
         private void buttonEditar_Click(object sender, EventArgs e)
@@ -27,14 +27,14 @@ namespace UberFrba.Abm_Automovil
             new EditarAutomovilForm(this, new Automovil(fila)).abrir();
         }
 
-        private void buttonBorrar_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void buttonVolver_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void buttonBaja_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

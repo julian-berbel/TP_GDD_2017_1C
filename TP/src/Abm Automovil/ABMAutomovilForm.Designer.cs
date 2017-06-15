@@ -28,21 +28,21 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.buttonBorrar = new System.Windows.Forms.Button();
+            this.buttonBaja = new System.Windows.Forms.Button();
             this.buttonEditar = new System.Windows.Forms.Button();
             this.buttonVolver = new System.Windows.Forms.Button();
             this.buttonNuevo = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
-            // buttonBorrar
+            // buttonBaja
             // 
-            this.buttonBorrar.Location = new System.Drawing.Point(297, 254);
-            this.buttonBorrar.Name = "buttonBorrar";
-            this.buttonBorrar.Size = new System.Drawing.Size(75, 23);
-            this.buttonBorrar.TabIndex = 22;
-            this.buttonBorrar.Text = "Baja";
-            this.buttonBorrar.UseVisualStyleBackColor = true;
-            this.buttonBorrar.Click += new System.EventHandler(this.buttonBorrar_Click);
+            this.buttonBaja.Location = new System.Drawing.Point(297, 254);
+            this.buttonBaja.Name = "buttonBaja";
+            this.buttonBaja.Size = new System.Drawing.Size(75, 23);
+            this.buttonBaja.TabIndex = 22;
+            this.buttonBaja.Text = "Baja";
+            this.buttonBaja.UseVisualStyleBackColor = true;
+            this.buttonBaja.Click += new System.EventHandler(this.buttonBaja_Click);
             // 
             // buttonEditar
             // 
@@ -78,7 +78,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.ClientSize = new System.Drawing.Size(528, 286);
-            this.Controls.Add(this.buttonBorrar);
+            this.Controls.Add(this.buttonBaja);
             this.Controls.Add(this.buttonEditar);
             this.Controls.Add(this.buttonVolver);
             this.Controls.Add(this.buttonNuevo);
@@ -86,7 +86,7 @@
             this.Controls.SetChildIndex(this.buttonNuevo, 0);
             this.Controls.SetChildIndex(this.buttonVolver, 0);
             this.Controls.SetChildIndex(this.buttonEditar, 0);
-            this.Controls.SetChildIndex(this.buttonBorrar, 0);
+            this.Controls.SetChildIndex(this.buttonBaja, 0);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -94,7 +94,7 @@
 
         #endregion
 
-        private System.Windows.Forms.Button buttonBorrar;
+        private System.Windows.Forms.Button buttonBaja;
         private System.Windows.Forms.Button buttonEditar;
         private System.Windows.Forms.Button buttonVolver;
         private System.Windows.Forms.Button buttonNuevo;

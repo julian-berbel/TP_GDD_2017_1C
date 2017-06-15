@@ -54,3 +54,4 @@ C:\Users\JuliVM\Desktop\TP_GDD_2017_1C\TP\src\obj\Debug\UberFrba.SeleccionarRol.
 C:\Users\JuliVM\Desktop\TP_GDD_2017_1C\TP\src\obj\Debug\UberFrba.csproj.GenerateResource.Cache
 C:\Users\JuliVM\Desktop\TP_GDD_2017_1C\TP\src\obj\Debug\UberFrba.exe
 C:\Users\JuliVM\Desktop\TP_GDD_2017_1C\TP\src\obj\Debug\UberFrba.pdb
+C:\Users\JuliVM\Desktop\TP_GDD_2017_1C\TP\src\obj\Debug\UberFrba.csprojResolveAssemblyReference.cache

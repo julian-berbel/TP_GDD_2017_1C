@@ -39,6 +39,18 @@ namespace UberFrba.Dominio
                                         JOIN LOS_MODERADAMENTE_ADECUADOS.Marca ON marc_id = mode_marca");
         }
 
+        public static DataTable getAutomovilesConFiltro(int choferId,
+                                                String modelo,
+                                                String patente,
+                                                String marca)
+        {
+            return DB.correrFuncionDeTabla("GET_AUTOS_CON_FILTRO",
+                                            "modelo", modelo,
+                                            "patente", patente,
+                                            "marca", marca,
+                                            "choferID", choferId);
+        }
+
         public void editar()
         {
             DB.correrProcedimiento("AUTOMOVIL_UPDATE",

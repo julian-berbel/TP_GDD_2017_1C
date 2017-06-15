@@ -123,6 +123,7 @@
             this.buttonFiltrar.TabIndex = 17;
             this.buttonFiltrar.Text = "Filtrar";
             this.buttonFiltrar.UseVisualStyleBackColor = true;
+            this.buttonFiltrar.Click += new System.EventHandler(this.buttonFiltrar_Click);
             // 
             // TablaAutomovilForm
             // 
