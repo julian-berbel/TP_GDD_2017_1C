@@ -31,6 +31,26 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <OutputPath>bin\x86\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -98,6 +118,18 @@
     <Compile Include="Abm Cliente\ABMClienteForm.Designer.cs">
       <DependentUpon>ABMClienteForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Abm Cliente\SeleccionarClienteForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Abm Cliente\SeleccionarClienteForm.Designer.cs">
+      <DependentUpon>SeleccionarClienteForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Abm Cliente\TablaClienteForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Abm Cliente\TablaClienteForm.Designer.cs">
+      <DependentUpon>TablaClienteForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Abm Rol\ABMRolForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -111,6 +143,7 @@
       <DependentUpon>ABMTurnoForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Dominio\Automovil.cs" />
+    <Compile Include="Dominio\Cliente.cs" />
     <Compile Include="Dominio\Chofer.cs" />
     <Compile Include="Dominio\DB.cs" />
     <Compile Include="Dominio\Error.cs" />
@@ -166,6 +199,12 @@
     <Compile Include="SeleccionarRol\SeleccionarRolForm.Designer.cs">
       <DependentUpon>SeleccionarRolForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Dominio\TablaUsuarioForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dominio\TablaUsuarioForm.Designer.cs">
+      <DependentUpon>TablaUsuarioForm.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="Abm Automovil\ABMAutomovilForm.resx">
       <DependentUpon>ABMAutomovilForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -181,14 +220,17 @@
     <EmbeddedResource Include="Abm Chofer\ABMChoferForm.resx">
       <DependentUpon>ABMChoferForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Abm Chofer\EditarChoferForm.resx">
+      <DependentUpon>EditarChoferForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Abm Chofer\SeleccionarChoferForm.resx">
       <DependentUpon>SeleccionarChoferForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Abm Chofer\TablaChoferForm.resx">
-      <DependentUpon>TablaChoferForm.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Abm Cliente\ABMClienteForm.resx">
       <DependentUpon>ABMClienteForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Abm Cliente\SeleccionarClienteForm.resx">
+      <DependentUpon>SeleccionarClienteForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Abm Rol\ABMRolForm.resx">
       <DependentUpon>ABMRolForm.cs</DependentUpon>
@@ -222,6 +264,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="SeleccionarRol\SeleccionarRolForm.resx">
       <DependentUpon>SeleccionarRolForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dominio\TablaUsuarioForm.resx">
+      <DependentUpon>TablaUsuarioForm.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

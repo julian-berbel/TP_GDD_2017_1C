@@ -47,6 +47,7 @@
             this.dataGridViewAutomovil.Location = new System.Drawing.Point(14, 68);
             this.dataGridViewAutomovil.MultiSelect = false;
             this.dataGridViewAutomovil.Name = "dataGridViewAutomovil";
+            this.dataGridViewAutomovil.ReadOnly = true;
             this.dataGridViewAutomovil.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridViewAutomovil.Size = new System.Drawing.Size(501, 180);
             this.dataGridViewAutomovil.TabIndex = 8;

@@ -69,7 +69,7 @@
             this.Controls.Add(this.comboBoxRoles);
             this.Controls.Add(this.label1);
             this.Name = "SeleccionarRolForm";
-            this.Text = "SeleccionarRolForm";
+            this.Text = "Seleccionar Rol";
             this.Load += new System.EventHandler(this.SeleccionarRolForm_Load);
             this.ResumeLayout(false);
             this.PerformLayout();

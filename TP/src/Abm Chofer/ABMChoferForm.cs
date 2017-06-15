@@ -18,8 +18,13 @@ namespace UberFrba.Abm_Chofer
 
         private void buttonEditar_Click(object sender, EventArgs e)
         {
-            DataTable tabla = (DataTable)DataGridViewChofer.DataSource;
+            DataTable tabla = (DataTable)DataGridViewUsuario.DataSource;
             new EditarChoferForm(new Chofer(tabla.Rows[0]));
+        }
+
+        private void buttonVolver_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }

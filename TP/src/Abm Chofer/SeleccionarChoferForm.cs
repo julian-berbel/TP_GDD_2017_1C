@@ -25,7 +25,7 @@ namespace UberFrba.Abm_Chofer
 
         private void buttonSeleccionar_Click(object sender, EventArgs e)
         {
-            DataRow fila = ((DataRowView)DataGridViewChofer.SelectedRows[0].DataBoundItem).Row;
+            DataRow fila = ((DataRowView)DataGridViewUsuario.SelectedRows[0].DataBoundItem).Row;
             choferSeleccionado = new Chofer(fila);
             this.Close();
         }

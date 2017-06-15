@@ -82,7 +82,7 @@
             this.Controls.Add(this.buttonAtras);
             this.Controls.Add(this.buttonContinuar);
             this.Name = "SeleccionarFuncionalidadForm";
-            this.Text = "SeleccionarFuncionalidadForm";
+            this.Text = "Seleccionar Funcionalidad";
             this.ResumeLayout(false);
             this.PerformLayout();
 

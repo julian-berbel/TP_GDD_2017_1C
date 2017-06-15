@@ -27,18 +27,34 @@ namespace UberFrba.Abm_Automovil
             get { return dataGridViewAutomovil; }
         }
 
-        public int Chofer { get => 
-            int.TryParse(textBoxChofer.Text, out int resultado) ? resultado: 0;
+        public int Chofer {
+            get {
+                int resultado;
+                return int.TryParse(textBoxChofer.Text, out resultado) ? resultado : 0;
+            }
         }
-        public string Modelo { get => textBoxModelo.Text; }
-        public string Patente { get => textBoxPatente.Text; }
-        public string Marca { get => textBoxMarca.Text; }
+        public string Modelo {
+            get {
+                return textBoxModelo.Text;
+            }
+        }
+        public string Patente {
+            get
+            {
+                return textBoxPatente.Text;
+            }
+        }
+        public string Marca {
+            get
+            {
+                return textBoxMarca.Text;
+            }
+        }
 
         public override void Refrescar()
         {
             DataTable data = Automovil.getAutomoviles();
             dataGridViewAutomovil.DataSource = data;
-            base.Refrescar();
         }
 
         private void buttonFiltrar_Click(object sender, EventArgs e)

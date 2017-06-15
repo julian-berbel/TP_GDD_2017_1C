@@ -59,8 +59,9 @@
             this.buttonVolver.Name = "buttonVolver";
             this.buttonVolver.Size = new System.Drawing.Size(75, 23);
             this.buttonVolver.TabIndex = 16;
-            this.buttonVolver.Text = "Cancelar";
+            this.buttonVolver.Text = "Volver";
             this.buttonVolver.UseVisualStyleBackColor = true;
+            this.buttonVolver.Click += new System.EventHandler(this.buttonVolver_Click);
             // 
             // buttonNuevo
             // 
@@ -80,6 +81,7 @@
             this.Controls.Add(this.buttonVolver);
             this.Controls.Add(this.buttonNuevo);
             this.Name = "ABMChoferForm";
+            this.Text = "ABM Chofer";
             this.Controls.SetChildIndex(this.buttonNuevo, 0);
             this.Controls.SetChildIndex(this.buttonVolver, 0);
             this.Controls.SetChildIndex(this.buttonEditar, 0);

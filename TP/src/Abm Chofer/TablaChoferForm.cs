@@ -3,15 +3,13 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using UberFrba.Dominio;
 
 namespace UberFrba.Abm_Chofer
 {
-    public partial class TablaChoferForm : ReturningForm
+    public partial class TablaChoferForm : TablaUsuarioForm
     {
         public TablaChoferForm(ReturningForm caller) : base(caller)
         {
@@ -22,21 +20,16 @@ namespace UberFrba.Abm_Chofer
         {
             InitializeComponent();
         }
-
+        
         public override void Refrescar()
         {
             DataTable data = Chofer.getChoferes();
-            dataGridViewChofer.DataSource = data;
+            DataGridViewUsuario.DataSource = data;
         }
 
-        public DataGridView DataGridViewChofer
+        public override String tablaABuscar()
         {
-            get { return dataGridViewChofer; }
-        }
-
-        private void buttonFiltrar_Click(object sender, EventArgs e)
-        {
-
+            return "CHOFERES";
         }
     }
 }

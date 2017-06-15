@@ -59,6 +59,7 @@
             this.Controls.Add(this.buttonCancelar);
             this.Controls.Add(this.buttonSeleccionar);
             this.Name = "SeleccionarChoferForm";
+            this.Text = "Seleccionar Usuario";
             this.Controls.SetChildIndex(this.buttonSeleccionar, 0);
             this.Controls.SetChildIndex(this.buttonCancelar, 0);
             this.ResumeLayout(false);

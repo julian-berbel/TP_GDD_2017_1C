@@ -193,7 +193,7 @@
             this.Controls.Add(this.textBoxChofer);
             this.Controls.Add(this.buttonAceptar);
             this.Name = "EditarAutomovilForm";
-            this.Text = "EditarAutomovilForm";
+            this.Text = "Editar Automovil";
             this.ResumeLayout(false);
             this.PerformLayout();
 

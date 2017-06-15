@@ -101,7 +101,13 @@ IF OBJECT_ID('LOS_MODERADAMENTE_ADECUADOS.USUARIO_GET') IS NOT NULL
 
 IF OBJECT_ID('LOS_MODERADAMENTE_ADECUADOS.GET_AUTOS_CON_FILTRO') IS NOT NULL
     DROP FUNCTION LOS_MODERADAMENTE_ADECUADOS.GET_AUTOS_CON_FILTRO;
-	
+
+IF OBJECT_ID('LOS_MODERADAMENTE_ADECUADOS.GET_CHOFERES_CON_FILTROS') IS NOT NULL
+    DROP FUNCTION LOS_MODERADAMENTE_ADECUADOS.GET_CHOFERES_CON_FILTROS;
+
+IF OBJECT_ID('LOS_MODERADAMENTE_ADECUADOS.GET_CLIENTES_CON_FILTROS') IS NOT NULL
+    DROP FUNCTION LOS_MODERADAMENTE_ADECUADOS.GET_CLIENTES_CON_FILTROS;
+
 IF EXISTS (SELECT SCHEMA_NAME FROM INFORMATION_SCHEMA.SCHEMATA WHERE SCHEMA_NAME = 'LOS_MODERADAMENTE_ADECUADOS')
     DROP SCHEMA LOS_MODERADAMENTE_ADECUADOS
 GO
@@ -555,9 +561,9 @@ END
 GO
 
 CREATE FUNCTION LOS_MODERADAMENTE_ADECUADOS.GET_AUTOS_CON_FILTRO (@modelo varchar(255),			
-								 @patente varchar(10),
-								 @marca varchar(255),
-								 @choferID int)
+																 @patente varchar(10),
+																 @marca varchar(255),
+																 @choferID int)
 RETURNS TABLE
 AS 
 	RETURN	(SELECT *
@@ -569,4 +575,30 @@ AS
 				(@patente = '' OR CHARINDEX(@patente, vehi_patente) > 0) AND
 				(@marca = '' OR @marca = marc_nombre) AND
 				(@choferID = 0 OR chof_id = @choferID))
+GO
+
+CREATE FUNCTION LOS_MODERADAMENTE_ADECUADOS.GET_CHOFERES_CON_FILTROS (@nombre varchar(255),			
+																	 @apellido varchar(255),
+																	 @dni numeric(18,0))
+RETURNS TABLE
+AS 
+	RETURN	(SELECT *
+			FROM LOS_MODERADAMENTE_ADECUADOS.Chofer
+				JOIN LOS_MODERADAMENTE_ADECUADOS.Usuario ON (chof_id = usua_id)
+			WHERE (@nombre = '' OR CHARINDEX(@nombre, usua_nombre) > 0) AND
+				(@apellido = '' OR CHARINDEX(@apellido, usua_apellido) > 0) AND
+				(@dni = 0 OR @dni = usua_dni))
+GO
+
+CREATE FUNCTION LOS_MODERADAMENTE_ADECUADOS.GET_CLIENTES_CON_FILTROS (@nombre varchar(255),			
+																	 @apellido varchar(255),
+																	 @dni numeric(18,0))
+RETURNS TABLE
+AS 
+	RETURN	(SELECT *
+			FROM LOS_MODERADAMENTE_ADECUADOS.Cliente
+				JOIN LOS_MODERADAMENTE_ADECUADOS.Usuario ON (clie_id = usua_id)
+			WHERE (@nombre = '' OR CHARINDEX(@nombre, usua_nombre) > 0) AND
+				(@apellido = '' OR CHARINDEX(@apellido, usua_apellido) > 0) AND
+				(@dni = 0 OR @dni = usua_dni))
 GO
