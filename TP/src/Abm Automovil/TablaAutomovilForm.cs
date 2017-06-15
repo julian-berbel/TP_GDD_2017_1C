@@ -13,26 +13,25 @@ namespace UberFrba.Abm_Automovil
 {
     public partial class TablaAutomovilForm : ReturningForm
     {
-        public TablaAutomovilForm()
+        public TablaAutomovilForm(ReturningForm caller) : base(caller)
         {
             InitializeComponent();
         }
 
-        public TablaAutomovilForm(Form caller) : base(caller)
-        {
+        public TablaAutomovilForm() {
             InitializeComponent();
         }
-        
+
         public DataGridView DataGridViewAutomovil
         {
             get { return dataGridViewAutomovil; }
         }
 
-        public override void Mostrar()
+        public override void Refrescar()
         {
             DataTable data = Automovil.getAutomoviles();
             dataGridViewAutomovil.DataSource = data;
-            base.Mostrar();
+            base.Refrescar();
         }
     }
 }

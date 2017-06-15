@@ -521,7 +521,7 @@ GO
 
 CREATE FUNCTION LOS_MODERADAMENTE_ADECUADOS.USUARIO_GET(@usuarioId INT) RETURNS TABLE
 AS
-	RETURN (SELECT usua_nombre, usua_apellido, usua_dni
+	RETURN (SELECT usua_id, usua_nombre, usua_apellido, usua_dni
 			FROM LOS_MODERADAMENTE_ADECUADOS.Usuario
 			WHERE usua_id = @usuarioId)
 GO

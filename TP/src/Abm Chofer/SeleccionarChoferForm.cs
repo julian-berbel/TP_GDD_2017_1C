@@ -5,12 +5,15 @@ using System.Data;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
+using UberFrba.Dominio;
 
 namespace UberFrba.Abm_Chofer
 {
     public partial class SeleccionarChoferForm : UberFrba.Abm_Chofer.TablaChoferForm
     {
-        public SeleccionarChoferForm(Form caller) : base(caller)
+        private Chofer choferSeleccionado;
+
+        public SeleccionarChoferForm(ReturningForm caller) : base(caller)
         {
             InitializeComponent();
         }
@@ -22,7 +25,15 @@ namespace UberFrba.Abm_Chofer
 
         private void buttonSeleccionar_Click(object sender, EventArgs e)
         {
+            DataRow fila = ((DataRowView)DataGridViewChofer.SelectedRows[0].DataBoundItem).Row;
+            choferSeleccionado = new Chofer(fila);
+            this.Close();
+        }
 
+        public Chofer getChofer()
+        {
+            abrir();
+            return choferSeleccionado;
         }
     }
 }

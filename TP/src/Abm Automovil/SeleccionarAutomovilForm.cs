@@ -5,12 +5,13 @@ using System.Data;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
+using UberFrba.Dominio;
 
 namespace UberFrba.Abm_Automovil
 {
     public partial class SeleccionarAutomovilForm : UberFrba.Abm_Automovil.TablaAutomovilForm
     {
-        public SeleccionarAutomovilForm()
+        public SeleccionarAutomovilForm(ReturningForm caller) : base(caller)
         {
             InitializeComponent();
         }

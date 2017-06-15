@@ -13,7 +13,7 @@ namespace UberFrba.Registro_Viajes
 {
     public partial class RegistroViajeForm : ReturningForm
     {
-        public RegistroViajeForm(Form caller) : base(caller)
+        public RegistroViajeForm(ReturningForm caller) : base(caller)
         {
             InitializeComponent();
         }

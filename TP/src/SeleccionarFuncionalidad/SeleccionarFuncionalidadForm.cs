@@ -13,7 +13,7 @@ namespace UberFrba.SeleccionarFuncionalidad
 {
     public partial class SeleccionarFuncionalidadForm : ReturningForm
     {
-        public SeleccionarFuncionalidadForm(Form caller) : base(caller)
+        public SeleccionarFuncionalidadForm(ReturningForm caller) : base(caller)
         {
             InitializeComponent();
         }
@@ -23,9 +23,8 @@ namespace UberFrba.SeleccionarFuncionalidad
             this.Close();
         }
 
-        public override void Mostrar()
+        public override void Refrescar()
         {
-            base.Mostrar();
             comboBoxFuncionalidades.Items.Clear();
             Rol.rolSeleccionado.getFuncionalidades()
                 .ForEach(f => comboBoxFuncionalidades.Items.Add(f));
@@ -35,7 +34,6 @@ namespace UberFrba.SeleccionarFuncionalidad
         {
             Funcionalidad funcionalidadSeleccionada = (Funcionalidad)comboBoxFuncionalidades.SelectedItem;
             funcionalidadSeleccionada.elegir(this);
-            this.Hide();
         }
 
     }

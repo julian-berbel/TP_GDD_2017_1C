@@ -7,11 +7,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using UberFrba.Dominio;
 
 namespace UberFrba.Abm_Chofer
 {
     public partial class EditarChoferForm : Form
     {
+        public EditarChoferForm(Chofer choferAEditar)
+        {
+            InitializeComponent();
+        }
+
         public EditarChoferForm()
         {
             InitializeComponent();

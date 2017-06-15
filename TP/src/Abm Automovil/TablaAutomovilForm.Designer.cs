@@ -37,6 +37,7 @@
             this.textBoxPatente = new System.Windows.Forms.TextBox();
             this.textBoxChofer = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
+            this.buttonFiltrar = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewAutomovil)).BeginInit();
             this.SuspendLayout();
             // 
@@ -53,7 +54,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(67, 13);
+            this.label1.Location = new System.Drawing.Point(12, 9);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(40, 13);
             this.label1.TabIndex = 9;
@@ -62,7 +63,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(67, 41);
+            this.label2.Location = new System.Drawing.Point(12, 37);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(45, 13);
             this.label2.TabIndex = 10;
@@ -71,7 +72,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(276, 13);
+            this.label3.Location = new System.Drawing.Point(221, 9);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(47, 13);
             this.label3.TabIndex = 11;
@@ -79,28 +80,28 @@
             // 
             // textBoxMarca
             // 
-            this.textBoxMarca.Location = new System.Drawing.Point(120, 10);
+            this.textBoxMarca.Location = new System.Drawing.Point(65, 6);
             this.textBoxMarca.Name = "textBoxMarca";
             this.textBoxMarca.Size = new System.Drawing.Size(150, 20);
             this.textBoxMarca.TabIndex = 12;
             // 
             // textBoxModelo
             // 
-            this.textBoxModelo.Location = new System.Drawing.Point(120, 38);
+            this.textBoxModelo.Location = new System.Drawing.Point(65, 34);
             this.textBoxModelo.Name = "textBoxModelo";
             this.textBoxModelo.Size = new System.Drawing.Size(150, 20);
             this.textBoxModelo.TabIndex = 13;
             // 
             // textBoxPatente
             // 
-            this.textBoxPatente.Location = new System.Drawing.Point(329, 10);
+            this.textBoxPatente.Location = new System.Drawing.Point(274, 6);
             this.textBoxPatente.Name = "textBoxPatente";
             this.textBoxPatente.Size = new System.Drawing.Size(150, 20);
             this.textBoxPatente.TabIndex = 14;
             // 
             // textBoxChofer
             // 
-            this.textBoxChofer.Location = new System.Drawing.Point(329, 38);
+            this.textBoxChofer.Location = new System.Drawing.Point(274, 34);
             this.textBoxChofer.Name = "textBoxChofer";
             this.textBoxChofer.Size = new System.Drawing.Size(150, 20);
             this.textBoxChofer.TabIndex = 16;
@@ -108,17 +109,27 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(276, 41);
+            this.label4.Location = new System.Drawing.Point(221, 37);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(41, 13);
             this.label4.TabIndex = 15;
             this.label4.Text = "Chofer:";
+            // 
+            // buttonFiltrar
+            // 
+            this.buttonFiltrar.Location = new System.Drawing.Point(434, 21);
+            this.buttonFiltrar.Name = "buttonFiltrar";
+            this.buttonFiltrar.Size = new System.Drawing.Size(75, 23);
+            this.buttonFiltrar.TabIndex = 17;
+            this.buttonFiltrar.Text = "Filtrar";
+            this.buttonFiltrar.UseVisualStyleBackColor = true;
             // 
             // TablaAutomovilForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(528, 286);
+            this.Controls.Add(this.buttonFiltrar);
             this.Controls.Add(this.textBoxChofer);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.textBoxPatente);
@@ -147,5 +158,6 @@
         private System.Windows.Forms.TextBox textBoxPatente;
         private System.Windows.Forms.TextBox textBoxChofer;
         private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Button buttonFiltrar;
     }
 }

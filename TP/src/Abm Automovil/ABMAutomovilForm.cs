@@ -5,33 +5,26 @@ using System.Data;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
+using UberFrba.Dominio;
 
 namespace UberFrba.Abm_Automovil
 {
     public partial class ABMAutomovilForm : UberFrba.Abm_Automovil.TablaAutomovilForm
     {
-        public ABMAutomovilForm()
-        {
-            InitializeComponent();
-        }
-
-        public ABMAutomovilForm(Form caller) : base(caller)
+        public ABMAutomovilForm(ReturningForm caller) : base(caller)
         {
             InitializeComponent();
         }
         
         private void buttonNuevo_Click(object sender, EventArgs e)
         {
-            this.Hide();
-            new EditarAutomovilForm().ShowDialog();
-            this.Mostrar();
+            new EditarAutomovilForm(this);
         }
 
         private void buttonEditar_Click(object sender, EventArgs e)
         {
-            this.Hide();
-            new EditarAutomovilForm(DataGridViewAutomovil.SelectedRows[0].Cells).ShowDialog();
-            this.Mostrar();
+            DataRow fila = ((DataRowView)DataGridViewAutomovil.SelectedRows[0].DataBoundItem).Row;
+            new EditarAutomovilForm(this, new Automovil(fila)).abrir();
         }
 
         private void buttonBorrar_Click(object sender, EventArgs e)

@@ -13,7 +13,7 @@ namespace UberFrba.Abm_Cliente
 {
     public partial class ABMClienteForm : ReturningForm
     {
-        public ABMClienteForm(Form caller) : base(caller)
+        public ABMClienteForm(ReturningForm caller) : base(caller)
         {
             InitializeComponent();
         }

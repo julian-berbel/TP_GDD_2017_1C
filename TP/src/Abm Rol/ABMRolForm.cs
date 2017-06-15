@@ -13,7 +13,7 @@ namespace UberFrba.Abm_Rol
 {
     public partial class ABMRolForm : ReturningForm
     {
-        public ABMRolForm(Form caller) : base(caller)
+        public ABMRolForm(ReturningForm caller) : base(caller)
         {
             InitializeComponent();
         }

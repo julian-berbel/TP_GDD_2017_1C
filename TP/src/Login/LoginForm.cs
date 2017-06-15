@@ -16,7 +16,7 @@ using UberFrba.SeleccionarRol;
 
 namespace UberFrba.Login
 {
-    public partial class LoginForm : Form
+    public partial class LoginForm : ReturningForm
     {
         public LoginForm()
         {
@@ -37,12 +37,10 @@ namespace UberFrba.Login
 
                 if (cantidadDeRoles == 0) Error.show("El usuario seleccionado no tiene ningún rol asignado!");
                 else if (cantidadDeRoles > 1){
-                    new SeleccionarRolForm(this).Show();
-                    this.Hide();
+                    new SeleccionarRolForm(this).abrir();
                 }else{
                     Rol.rolSeleccionado = Usuario.getRoles().First();
-                    new SeleccionarFuncionalidadForm(this).Show();
-                    this.Hide();
+                    new SeleccionarFuncionalidadForm(this).abrir();
                 }
             }
         }
@@ -50,6 +48,10 @@ namespace UberFrba.Login
         private byte[] getHashSha256(string texto)
         {
             return new SHA256Managed().ComputeHash(Encoding.UTF8.GetBytes(texto), 0, Encoding.UTF8.GetByteCount(texto));
+        }
+
+        protected override void OnFormClosing(FormClosingEventArgs e)
+        {
         }
     }
 }

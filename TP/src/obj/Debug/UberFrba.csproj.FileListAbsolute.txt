@@ -36,6 +36,7 @@ C:\Users\JuliVM\Desktop\TP_GDD_2017_1C\TP\src\bin\Debug\UberFrba.exe
 C:\Users\JuliVM\Desktop\TP_GDD_2017_1C\TP\src\bin\Debug\UberFrba.pdb
 C:\Users\JuliVM\Desktop\TP_GDD_2017_1C\TP\src\obj\Debug\UberFrba.Abm_Automovil.ABMAutomovilForm.resources
 C:\Users\JuliVM\Desktop\TP_GDD_2017_1C\TP\src\obj\Debug\UberFrba.Abm_Automovil.EditarAutomovilForm.resources
+C:\Users\JuliVM\Desktop\TP_GDD_2017_1C\TP\src\obj\Debug\UberFrba.Abm_Automovil.SeleccionarAutomovilForm.resources
 C:\Users\JuliVM\Desktop\TP_GDD_2017_1C\TP\src\obj\Debug\UberFrba.Abm_Automovil.TablaAutomovilForm.resources
 C:\Users\JuliVM\Desktop\TP_GDD_2017_1C\TP\src\obj\Debug\UberFrba.Abm_Chofer.ABMChoferForm.resources
 C:\Users\JuliVM\Desktop\TP_GDD_2017_1C\TP\src\obj\Debug\UberFrba.Abm_Chofer.SeleccionarChoferForm.resources
@@ -53,4 +54,3 @@ C:\Users\JuliVM\Desktop\TP_GDD_2017_1C\TP\src\obj\Debug\UberFrba.SeleccionarRol.
 C:\Users\JuliVM\Desktop\TP_GDD_2017_1C\TP\src\obj\Debug\UberFrba.csproj.GenerateResource.Cache
 C:\Users\JuliVM\Desktop\TP_GDD_2017_1C\TP\src\obj\Debug\UberFrba.exe
 C:\Users\JuliVM\Desktop\TP_GDD_2017_1C\TP\src\obj\Debug\UberFrba.pdb
-C:\Users\JuliVM\Desktop\TP_GDD_2017_1C\TP\src\obj\Debug\UberFrba.Abm_Automovil.SeleccionarAutomovilForm.resources

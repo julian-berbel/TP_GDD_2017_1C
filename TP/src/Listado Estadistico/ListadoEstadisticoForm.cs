@@ -13,7 +13,7 @@ namespace UberFrba.Listado_Estadistico
 {
     public partial class ListadoEstadisticoForm : ReturningForm
     {
-        public ListadoEstadisticoForm(Form caller) : base(caller)
+        public ListadoEstadisticoForm(ReturningForm caller) : base(caller)
         {
             InitializeComponent();
         }

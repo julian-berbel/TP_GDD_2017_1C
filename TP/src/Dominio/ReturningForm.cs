@@ -9,9 +9,9 @@ namespace UberFrba.Dominio
 {
     public class ReturningForm : Form
     {
-        protected Form caller;
+        protected ReturningForm caller;
 
-        public ReturningForm(Form caller)
+        public ReturningForm(ReturningForm caller)
         {
             this.caller = caller;
         }
@@ -24,9 +24,17 @@ namespace UberFrba.Dominio
             caller.Show();
         }
 
-        public virtual void Mostrar()
+        public void abrir()
         {
-            this.Show();
+            caller.Hide();
+            Refrescar();
+            ShowDialog();
+            caller.Show();
+            caller.Refrescar();
+        }
+
+        public virtual void Refrescar()
+        {
         }
 
     }

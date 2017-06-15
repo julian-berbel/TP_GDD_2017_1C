@@ -4,12 +4,14 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 using UberFrba.Dominio.Exceptions;
 
 namespace UberFrba.Dominio
 {
     public class Automovil
     {
+        public int id;
         public Chofer chofer;
         public String patente;
         public String licencia;
@@ -17,31 +19,17 @@ namespace UberFrba.Dominio
         public String modelo;
         public String marca;
 
-        public Automovil(Chofer chofer,
-                        String patente,
-                        String licencia,
-                        String rodado,
-                        String modelo,
-                        String marca){
-
-            if (chofer == null) throw new CampoVacioException("Chofer");
-            this.chofer = chofer;
-
-            if (patente == null) throw new CampoVacioException("Patente");
-            this.patente = patente;
-
-            if (licencia == null) throw new CampoVacioException("Licencia");
-            this.licencia = licencia;
-
-            if (rodado == null) throw new CampoVacioException("Rodado");
-            this.rodado = rodado;
-
-            if (modelo == null) throw new CampoVacioException("Modelo");
-            this.modelo = modelo;
-
-            if (marca == null) throw new CampoVacioException("Marca");
-            this.marca = marca;
+        public Automovil(DataRow data){
+            id = (int)data["vehi_id"];
+            chofer = Chofer.get((int)data["vehi_chofer"]);
+            patente = (String)data["vehi_patente"];
+            licencia = (String)data["vehi_licencia"];
+            rodado = (String)data["vehi_rodado"];
+            modelo = (String)data["mode_codigo"];
+            marca = (String)data["marc_nombre"];
         }
+
+        public Automovil(){ }
 
         public static DataTable getAutomoviles()
         {
@@ -49,6 +37,29 @@ namespace UberFrba.Dominio
                                     FROM LOS_MODERADAMENTE_ADECUADOS.Vehiculo
                                         JOIN LOS_MODERADAMENTE_ADECUADOS.Modelo ON mode_id = vehi_modelo
                                         JOIN LOS_MODERADAMENTE_ADECUADOS.Marca ON marc_id = mode_marca");
+        }
+
+        public void editar()
+        {
+            DB.correrProcedimiento("AUTOMOVIL_UPDATE",
+                                        "automovilId", id,
+                                        "chofer", chofer.id,
+                                        "patente", patente,
+                                        "licencia", licencia,
+                                        "rodado", rodado,
+                                        "modelo", modelo,
+                                        "marca", marca);
+        }
+
+        public void nuevo()
+        {
+            DB.correrProcedimiento("AUTOMOVIL_NUEVO",
+                                        "chofer", chofer.id,
+                                        "patente", patente,
+                                        "licencia", licencia,
+                                        "rodado", rodado,
+                                        "modelo", modelo,
+                                        "marca", marca);
         }
 
     }

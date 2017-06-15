@@ -13,7 +13,7 @@ namespace UberFrba.Abm_Turno
 {
     public partial class ABMTurnoForm : ReturningForm
     {
-        public ABMTurnoForm(Form caller) : base(caller)
+        public ABMTurnoForm(ReturningForm caller) : base(caller)
         {
             InitializeComponent();
         }

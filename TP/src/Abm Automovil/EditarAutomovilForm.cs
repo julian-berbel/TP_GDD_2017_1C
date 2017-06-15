@@ -8,15 +8,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using UberFrba.Abm_Chofer;
 using UberFrba.Dominio;
 using UberFrba.Dominio.Exceptions;
 
 namespace UberFrba.Abm_Automovil
 {
-    public partial class EditarAutomovilForm : Form
+    public partial class EditarAutomovilForm : ReturningForm
     {
         private Boolean edicion = false;
-        private int? autoAEditar = null;
+        private Automovil autoAEditar = null;
 
         private Chofer chofer;
         private String patente;
@@ -109,49 +110,46 @@ namespace UberFrba.Abm_Automovil
             }
         }
 
-        public EditarAutomovilForm()
+        public EditarAutomovilForm(ReturningForm caller) : base(caller)
         {
+            edicion = false;
+            autoAEditar = new Automovil();
             InitializeComponent();
         }
 
-        public EditarAutomovilForm(DataGridViewCellCollection autoAEditar)
+        public EditarAutomovilForm(ReturningForm caller, Automovil autoAEditar) : base(caller)
         {
-            InitializeComponent();
-
-            this.autoAEditar = (int) autoAEditar["vehi_id"].Value;
             edicion = true;
-            Chofer = Chofer.get((int)autoAEditar["vehi_chofer"].Value);
-            Patente = (String)autoAEditar["vehi_patente"].Value;
-            Licencia = (String)autoAEditar["vehi_licencia"].Value;
-            Rodado = (String)autoAEditar["vehi_rodado"].Value;
-            Modelo = (String)autoAEditar["mode_codigo"].Value;
-            Marca = (String)autoAEditar["marc_nombre"].Value;
+            this.autoAEditar = autoAEditar;
+            InitializeComponent();
+            
+            Chofer = autoAEditar.chofer;
+            Patente = autoAEditar.patente;
+            Licencia = autoAEditar.licencia;
+            Rodado = autoAEditar.rodado;
+            Modelo = autoAEditar.modelo;
+            Marca = autoAEditar.marca;
         }
 
         private void buttonAceptar_Click(object sender, EventArgs e)
         {
             try
             {
+                validar();
+                autoAEditar.chofer = Chofer;
+                autoAEditar.patente = Patente;
+                autoAEditar.licencia = Licencia;
+                autoAEditar.rodado = Rodado;
+                autoAEditar.modelo = Modelo;
+                autoAEditar.marca = Marca;
+
                 if (edicion)
                 {
-                    DB.correrProcedimiento("AUTOMOVIL_UPDATE",
-                                        "automovilId", autoAEditar,
-                                        "chofer", Chofer.id,
-                                        "patente", Patente,
-                                        "licencia", Licencia,
-                                        "rodado", Rodado,
-                                        "modelo", Modelo,
-                                        "marca", Marca);
+                    autoAEditar.editar();
                 }
                 else
                 {
-                    DB.correrProcedimiento("AUTOMOVIL_NUEVO", 
-                                        "chofer", Chofer.id,
-                                        "patente", Patente,
-                                        "licencia", Licencia,
-                                        "rodado", Rodado,
-                                        "modelo", Modelo,
-                                        "marca", Marca);
+                    autoAEditar.nuevo();
                 }
                 this.Close();
             }catch (CampoVacioException exception)
@@ -160,6 +158,16 @@ namespace UberFrba.Abm_Automovil
             }
         }
 
+        private void validar()
+        {
+            if (Chofer == null) throw new CampoVacioException("Chofer");
+            if (string.IsNullOrWhiteSpace(Patente)) throw new CampoVacioException("Patente");
+            if (string.IsNullOrWhiteSpace(Licencia)) throw new CampoVacioException("Licencia");
+            if (string.IsNullOrWhiteSpace(Rodado)) throw new CampoVacioException("Rodado");
+            if (string.IsNullOrWhiteSpace(Modelo)) throw new CampoVacioException("Modelo");
+            if (string.IsNullOrWhiteSpace(Marca)) throw new CampoVacioException("Marca");
+    }
+
         private void buttonCancelar_Click(object sender, EventArgs e)
         {
             this.Close();
@@ -167,7 +175,8 @@ namespace UberFrba.Abm_Automovil
 
         private void buttonSeleccionarChofer_Click(object sender, EventArgs e)
         {
-
+            Chofer seleccionado = new SeleccionarChoferForm(this).getChofer();
+            if (seleccionado != null) Chofer = seleccionado;
         }
     }
 }

@@ -23,7 +23,7 @@ namespace UberFrba.Dominio
         public void elegir(Form caller)
         {
             ReturningForm ventana = (ReturningForm) Activator.CreateInstance(ventanaAAbrir, caller);
-            ventana.Mostrar();
+            ventana.abrir();
         }
 
         public override string ToString()

@@ -13,7 +13,7 @@ namespace UberFrba.Abm_Chofer
 {
     public partial class TablaChoferForm : ReturningForm
     {
-        public TablaChoferForm(Form caller) : base(caller)
+        public TablaChoferForm(ReturningForm caller) : base(caller)
         {
             InitializeComponent();
         }
@@ -21,6 +21,22 @@ namespace UberFrba.Abm_Chofer
         public TablaChoferForm()
         {
             InitializeComponent();
+        }
+
+        public override void Refrescar()
+        {
+            DataTable data = Chofer.getChoferes();
+            dataGridViewChofer.DataSource = data;
+        }
+
+        public DataGridView DataGridViewChofer
+        {
+            get { return dataGridViewChofer; }
+        }
+
+        private void buttonFiltrar_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
