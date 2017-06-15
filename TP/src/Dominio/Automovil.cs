@@ -33,10 +33,26 @@ namespace UberFrba.Dominio
 
         public static DataTable getAutomoviles()
         {
-            return DB.correrQuery(@"SELECT *
+            return DB.correrQuery(@"SELECT  vehi_id, 
+                                            vehi_chofer, 
+                                            vehi_patente,
+                                            vehi_licencia,
+                                            vehi_rodado,
+                                            vehi_habilitado,
+                                            mode_codigo,
+                                            marc_nombre
                                     FROM LOS_MODERADAMENTE_ADECUADOS.Vehiculo
                                         JOIN LOS_MODERADAMENTE_ADECUADOS.Modelo ON mode_id = vehi_modelo
                                         JOIN LOS_MODERADAMENTE_ADECUADOS.Marca ON marc_id = mode_marca");
+        }
+
+        public static List<String> getMarcas()
+        {
+            return DB.correrQuery(@"SELECT marc_nombre
+                                    FROM LOS_MODERADAMENTE_ADECUADOS.Marca")
+                    .AsEnumerable()
+                    .Select(fila => fila.Field<string>("marc_nombre"))
+                    .ToList();
         }
 
         public static DataTable getAutomovilesConFiltro(int choferId,
@@ -44,7 +60,7 @@ namespace UberFrba.Dominio
                                                 String patente,
                                                 String marca)
         {
-            return DB.correrFuncionDeTabla("GET_AUTOS_CON_FILTRO",
+            return DB.correrFuncionDeTabla("GET_AUTOS_CON_FILTROS",
                                             "modelo", modelo,
                                             "patente", patente,
                                             "marca", marca,

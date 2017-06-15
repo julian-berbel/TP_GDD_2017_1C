@@ -20,11 +20,6 @@ namespace UberFrba.Abm_Automovil
         private Automovil autoAEditar = null;
 
         private Chofer chofer;
-        private String patente;
-        private String licencia;
-        private String rodado;
-        private String modelo;
-        private String marca;
 
         internal Chofer Chofer
         {
@@ -49,7 +44,6 @@ namespace UberFrba.Abm_Automovil
 
             set
             {
-                patente = value;
                 textBoxPatente.Text = value;
             }
         }
@@ -63,7 +57,6 @@ namespace UberFrba.Abm_Automovil
 
             set
             {
-                licencia = value;
                 textBoxLicencia.Text = value.ToString();
             }
         }
@@ -77,7 +70,6 @@ namespace UberFrba.Abm_Automovil
 
             set
             {
-                rodado = value;
                 textBoxRodado.Text = value;
             }
         }
@@ -91,7 +83,6 @@ namespace UberFrba.Abm_Automovil
 
             set
             {
-                modelo = value;
                 textBoxModelo.Text = value;
             }
         }
@@ -105,8 +96,7 @@ namespace UberFrba.Abm_Automovil
 
             set
             {
-                marca = value;
-                textBoxMarca.Text = marca;
+                textBoxMarca.Text = value;
             }
         }
 

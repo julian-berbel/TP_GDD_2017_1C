@@ -19,7 +19,7 @@ namespace UberFrba.Dominio
             nombre = (String)data["usua_nombre"];
             apellido = (String)data["usua_apellido"];
             dni = (decimal)data["usua_dni"];
-            usuarioSeleccionadoId = (int)data["usua_id"];
+            id = (int)data["usua_id"];
         }
 
         public static DataRow get(int id)

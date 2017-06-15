@@ -29,8 +29,16 @@ namespace UberFrba.Abm_Automovil
 
         public int Chofer {
             get {
-                int resultado;
-                return int.TryParse(textBoxChofer.Text, out resultado) ? resultado : 0;
+                if (string.IsNullOrWhiteSpace(textBoxChofer.Text)) return 0;
+                int resultado = 0;
+                try
+                {
+                    resultado = int.Parse(textBoxChofer.Text);
+                }catch(Exception e)
+                {
+                    Error.show(e.Message);
+                }
+                return resultado;
             }
         }
         public string Modelo {
@@ -47,7 +55,8 @@ namespace UberFrba.Abm_Automovil
         public string Marca {
             get
             {
-                return textBoxMarca.Text;
+                if (string.IsNullOrWhiteSpace((string)comboBoxMarca.SelectedItem)) return "";
+                return (String) comboBoxMarca.SelectedItem;
             }
         }
 
@@ -55,13 +64,18 @@ namespace UberFrba.Abm_Automovil
         {
             DataTable data = Automovil.getAutomoviles();
             dataGridViewAutomovil.DataSource = data;
+            dataGridViewAutomovil.Columns[0].Visible = false;
+            dataGridViewAutomovil.Columns[1].Visible = false;
+            comboBoxMarca.Items.Clear();
+            comboBoxMarca.Items.Add("");
+            Automovil.getMarcas().ForEach(marca => comboBoxMarca.Items.Add(marca));
         }
 
         private void buttonFiltrar_Click(object sender, EventArgs e)
         {
             if (sinFiltros()) Refrescar();
             else
-                dataGridViewAutomovil.DataSource = Automovil.getAutomovilesConFiltro(Chofer,
+                dataGridViewAutomovil.DataSource = Automovil.getAutomovilesConFiltro(   Chofer,
                                                                                         Modelo,
                                                                                         Patente,
                                                                                         Marca);

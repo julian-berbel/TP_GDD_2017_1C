@@ -32,22 +32,26 @@
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            this.textBoxMarca = new System.Windows.Forms.TextBox();
             this.textBoxModelo = new System.Windows.Forms.TextBox();
             this.textBoxPatente = new System.Windows.Forms.TextBox();
             this.textBoxChofer = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.buttonFiltrar = new System.Windows.Forms.Button();
+            this.comboBoxMarca = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewAutomovil)).BeginInit();
             this.SuspendLayout();
             // 
             // dataGridViewAutomovil
             // 
+            this.dataGridViewAutomovil.AllowUserToAddRows = false;
+            this.dataGridViewAutomovil.AllowUserToDeleteRows = false;
+            this.dataGridViewAutomovil.AllowUserToResizeRows = false;
             this.dataGridViewAutomovil.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewAutomovil.Location = new System.Drawing.Point(14, 68);
             this.dataGridViewAutomovil.MultiSelect = false;
             this.dataGridViewAutomovil.Name = "dataGridViewAutomovil";
             this.dataGridViewAutomovil.ReadOnly = true;
+            this.dataGridViewAutomovil.RowHeadersVisible = false;
             this.dataGridViewAutomovil.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridViewAutomovil.Size = new System.Drawing.Size(501, 180);
             this.dataGridViewAutomovil.TabIndex = 8;
@@ -78,13 +82,6 @@
             this.label3.Size = new System.Drawing.Size(47, 13);
             this.label3.TabIndex = 11;
             this.label3.Text = "Patente:";
-            // 
-            // textBoxMarca
-            // 
-            this.textBoxMarca.Location = new System.Drawing.Point(65, 6);
-            this.textBoxMarca.Name = "textBoxMarca";
-            this.textBoxMarca.Size = new System.Drawing.Size(150, 20);
-            this.textBoxMarca.TabIndex = 12;
             // 
             // textBoxModelo
             // 
@@ -126,17 +123,27 @@
             this.buttonFiltrar.UseVisualStyleBackColor = true;
             this.buttonFiltrar.Click += new System.EventHandler(this.buttonFiltrar_Click);
             // 
+            // comboBoxMarca
+            // 
+            this.comboBoxMarca.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxMarca.FormattingEnabled = true;
+            this.comboBoxMarca.Location = new System.Drawing.Point(65, 5);
+            this.comboBoxMarca.Name = "comboBoxMarca";
+            this.comboBoxMarca.Size = new System.Drawing.Size(150, 21);
+            this.comboBoxMarca.Sorted = true;
+            this.comboBoxMarca.TabIndex = 18;
+            // 
             // TablaAutomovilForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(528, 286);
+            this.Controls.Add(this.comboBoxMarca);
             this.Controls.Add(this.buttonFiltrar);
             this.Controls.Add(this.textBoxChofer);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.textBoxPatente);
             this.Controls.Add(this.textBoxModelo);
-            this.Controls.Add(this.textBoxMarca);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
@@ -155,11 +162,11 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.TextBox textBoxMarca;
         private System.Windows.Forms.TextBox textBoxModelo;
         private System.Windows.Forms.TextBox textBoxPatente;
         private System.Windows.Forms.TextBox textBoxChofer;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Button buttonFiltrar;
+        private System.Windows.Forms.ComboBox comboBoxMarca;
     }
 }
