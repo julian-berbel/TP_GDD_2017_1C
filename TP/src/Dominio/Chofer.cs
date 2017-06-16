@@ -42,6 +42,11 @@ namespace UberFrba.Dominio
                                          "id", id,
                                          "habilitado", habilitado);
         }
+
+        public static void inhabilitar(int id)
+        {
+            Usuario.inhabilitar("CHOFER", id);
+        }
     }
 }
 

@@ -71,5 +71,11 @@ namespace UberFrba.Dominio
                                             "apellido", apellido,
                                             "DNI", DNI);
         }
+
+        public static void inhabilitar(String tipoDeUsuario, int id)
+        {
+            DB.correrProcedimiento(tipoDeUsuario + "_INHABILITAR",
+                                            "id", id);
+        }
     }
 }

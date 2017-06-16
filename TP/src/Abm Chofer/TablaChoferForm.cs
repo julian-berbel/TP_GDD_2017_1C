@@ -21,10 +21,5 @@ namespace UberFrba.Abm_Chofer
         {
             InitializeComponent();
         }
-        
-        public override void Refrescar()
-        {
-            CargarTabla();
-        }
     }
 }

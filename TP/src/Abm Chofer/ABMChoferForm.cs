@@ -31,5 +31,11 @@ namespace UberFrba.Abm_Chofer
         {
             new NuevoChoferForm(this).abrir();
         }
+
+        private void buttonBaja_Click(object sender, EventArgs e)
+        {
+            Chofer.inhabilitar((int)DataGridViewUsuario.SelectedRows[0].Cells["usua_id"].Value);
+            CargarTabla();
+        }
     }
 }

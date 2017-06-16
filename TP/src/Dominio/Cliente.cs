@@ -45,5 +45,10 @@ namespace UberFrba.Dominio
                                          "codigoPostal", codigoPostal,
                                          "habilitado", habilitado);
         }
+
+        public static void inhabilitar(int id)
+        {
+            Usuario.inhabilitar("CLIENTE", id);
+        }
     }
 }

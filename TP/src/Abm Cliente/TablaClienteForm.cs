@@ -21,10 +21,5 @@ namespace UberFrba.Abm_Cliente
         {
             InitializeComponent();
         }
-
-        public override void Refrescar()
-        {
-            CargarTabla();
-        }
     }
 }

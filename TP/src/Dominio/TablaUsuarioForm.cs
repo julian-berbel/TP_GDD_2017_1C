@@ -18,8 +18,6 @@ namespace UberFrba.Dominio
         public TablaUsuarioForm(ReturningForm caller) : base(caller)
         {
             InitializeComponent();
-            CargarTabla();
-            dataGridViewUsuario.Columns["usua_id"].Visible = false;
         }
 
         public TablaUsuarioForm()
@@ -72,6 +70,7 @@ namespace UberFrba.Dominio
         public override void Refrescar()
         {
             CargarTabla();
+            dataGridViewUsuario.Columns["usua_id"].Visible = false;
         }
 
         protected void CargarTabla()

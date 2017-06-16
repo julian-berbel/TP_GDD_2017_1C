@@ -18,9 +18,6 @@ namespace UberFrba.Abm_Automovil
             InitializeComponent();
             comboBoxMarca.Items.Add("");
             Automovil.getMarcas().ForEach(marca => comboBoxMarca.Items.Add(marca));
-            CargarTabla();
-            dataGridViewAutomovil.Columns["vehi_chofer"].Visible = false;
-            dataGridViewAutomovil.Columns["vehi_id"].Visible = false;
         }
 
         public TablaAutomovilForm() {
@@ -68,6 +65,8 @@ namespace UberFrba.Abm_Automovil
         public override void Refrescar()
         {
             CargarTabla();
+            dataGridViewAutomovil.Columns["vehi_chofer"].Visible = false;
+            dataGridViewAutomovil.Columns["vehi_id"].Visible = false;
         }
 
         protected void CargarTabla()

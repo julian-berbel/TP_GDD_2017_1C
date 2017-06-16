@@ -31,5 +31,11 @@ namespace UberFrba.Abm_Cliente
         {
             new NuevoClienteForm(this).abrir();
         }
+
+        private void buttonBaja_Click(object sender, EventArgs e)
+        {
+            Cliente.inhabilitar((int)DataGridViewUsuario.SelectedRows[0].Cells["usua_id"].Value);
+            CargarTabla();
+        }
     }
 }
