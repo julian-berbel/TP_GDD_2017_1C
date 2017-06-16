@@ -14,18 +14,34 @@ namespace UberFrba.Dominio
         {
         }
 
+        public Chofer() {}
+
         new public static Chofer get(int id)
         {
-            return new Chofer(Usuario.get(id));
+            return new Chofer(DB.correrFuncionDeTabla("CHOFER_GET",
+                                                        "id", id).Rows[0]);
         }
 
-        public static DataTable getChoferes()
+        public void editar()
         {
-            return DB.correrQuery(@"SELECT * 
-                                    FROM LOS_MODERADAMENTE_ADECUADOS.Chofer
-                                        JOIN LOS_MODERADAMENTE_ADECUADOS.Usuario ON chof_id = usua_id");
+            DB.correrProcedimiento("CHOFER_UPDATE",
+                                        "id", id,
+                                         "nombre", nombre,
+                                         "apellido", apellido,
+                                         "dni", dni,
+                                         "mail", mail,
+                                         "telefono", telefono,
+                                         "domicilio", domicilio,
+                                         "fechaNac", fechaNac,
+                                         "habilitado", habilitado);
         }
-        
+
+        public static void nuevo(int id, Boolean habilitado)
+        {
+            DB.correrProcedimiento("CHOFER_NUEVO",
+                                         "id", id,
+                                         "habilitado", habilitado);
+        }
     }
 }
 

@@ -94,6 +94,12 @@
     <Compile Include="Abm Chofer\ABMChoferForm.Designer.cs">
       <DependentUpon>ABMChoferForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Abm Chofer\NuevoChoferForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Abm Chofer\NuevoChoferForm.Designer.cs">
+      <DependentUpon>NuevoChoferForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Abm Chofer\EditarChoferForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -117,6 +123,18 @@
     </Compile>
     <Compile Include="Abm Cliente\ABMClienteForm.Designer.cs">
       <DependentUpon>ABMClienteForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Abm Cliente\NuevoClienteForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Abm Cliente\NuevoClienteForm.Designer.cs">
+      <DependentUpon>NuevoClienteForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Abm Cliente\EditarClienteForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Abm Cliente\EditarClienteForm.Designer.cs">
+      <DependentUpon>EditarClienteForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Abm Cliente\SeleccionarClienteForm.cs">
       <SubType>Form</SubType>
@@ -154,6 +172,12 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Dominio\Rol.cs" />
+    <Compile Include="Dominio\SeleccionarUsuarioForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dominio\SeleccionarUsuarioForm.Designer.cs">
+      <DependentUpon>SeleccionarUsuarioForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Dominio\Usuario.cs" />
     <Compile Include="Facturacion\FacturacionForm.cs">
       <SubType>Form</SubType>
@@ -220,6 +244,9 @@
     <EmbeddedResource Include="Abm Chofer\ABMChoferForm.resx">
       <DependentUpon>ABMChoferForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Abm Chofer\NuevoChoferForm.resx">
+      <DependentUpon>NuevoChoferForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Abm Chofer\EditarChoferForm.resx">
       <DependentUpon>EditarChoferForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -229,11 +256,23 @@
     <EmbeddedResource Include="Abm Cliente\ABMClienteForm.resx">
       <DependentUpon>ABMClienteForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Abm Cliente\NuevoClienteForm.resx">
+      <DependentUpon>NuevoClienteForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Abm Cliente\EditarClienteForm.resx">
+      <DependentUpon>EditarClienteForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Abm Cliente\SeleccionarClienteForm.resx">
       <DependentUpon>SeleccionarClienteForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Abm Rol\ABMRolForm.resx">
       <DependentUpon>ABMRolForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Abm Turno\ABMTurnoForm.resx">
+      <DependentUpon>ABMTurnoForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dominio\SeleccionarUsuarioForm.resx">
+      <DependentUpon>SeleccionarUsuarioForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Facturacion\FacturacionForm.resx">
       <DependentUpon>FacturacionForm.cs</DependentUpon>

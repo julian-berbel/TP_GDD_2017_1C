@@ -18,33 +18,20 @@ namespace UberFrba.Dominio
         public String rodado;
         public String modelo;
         public String marca;
+        public Boolean habilitado;
 
         public Automovil(DataRow data){
             id = (int)data["vehi_id"];
             chofer = Chofer.get((int)data["vehi_chofer"]);
-            patente = (String)data["vehi_patente"];
-            licencia = (String)data["vehi_licencia"];
-            rodado = (String)data["vehi_rodado"];
-            modelo = (String)data["mode_codigo"];
-            marca = (String)data["marc_nombre"];
+            patente = (String)data["Patente"];
+            licencia = (String)data["Licencia"];
+            rodado = (String)data["Rodado"];
+            modelo = (String)data["Modelo"];
+            marca = (String)data["Marca"];
+            habilitado = (Boolean)data["Habilitado"];
         }
 
         public Automovil(){ }
-
-        public static DataTable getAutomoviles()
-        {
-            return DB.correrQuery(@"SELECT  vehi_id, 
-                                            vehi_chofer, 
-                                            vehi_patente,
-                                            vehi_licencia,
-                                            vehi_rodado,
-                                            vehi_habilitado,
-                                            mode_codigo,
-                                            marc_nombre
-                                    FROM LOS_MODERADAMENTE_ADECUADOS.Vehiculo
-                                        JOIN LOS_MODERADAMENTE_ADECUADOS.Modelo ON mode_id = vehi_modelo
-                                        JOIN LOS_MODERADAMENTE_ADECUADOS.Marca ON marc_id = mode_marca");
-        }
 
         public static List<String> getMarcas()
         {
@@ -76,7 +63,8 @@ namespace UberFrba.Dominio
                                         "licencia", licencia,
                                         "rodado", rodado,
                                         "modelo", modelo,
-                                        "marca", marca);
+                                        "marca", marca,
+                                        "habilitado", habilitado);
         }
 
         public void nuevo()
@@ -87,7 +75,14 @@ namespace UberFrba.Dominio
                                         "licencia", licencia,
                                         "rodado", rodado,
                                         "modelo", modelo,
-                                        "marca", marca);
+                                        "marca", marca,
+                                        "habilitado", habilitado);
+        }
+
+        public static void inhabilitar (int idAutomovil)
+        {
+            DB.correrProcedimiento("AUTOMOVIL_INHABILITAR",
+                                   "idAutomovil", idAutomovil);
         }
 
     }

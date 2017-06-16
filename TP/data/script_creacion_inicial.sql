@@ -66,9 +66,6 @@ IF OBJECT_ID('LOS_MODERADAMENTE_ADECUADOS.SPLOGIN') IS NOT NULL
 IF OBJECT_ID('LOS_MODERADAMENTE_ADECUADOS.ROL_INHABILITAR') IS NOT NULL
     DROP PROCEDURE LOS_MODERADAMENTE_ADECUADOS.ROL_INHABILITAR;
 
-IF OBJECT_ID('LOS_MODERADAMENTE_ADECUADOS.ROL_REHABILITAR') IS NOT NULL
-    DROP PROCEDURE LOS_MODERADAMENTE_ADECUADOS.ROL_REHABILITAR;
-
 IF OBJECT_ID('LOS_MODERADAMENTE_ADECUADOS.ROL_AGREGAR_FUNCIONALIDAD') IS NOT NULL
     DROP PROCEDURE LOS_MODERADAMENTE_ADECUADOS.ROL_AGREGAR_FUNCIONALIDAD;
 
@@ -81,6 +78,21 @@ IF OBJECT_ID('LOS_MODERADAMENTE_ADECUADOS.AUTOMOVIL_UPDATE') IS NOT NULL
 IF OBJECT_ID('LOS_MODERADAMENTE_ADECUADOS.AUTOMOVIL_NUEVO') IS NOT NULL
     DROP PROCEDURE LOS_MODERADAMENTE_ADECUADOS.AUTOMOVIL_NUEVO;
 
+IF OBJECT_ID('LOS_MODERADAMENTE_ADECUADOS.CLIENTE_UPDATE') IS NOT NULL
+    DROP PROCEDURE LOS_MODERADAMENTE_ADECUADOS.CLIENTE_UPDATE;
+
+IF OBJECT_ID('LOS_MODERADAMENTE_ADECUADOS.CLIENTE_NUEVO') IS NOT NULL
+    DROP PROCEDURE LOS_MODERADAMENTE_ADECUADOS.CLIENTE_NUEVO;
+
+IF OBJECT_ID('LOS_MODERADAMENTE_ADECUADOS.CHOFER_UPDATE') IS NOT NULL
+    DROP PROCEDURE LOS_MODERADAMENTE_ADECUADOS.CHOFER_UPDATE;
+
+IF OBJECT_ID('LOS_MODERADAMENTE_ADECUADOS.CHOFER_NUEVO') IS NOT NULL
+    DROP PROCEDURE LOS_MODERADAMENTE_ADECUADOS.CHOFER_NUEVO;
+
+IF OBJECT_ID('LOS_MODERADAMENTE_ADECUADOS.AUTOMOVIL_INHABILITAR') IS NOT NULL
+    DROP PROCEDURE LOS_MODERADAMENTE_ADECUADOS.AUTOMOVIL_INHABILITAR;
+	
 IF OBJECT_ID('LOS_MODERADAMENTE_ADECUADOS.GET_ID_USUARIO') IS NOT NULL
     DROP FUNCTION LOS_MODERADAMENTE_ADECUADOS.GET_ID_USUARIO;
 
@@ -99,6 +111,12 @@ IF OBJECT_ID('LOS_MODERADAMENTE_ADECUADOS.ROL_GET_FUNCIONALIDADES') IS NOT NULL
 IF OBJECT_ID('LOS_MODERADAMENTE_ADECUADOS.USUARIO_GET') IS NOT NULL
     DROP FUNCTION LOS_MODERADAMENTE_ADECUADOS.USUARIO_GET;
 
+IF OBJECT_ID('LOS_MODERADAMENTE_ADECUADOS.CLIENTE_GET') IS NOT NULL
+    DROP FUNCTION LOS_MODERADAMENTE_ADECUADOS.CLIENTE_GET;
+
+IF OBJECT_ID('LOS_MODERADAMENTE_ADECUADOS.CHOFER_GET') IS NOT NULL
+    DROP FUNCTION LOS_MODERADAMENTE_ADECUADOS.CHOFER_GET;
+
 IF OBJECT_ID('LOS_MODERADAMENTE_ADECUADOS.GET_AUTOS_CON_FILTROS') IS NOT NULL
     DROP FUNCTION LOS_MODERADAMENTE_ADECUADOS.GET_AUTOS_CON_FILTROS;
 
@@ -108,6 +126,12 @@ IF OBJECT_ID('LOS_MODERADAMENTE_ADECUADOS.GET_CHOFERES_CON_FILTROS') IS NOT NULL
 IF OBJECT_ID('LOS_MODERADAMENTE_ADECUADOS.GET_CLIENTES_CON_FILTROS') IS NOT NULL
     DROP FUNCTION LOS_MODERADAMENTE_ADECUADOS.GET_CLIENTES_CON_FILTROS;
 
+IF OBJECT_ID('LOS_MODERADAMENTE_ADECUADOS.GET_USUARIOS_CON_FILTROS') IS NOT NULL
+    DROP FUNCTION LOS_MODERADAMENTE_ADECUADOS.GET_USUARIOS_CON_FILTROS;
+
+IF OBJECT_ID('LOS_MODERADAMENTE_ADECUADOS.CLIENTE_GET_CODIGO_POSTAL') IS NOT NULL
+    DROP FUNCTION LOS_MODERADAMENTE_ADECUADOS.CLIENTE_GET_CODIGO_POSTAL;
+	
 IF EXISTS (SELECT SCHEMA_NAME FROM INFORMATION_SCHEMA.SCHEMATA WHERE SCHEMA_NAME = 'LOS_MODERADAMENTE_ADECUADOS')
     DROP SCHEMA LOS_MODERADAMENTE_ADECUADOS
 GO
@@ -466,10 +490,10 @@ BEGIN
 END
 GO
 
-CREATE PROC LOS_MODERADAMENTE_ADECUADOS.ROL_REHABILITAR(@rol TINYINT) AS
+CREATE PROC LOS_MODERADAMENTE_ADECUADOS.AUTOMOVIL_INHABILITAR(@idAutomovil INT) AS
 BEGIN
-	UPDATE LOS_MODERADAMENTE_ADECUADOS.Rol SET rol_habilitado = 1
-	WHERE rol_id = @rol
+	UPDATE LOS_MODERADAMENTE_ADECUADOS.Vehiculo SET vehi_habilitado = 0
+	WHERE vehi_id = @idAutomovil
 END
 GO
 
@@ -528,19 +552,66 @@ AS
 				WHERE cod_rol = @rolId)
 GO
 
-CREATE FUNCTION LOS_MODERADAMENTE_ADECUADOS.USUARIO_GET(@usuarioId INT) RETURNS TABLE
+CREATE FUNCTION LOS_MODERADAMENTE_ADECUADOS.USUARIO_GET(@id INT) RETURNS TABLE
 AS
-	RETURN (SELECT usua_id, usua_nombre, usua_apellido, usua_dni
+	RETURN (SELECT  usua_id,
+					usua_nombre AS Nombre,
+					usua_apellido AS Apellido,
+					usua_dni AS DNI,
+					cont_mail AS Mail,
+					cont_telefono AS Telefono,
+					cont_domicilio AS Domicilio,
+					usua_fecha_nacimiento AS Fecha_Nac,
+					logi_habilitado AS Habilitado
 			FROM LOS_MODERADAMENTE_ADECUADOS.Usuario
-			WHERE usua_id = @usuarioId)
+				JOIN LOS_MODERADAMENTE_ADECUADOS.Contacto ON (cont_id = usua_id)
+				JOIN LOS_MODERADAMENTE_ADECUADOS.Login_Usuario ON (logi_id = usua_id)
+			WHERE usua_id = @id)
 GO
 
-CREATE PROC LOS_MODERADAMENTE_ADECUADOS.AUTOMOVIL_UPDATE(@automovilId INT, @chofer INT, @patente VARCHAR(10), @licencia VARCHAR(26), @rodado VARCHAR(10), @modelo VARCHAR(255), @marca VARCHAR(255))
+CREATE FUNCTION LOS_MODERADAMENTE_ADECUADOS.CLIENTE_GET(@id INT) RETURNS TABLE
+AS
+	RETURN (SELECT  usua_id,
+					usua_nombre AS Nombre,
+					usua_apellido AS Apellido,
+					usua_dni AS DNI,
+					cont_mail AS Mail,
+					cont_telefono AS Telefono,
+					cont_domicilio AS Domicilio,
+					usua_fecha_nacimiento AS Fecha_Nac,
+					clie_codigo_postal AS Codigo_Postal,
+					clie_habilitado AS Habilitado
+			FROM LOS_MODERADAMENTE_ADECUADOS.Usuario
+				JOIN LOS_MODERADAMENTE_ADECUADOS.Cliente ON (clie_id = usua_id)
+				JOIN LOS_MODERADAMENTE_ADECUADOS.Contacto ON (cont_id = usua_id)
+			WHERE usua_id = @id)
+GO
+
+CREATE FUNCTION LOS_MODERADAMENTE_ADECUADOS.CHOFER_GET(@id INT) RETURNS TABLE
+AS
+	RETURN (SELECT  usua_id,
+					usua_nombre AS Nombre,
+					usua_apellido AS Apellido,
+					usua_dni AS DNI,
+					cont_mail AS Mail,
+					cont_telefono AS Telefono,
+					cont_domicilio AS Domicilio,
+					usua_fecha_nacimiento AS Fecha_Nac,
+					chof_habilitado AS Habilitado
+			FROM LOS_MODERADAMENTE_ADECUADOS.Usuario
+				JOIN LOS_MODERADAMENTE_ADECUADOS.Chofer ON (chof_id = usua_id)
+				JOIN LOS_MODERADAMENTE_ADECUADOS.Contacto ON (cont_id = usua_id)
+			WHERE usua_id = @id)
+GO
+
+CREATE PROC LOS_MODERADAMENTE_ADECUADOS.AUTOMOVIL_UPDATE(@automovilId INT, @chofer INT, @patente VARCHAR(10), @licencia VARCHAR(26), @rodado VARCHAR(10), @modelo VARCHAR(255), @marca VARCHAR(255), @habilitado BIT)
 AS
 BEGIN
 	DECLARE @_modelo INT = (SELECT mode_id FROM LOS_MODERADAMENTE_ADECUADOS.Modelo WHERE mode_codigo = @modelo)
+	IF(@_modelo IS NULL) INSERT LOS_MODERADAMENTE_ADECUADOS.Modelo VALUES
+							(@modelo, (SELECT marc_id FROM LOS_MODERADAMENTE_ADECUADOS.Marca WHERE marc_nombre = @marca))
 
-	UPDATE LOS_MODERADAMENTE_ADECUADOS.Vehiculo SET vehi_chofer = @chofer, vehi_patente = @patente, vehi_licencia = @licencia, vehi_rodado = @rodado, vehi_modelo = @_modelo
+	UPDATE LOS_MODERADAMENTE_ADECUADOS.Vehiculo SET vehi_chofer = @chofer, vehi_patente = @patente, vehi_licencia = @licencia, vehi_rodado = @rodado, vehi_modelo = ISNULL(@_modelo, SCOPE_IDENTITY()), vehi_habilitado = @habilitado
 	WHERE vehi_id = @automovilId
 	
 	UPDATE LOS_MODERADAMENTE_ADECUADOS.Modelo SET mode_marca = (SELECT marc_id FROM LOS_MODERADAMENTE_ADECUADOS.Marca WHERE marc_nombre = @marca)
@@ -548,7 +619,7 @@ BEGIN
 END
 GO
 
-CREATE PROC LOS_MODERADAMENTE_ADECUADOS.AUTOMOVIL_NUEVO(@chofer INT, @patente VARCHAR(10), @licencia VARCHAR(26), @rodado VARCHAR(10), @modelo VARCHAR(255), @marca VARCHAR(255))
+CREATE PROC LOS_MODERADAMENTE_ADECUADOS.AUTOMOVIL_NUEVO(@chofer INT, @patente VARCHAR(10), @licencia VARCHAR(26), @rodado VARCHAR(10), @modelo VARCHAR(255), @marca VARCHAR(255), @habilitado BIT)
 AS
 BEGIN
 	DECLARE @_modelo INT = (SELECT mode_id FROM LOS_MODERADAMENTE_ADECUADOS.Modelo WHERE mode_codigo = @modelo)
@@ -556,7 +627,92 @@ BEGIN
 							(@modelo, (SELECT marc_id FROM LOS_MODERADAMENTE_ADECUADOS.Marca WHERE marc_nombre = @marca))
 
 	INSERT LOS_MODERADAMENTE_ADECUADOS.Vehiculo VALUES
-		(@chofer, @patente, @licencia, @rodado, ISNULL(@_modelo, SCOPE_IDENTITY()), 1)
+		(@chofer, @patente, @licencia, @rodado, ISNULL(@_modelo, SCOPE_IDENTITY()), @habilitado)
+END
+GO
+
+CREATE PROC LOS_MODERADAMENTE_ADECUADOS.CHOFER_UPDATE(	@id INT,
+														@nombre VARCHAR(255),
+														@apellido VARCHAR(255),
+														@dni NUMERIC(18,0),
+														@mail VARCHAR(255),
+														@telefono NUMERIC(18,0),
+														@domicilio VARCHAR(255),
+														@fechaNac DATETIME,
+														@habilitado BIT)
+AS
+BEGIN
+	UPDATE LOS_MODERADAMENTE_ADECUADOS.Chofer SET chof_habilitado = @habilitado
+	WHERE chof_id = @id
+	
+	UPDATE LOS_MODERADAMENTE_ADECUADOS.Usuario SET	usua_nombre = @nombre, 
+													usua_apellido = @apellido,
+													usua_dni = @dni,
+													usua_fecha_nacimiento = @fechaNac
+	WHERE usua_id = @id
+
+	UPDATE LOS_MODERADAMENTE_ADECUADOS.Contacto SET	cont_mail = @mail,
+													cont_telefono = @telefono,
+													cont_domicilio = @domicilio
+	WHERE cont_id = @id
+END
+GO
+
+CREATE PROC LOS_MODERADAMENTE_ADECUADOS.CHOFER_NUEVO(	@id INT,
+														@habilitado BIT)
+AS
+BEGIN
+	INSERT LOS_MODERADAMENTE_ADECUADOS.Chofer VALUES
+		(@id, @habilitado)
+	IF(@habilitado = 1)
+	BEGIN
+		INSERT LOS_MODERADAMENTE_ADECUADOS.Rol_X_Login_Usuario VALUES
+			(3, @id)
+	END
+END
+GO
+
+CREATE PROC LOS_MODERADAMENTE_ADECUADOS.CLIENTE_UPDATE(	@id INT,
+														@nombre VARCHAR(255),
+														@apellido VARCHAR(255),
+														@dni NUMERIC(18,0),
+														@mail VARCHAR(255),
+														@telefono NUMERIC(18,0),
+														@domicilio VARCHAR(255),
+														@fechaNac DATETIME,
+														@codigoPostal NUMERIC(18,0),
+														@habilitado BIT)
+AS
+BEGIN
+	UPDATE LOS_MODERADAMENTE_ADECUADOS.Cliente SET	clie_habilitado = @habilitado,
+													clie_codigo_postal = @codigoPostal
+	WHERE clie_id = @id
+	
+	UPDATE LOS_MODERADAMENTE_ADECUADOS.Usuario SET	usua_nombre = @nombre, 
+													usua_apellido = @apellido,
+													usua_dni = @dni,
+													usua_fecha_nacimiento = @fechaNac
+	WHERE usua_id = @id
+
+	UPDATE LOS_MODERADAMENTE_ADECUADOS.Contacto SET	cont_mail = @mail,
+													cont_telefono = @telefono,
+													cont_domicilio = @domicilio
+	WHERE cont_id = @id
+END
+GO
+
+CREATE PROC LOS_MODERADAMENTE_ADECUADOS.CLIENTE_NUEVO(	@id INT,
+														@codigoPostal NUMERIC(18,0),
+														@habilitado BIT)
+AS
+BEGIN
+	INSERT LOS_MODERADAMENTE_ADECUADOS.Cliente VALUES
+		(@id, @codigoPostal, @habilitado)
+	IF(@habilitado = 1)
+	BEGIN
+		INSERT LOS_MODERADAMENTE_ADECUADOS.Rol_X_Login_Usuario VALUES
+			(2, @id)
+	END
 END
 GO
 
@@ -568,12 +724,12 @@ RETURNS TABLE
 AS 
 	RETURN	(SELECT vehi_id, 
                     vehi_chofer, 
-                    vehi_patente,
-                    vehi_licencia,
-                    vehi_rodado,
-                    vehi_habilitado,
-                    mode_codigo,
-                    marc_nombre
+                    vehi_patente AS Patente,
+                    vehi_licencia AS Licencia,
+                    vehi_rodado AS Rodado,
+                    mode_codigo AS Modelo,
+                    marc_nombre AS Marca,
+                    vehi_habilitado AS Habilitado
 			FROM LOS_MODERADAMENTE_ADECUADOS.Vehiculo
 				JOIN LOS_MODERADAMENTE_ADECUADOS.Chofer ON (vehi_chofer = chof_id)
 				JOIN LOS_MODERADAMENTE_ADECUADOS.Modelo ON (vehi_modelo = mode_id)
@@ -586,12 +742,22 @@ GO
 
 CREATE FUNCTION LOS_MODERADAMENTE_ADECUADOS.GET_CHOFERES_CON_FILTROS (@nombre varchar(255),			
 																	 @apellido varchar(255),
-																	 @dni numeric(18,0))
+																	 @dni numeric(18,0),
+																	 @rolAFiltrar TINYINT)
 RETURNS TABLE
 AS 
-	RETURN	(SELECT *
+	RETURN	(SELECT  usua_id,
+					 usua_nombre AS Nombre,
+					 usua_apellido AS Apellido,
+					 usua_dni AS DNI,
+					 cont_mail AS Mail,
+					 cont_telefono AS Telefono,
+					 cont_domicilio AS Domicilio,
+					 usua_fecha_nacimiento AS Fecha_Nac,
+					 chof_habilitado AS Habilitado
 			FROM LOS_MODERADAMENTE_ADECUADOS.Chofer
 				JOIN LOS_MODERADAMENTE_ADECUADOS.Usuario ON (chof_id = usua_id)
+				JOIN LOS_MODERADAMENTE_ADECUADOS.Contacto ON (cont_id = usua_id)
 			WHERE (@nombre = '' OR CHARINDEX(@nombre, usua_nombre) > 0) AND
 				(@apellido = '' OR CHARINDEX(@apellido, usua_apellido) > 0) AND
 				(@dni = 0 OR @dni = usua_dni))
@@ -599,13 +765,60 @@ GO
 
 CREATE FUNCTION LOS_MODERADAMENTE_ADECUADOS.GET_CLIENTES_CON_FILTROS (@nombre varchar(255),			
 																	 @apellido varchar(255),
-																	 @dni numeric(18,0))
+																	 @dni numeric(18,0),
+																	 @rolAFiltrar TINYINT)
 RETURNS TABLE
 AS 
-	RETURN	(SELECT *
+	RETURN	(SELECT  usua_id,
+					 usua_nombre AS Nombre,
+					 usua_apellido AS Apellido,
+					 usua_dni AS DNI,
+					 cont_mail AS Mail,
+					 cont_telefono AS Telefono,
+					 cont_domicilio AS Domicilio,
+					 clie_codigo_postal AS Codigo_Postal,
+					 usua_fecha_nacimiento AS Fecha_Nac,
+					 clie_habilitado AS Habilitado
 			FROM LOS_MODERADAMENTE_ADECUADOS.Cliente
 				JOIN LOS_MODERADAMENTE_ADECUADOS.Usuario ON (clie_id = usua_id)
+				JOIN LOS_MODERADAMENTE_ADECUADOS.Contacto ON (cont_id = usua_id)
 			WHERE (@nombre = '' OR CHARINDEX(@nombre, usua_nombre) > 0) AND
 				(@apellido = '' OR CHARINDEX(@apellido, usua_apellido) > 0) AND
 				(@dni = 0 OR @dni = usua_dni))
+GO
+
+CREATE FUNCTION LOS_MODERADAMENTE_ADECUADOS.GET_USUARIOS_CON_FILTROS (@nombre varchar(255),			
+																	 @apellido varchar(255),
+																	 @dni numeric(18,0),
+																	 @rolAFiltrar TINYINT)
+RETURNS TABLE
+AS 
+	RETURN	(SELECT  usua_id,
+					 usua_nombre AS Nombre,
+					 usua_apellido AS Apellido,
+					 usua_dni AS DNI,
+					 cont_mail AS Mail,
+					 cont_telefono AS Telefono,
+					 cont_domicilio AS Domicilio,
+					 usua_fecha_nacimiento AS Fecha_Nac,
+					 logi_habilitado AS Habilitado
+			FROM LOS_MODERADAMENTE_ADECUADOS.Usuario
+				JOIN LOS_MODERADAMENTE_ADECUADOS.Contacto ON (cont_id = usua_id)
+				JOIN LOS_MODERADAMENTE_ADECUADOS.Login_Usuario ON (logi_id = usua_id)
+			WHERE (@nombre = '' OR CHARINDEX(@nombre, usua_nombre) > 0) AND
+				(@apellido = '' OR CHARINDEX(@apellido, usua_apellido) > 0) AND
+				(@dni = 0 OR @dni = usua_dni) AND
+				usua_id NOT IN (SELECT cod_login
+								FROM LOS_MODERADAMENTE_ADECUADOS.Rol_X_Login_Usuario
+								WHERE cod_rol = @rolAFiltrar))
+GO
+
+CREATE FUNCTION LOS_MODERADAMENTE_ADECUADOS.CLIENTE_GET_CODIGO_POSTAL(@id INT)
+RETURNS INT
+AS
+BEGIN
+	RETURN	(SELECT	clie_codigo_postal AS Codigo_Postal
+			FROM LOS_MODERADAMENTE_ADECUADOS.Cliente
+			WHERE clie_id = @id)
+END
 GO

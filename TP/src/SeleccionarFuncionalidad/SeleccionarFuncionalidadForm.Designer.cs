@@ -81,7 +81,9 @@
             this.Controls.Add(this.comboBoxFuncionalidades);
             this.Controls.Add(this.buttonAtras);
             this.Controls.Add(this.buttonContinuar);
+            this.MaximizeBox = false;
             this.Name = "SeleccionarFuncionalidadForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Seleccionar Funcionalidad";
             this.ResumeLayout(false);
             this.PerformLayout();

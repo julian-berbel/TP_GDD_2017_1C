@@ -34,7 +34,8 @@ namespace UberFrba.Abm_Automovil
 
         private void buttonBaja_Click(object sender, EventArgs e)
         {
-
+            Automovil.inhabilitar((int)DataGridViewAutomovil.SelectedRows[0].Cells["vehi_id"].Value);
+            CargarTabla();
         }
     }
 }

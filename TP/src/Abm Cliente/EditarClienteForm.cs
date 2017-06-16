@@ -10,26 +10,27 @@ using System.Windows.Forms;
 using UberFrba.Dominio;
 using UberFrba.Dominio.Exceptions;
 
-namespace UberFrba.Abm_Chofer
+namespace UberFrba.Abm_Cliente
 {
-    public partial class EditarChoferForm : ReturningForm
+    public partial class EditarClienteForm : ReturningForm
     {
-        public EditarChoferForm(ReturningForm caller, Chofer choferAEditar) : base(caller)
+        public EditarClienteForm(ReturningForm caller, Cliente clienteAEditar) : base(caller)
         {
-            this.choferAEditar = choferAEditar;
+            this.clienteAEditar = clienteAEditar;
             InitializeComponent();
 
-            Nombre = choferAEditar.nombre;
-            Apellido = choferAEditar.apellido;
-            DNI = choferAEditar.dni;
-            Domicilio = choferAEditar.domicilio;
-            Telefono = choferAEditar.telefono;
-            Mail = choferAEditar.mail;
-            FechaNac = choferAEditar.fechaNac;
-            Habilitado = choferAEditar.habilitado;
+            Nombre = clienteAEditar.nombre;
+            Apellido = clienteAEditar.apellido;
+            DNI = clienteAEditar.dni;
+            Domicilio = clienteAEditar.domicilio;
+            Telefono = clienteAEditar.telefono;
+            Mail = clienteAEditar.mail;
+            FechaNac = clienteAEditar.fechaNac;
+            CodigoPostal = clienteAEditar.codigoPostal;
+            Habilitado = clienteAEditar.habilitado;
         }
-        
-        private Chofer choferAEditar = null;
+
+        private Cliente clienteAEditar = null;
 
         public string Nombre
         {
@@ -142,6 +143,28 @@ namespace UberFrba.Abm_Chofer
             }
         }
 
+        public decimal CodigoPostal
+        {
+            get
+            {
+                if (string.IsNullOrWhiteSpace(textBoxCodigoPostal.Text)) return 0;
+                decimal resultado = 0;
+                try
+                {
+                    resultado = decimal.Parse(textBoxCodigoPostal.Text);
+                }
+                catch (Exception e)
+                {
+                    Error.show(e.Message);
+                }
+                return resultado;
+            }
+            set
+            {
+                textBoxCodigoPostal.Text = value.ToString();
+            }
+        }
+
         public bool Habilitado
         {
             get
@@ -160,16 +183,17 @@ namespace UberFrba.Abm_Chofer
             try
             {
                 validar();
-                choferAEditar.nombre = Nombre;
-                choferAEditar.apellido = Apellido;
-                choferAEditar.dni = DNI;
-                choferAEditar.domicilio = Domicilio;
-                choferAEditar.telefono = Telefono;
-                choferAEditar.mail = Mail;
-                choferAEditar.fechaNac = FechaNac;
-                choferAEditar.habilitado = Habilitado;
+                clienteAEditar.nombre = Nombre;
+                clienteAEditar.apellido = Apellido;
+                clienteAEditar.dni = DNI;
+                clienteAEditar.domicilio = Domicilio;
+                clienteAEditar.telefono = Telefono;
+                clienteAEditar.mail = Mail;
+                clienteAEditar.fechaNac = FechaNac;
+                clienteAEditar.codigoPostal = CodigoPostal;
+                clienteAEditar.habilitado = Habilitado;
 
-                choferAEditar.editar();
+                clienteAEditar.editar();
 
                 this.Close();
             }
@@ -187,6 +211,7 @@ namespace UberFrba.Abm_Chofer
             if (string.IsNullOrWhiteSpace(Domicilio)) throw new CampoVacioException("Domicilio");
             if (Telefono == 0) throw new CampoVacioException("Telefono");
             if (FechaNac == null) throw new CampoVacioException("FechaNac");
+            if (CodigoPostal == 0) throw new CampoVacioException("Codigo Postal");
         }
 
         private void buttonCancelar_Click(object sender, EventArgs e)

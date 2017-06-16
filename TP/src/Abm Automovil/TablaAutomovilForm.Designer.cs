@@ -38,6 +38,7 @@
             this.label4 = new System.Windows.Forms.Label();
             this.buttonFiltrar = new System.Windows.Forms.Button();
             this.comboBoxMarca = new System.Windows.Forms.ComboBox();
+            this.buttonLimpiar = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewAutomovil)).BeginInit();
             this.SuspendLayout();
             // 
@@ -46,6 +47,7 @@
             this.dataGridViewAutomovil.AllowUserToAddRows = false;
             this.dataGridViewAutomovil.AllowUserToDeleteRows = false;
             this.dataGridViewAutomovil.AllowUserToResizeRows = false;
+            this.dataGridViewAutomovil.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
             this.dataGridViewAutomovil.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewAutomovil.Location = new System.Drawing.Point(14, 68);
             this.dataGridViewAutomovil.MultiSelect = false;
@@ -115,7 +117,7 @@
             // 
             // buttonFiltrar
             // 
-            this.buttonFiltrar.Location = new System.Drawing.Point(434, 21);
+            this.buttonFiltrar.Location = new System.Drawing.Point(440, 5);
             this.buttonFiltrar.Name = "buttonFiltrar";
             this.buttonFiltrar.Size = new System.Drawing.Size(75, 23);
             this.buttonFiltrar.TabIndex = 17;
@@ -133,11 +135,22 @@
             this.comboBoxMarca.Sorted = true;
             this.comboBoxMarca.TabIndex = 18;
             // 
+            // buttonLimpiar
+            // 
+            this.buttonLimpiar.Location = new System.Drawing.Point(440, 34);
+            this.buttonLimpiar.Name = "buttonLimpiar";
+            this.buttonLimpiar.Size = new System.Drawing.Size(75, 23);
+            this.buttonLimpiar.TabIndex = 19;
+            this.buttonLimpiar.Text = "Limpiar";
+            this.buttonLimpiar.UseVisualStyleBackColor = true;
+            this.buttonLimpiar.Click += new System.EventHandler(this.buttonLimpiar_Click);
+            // 
             // TablaAutomovilForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(528, 286);
+            this.Controls.Add(this.buttonLimpiar);
             this.Controls.Add(this.comboBoxMarca);
             this.Controls.Add(this.buttonFiltrar);
             this.Controls.Add(this.textBoxChofer);
@@ -168,5 +181,6 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Button buttonFiltrar;
         private System.Windows.Forms.ComboBox comboBoxMarca;
+        private System.Windows.Forms.Button buttonLimpiar;
     }
 }

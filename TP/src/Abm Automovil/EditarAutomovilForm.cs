@@ -91,12 +91,25 @@ namespace UberFrba.Abm_Automovil
         {
             get
             {
-                return textBoxMarca.Text;
+                return (String) comboBoxMarca.SelectedItem;
             }
 
             set
             {
-                textBoxMarca.Text = value;
+                comboBoxMarca.SelectedItem = value;
+            }
+        }
+
+        public Boolean Habilitado
+        {
+            get
+            {
+                return (Boolean)checkBoxHabilitado.Checked;
+            }
+
+            set
+            {
+                checkBoxHabilitado.Checked = value;
             }
         }
 
@@ -105,6 +118,7 @@ namespace UberFrba.Abm_Automovil
             edicion = false;
             autoAEditar = new Automovil();
             InitializeComponent();
+            Automovil.getMarcas().ForEach(marca => comboBoxMarca.Items.Add(marca));
         }
 
         public EditarAutomovilForm(ReturningForm caller, Automovil autoAEditar) : base(caller)
@@ -112,13 +126,15 @@ namespace UberFrba.Abm_Automovil
             edicion = true;
             this.autoAEditar = autoAEditar;
             InitializeComponent();
-            
+
+            Automovil.getMarcas().ForEach(marca => comboBoxMarca.Items.Add(marca));
             Chofer = autoAEditar.chofer;
             Patente = autoAEditar.patente;
             Licencia = autoAEditar.licencia;
             Rodado = autoAEditar.rodado;
             Modelo = autoAEditar.modelo;
             Marca = autoAEditar.marca;
+            Habilitado = autoAEditar.habilitado;
         }
 
         private void buttonAceptar_Click(object sender, EventArgs e)
@@ -132,6 +148,7 @@ namespace UberFrba.Abm_Automovil
                 autoAEditar.rodado = Rodado;
                 autoAEditar.modelo = Modelo;
                 autoAEditar.marca = Marca;
+                autoAEditar.habilitado = Habilitado;
 
                 if (edicion)
                 {

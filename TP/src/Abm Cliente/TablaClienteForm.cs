@@ -23,8 +23,7 @@ namespace UberFrba.Abm_Cliente
 
         public override void Refrescar()
         {
-            DataTable data = Cliente.getClientes();
-            DataGridViewUsuario.DataSource = data;
+            CargarTabla();
         }
 
         public override String tablaABuscar()

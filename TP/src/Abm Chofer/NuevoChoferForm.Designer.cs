@@ -1,6 +1,6 @@
 ﻿namespace UberFrba.Abm_Chofer
 {
-    partial class EditarChoferForm
+    partial class NuevoChoferForm
     {
         /// <summary>
         /// Required designer variable.
@@ -45,11 +45,13 @@
             this.checkBoxHabilitado = new System.Windows.Forms.CheckBox();
             this.buttonCancelar = new System.Windows.Forms.Button();
             this.buttonAceptar = new System.Windows.Forms.Button();
+            this.buttonSeleccionarUsuario = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // dateTimePickerFechaNac
             // 
-            this.dateTimePickerFechaNac.Location = new System.Drawing.Point(17, 259);
+            this.dateTimePickerFechaNac.Enabled = false;
+            this.dateTimePickerFechaNac.Location = new System.Drawing.Point(17, 290);
             this.dateTimePickerFechaNac.Name = "dateTimePickerFechaNac";
             this.dateTimePickerFechaNac.Size = new System.Drawing.Size(200, 20);
             this.dateTimePickerFechaNac.TabIndex = 0;
@@ -57,7 +59,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(14, 9);
+            this.label1.Location = new System.Drawing.Point(14, 40);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(44, 13);
             this.label1.TabIndex = 1;
@@ -66,7 +68,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(14, 48);
+            this.label2.Location = new System.Drawing.Point(14, 79);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(44, 13);
             this.label2.TabIndex = 2;
@@ -75,7 +77,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(14, 87);
+            this.label3.Location = new System.Drawing.Point(14, 118);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(26, 13);
             this.label3.TabIndex = 3;
@@ -84,7 +86,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(14, 126);
+            this.label4.Location = new System.Drawing.Point(14, 157);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(49, 13);
             this.label4.TabIndex = 4;
@@ -93,7 +95,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(14, 243);
+            this.label5.Location = new System.Drawing.Point(14, 274);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(108, 13);
             this.label5.TabIndex = 5;
@@ -102,7 +104,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(14, 165);
+            this.label7.Location = new System.Drawing.Point(14, 196);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(49, 13);
             this.label7.TabIndex = 7;
@@ -111,7 +113,7 @@
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(14, 204);
+            this.label8.Location = new System.Drawing.Point(14, 235);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(26, 13);
             this.label8.TabIndex = 8;
@@ -119,43 +121,49 @@
             // 
             // textBoxNombre
             // 
-            this.textBoxNombre.Location = new System.Drawing.Point(17, 25);
+            this.textBoxNombre.Location = new System.Drawing.Point(17, 56);
             this.textBoxNombre.Name = "textBoxNombre";
+            this.textBoxNombre.ReadOnly = true;
             this.textBoxNombre.Size = new System.Drawing.Size(200, 20);
             this.textBoxNombre.TabIndex = 9;
             // 
             // textBoxDNI
             // 
-            this.textBoxDNI.Location = new System.Drawing.Point(17, 103);
+            this.textBoxDNI.Location = new System.Drawing.Point(17, 134);
             this.textBoxDNI.Name = "textBoxDNI";
+            this.textBoxDNI.ReadOnly = true;
             this.textBoxDNI.Size = new System.Drawing.Size(200, 20);
             this.textBoxDNI.TabIndex = 10;
             // 
             // textBoxApellido
             // 
-            this.textBoxApellido.Location = new System.Drawing.Point(17, 64);
+            this.textBoxApellido.Location = new System.Drawing.Point(17, 95);
             this.textBoxApellido.Name = "textBoxApellido";
+            this.textBoxApellido.ReadOnly = true;
             this.textBoxApellido.Size = new System.Drawing.Size(200, 20);
             this.textBoxApellido.TabIndex = 11;
             // 
             // textBoxTelefono
             // 
-            this.textBoxTelefono.Location = new System.Drawing.Point(17, 181);
+            this.textBoxTelefono.Location = new System.Drawing.Point(17, 212);
             this.textBoxTelefono.Name = "textBoxTelefono";
+            this.textBoxTelefono.ReadOnly = true;
             this.textBoxTelefono.Size = new System.Drawing.Size(200, 20);
             this.textBoxTelefono.TabIndex = 12;
             // 
             // textBoxDomicilio
             // 
-            this.textBoxDomicilio.Location = new System.Drawing.Point(17, 142);
+            this.textBoxDomicilio.Location = new System.Drawing.Point(17, 173);
             this.textBoxDomicilio.Name = "textBoxDomicilio";
+            this.textBoxDomicilio.ReadOnly = true;
             this.textBoxDomicilio.Size = new System.Drawing.Size(200, 20);
             this.textBoxDomicilio.TabIndex = 13;
             // 
             // textBoxMail
             // 
-            this.textBoxMail.Location = new System.Drawing.Point(17, 220);
+            this.textBoxMail.Location = new System.Drawing.Point(17, 251);
             this.textBoxMail.Name = "textBoxMail";
+            this.textBoxMail.ReadOnly = true;
             this.textBoxMail.Size = new System.Drawing.Size(200, 20);
             this.textBoxMail.TabIndex = 14;
             // 
@@ -163,7 +171,9 @@
             // 
             this.checkBoxHabilitado.AutoSize = true;
             this.checkBoxHabilitado.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.checkBoxHabilitado.Location = new System.Drawing.Point(77, 285);
+            this.checkBoxHabilitado.Checked = true;
+            this.checkBoxHabilitado.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBoxHabilitado.Location = new System.Drawing.Point(79, 316);
             this.checkBoxHabilitado.Name = "checkBoxHabilitado";
             this.checkBoxHabilitado.Size = new System.Drawing.Size(73, 17);
             this.checkBoxHabilitado.TabIndex = 15;
@@ -172,7 +182,7 @@
             // 
             // buttonCancelar
             // 
-            this.buttonCancelar.Location = new System.Drawing.Point(125, 308);
+            this.buttonCancelar.Location = new System.Drawing.Point(125, 339);
             this.buttonCancelar.Name = "buttonCancelar";
             this.buttonCancelar.Size = new System.Drawing.Size(75, 23);
             this.buttonCancelar.TabIndex = 17;
@@ -182,7 +192,7 @@
             // 
             // buttonAceptar
             // 
-            this.buttonAceptar.Location = new System.Drawing.Point(26, 308);
+            this.buttonAceptar.Location = new System.Drawing.Point(26, 339);
             this.buttonAceptar.Name = "buttonAceptar";
             this.buttonAceptar.Size = new System.Drawing.Size(75, 23);
             this.buttonAceptar.TabIndex = 16;
@@ -190,11 +200,22 @@
             this.buttonAceptar.UseVisualStyleBackColor = true;
             this.buttonAceptar.Click += new System.EventHandler(this.buttonAceptar_Click);
             // 
-            // EditarChoferForm
+            // buttonSeleccionarUsuario
+            // 
+            this.buttonSeleccionarUsuario.Location = new System.Drawing.Point(54, 12);
+            this.buttonSeleccionarUsuario.Name = "buttonSeleccionarUsuario";
+            this.buttonSeleccionarUsuario.Size = new System.Drawing.Size(122, 23);
+            this.buttonSeleccionarUsuario.TabIndex = 18;
+            this.buttonSeleccionarUsuario.Text = "Seleccionar Usuario";
+            this.buttonSeleccionarUsuario.UseVisualStyleBackColor = true;
+            this.buttonSeleccionarUsuario.Click += new System.EventHandler(this.buttonSeleccionarUsuario_Click);
+            // 
+            // NuevoChoferForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(231, 347);
+            this.ClientSize = new System.Drawing.Size(231, 379);
+            this.Controls.Add(this.buttonSeleccionarUsuario);
             this.Controls.Add(this.buttonCancelar);
             this.Controls.Add(this.buttonAceptar);
             this.Controls.Add(this.checkBoxHabilitado);
@@ -213,9 +234,9 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.dateTimePickerFechaNac);
             this.MaximizeBox = false;
-            this.Name = "EditarChoferForm";
+            this.Name = "NuevoChoferForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Editar Chofer";
+            this.Text = "Nuevo Chofer";
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -240,5 +261,6 @@
         private System.Windows.Forms.CheckBox checkBoxHabilitado;
         private System.Windows.Forms.Button buttonCancelar;
         private System.Windows.Forms.Button buttonAceptar;
+        private System.Windows.Forms.Button buttonSeleccionarUsuario;
     }
 }

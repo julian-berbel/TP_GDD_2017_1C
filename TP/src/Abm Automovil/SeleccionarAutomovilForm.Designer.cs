@@ -58,7 +58,9 @@
             this.ClientSize = new System.Drawing.Size(528, 286);
             this.Controls.Add(this.buttonCancelar);
             this.Controls.Add(this.buttonSeleccionar);
+            this.MaximizeBox = false;
             this.Name = "SeleccionarAutomovilForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Seleccionar Automovil";
             this.Controls.SetChildIndex(this.buttonSeleccionar, 0);
             this.Controls.SetChildIndex(this.buttonCancelar, 0);

@@ -16,6 +16,8 @@ namespace UberFrba.Dominio
         public TablaUsuarioForm(ReturningForm caller) : base(caller)
         {
             InitializeComponent();
+            CargarTabla();
+            dataGridViewUsuario.Columns["usua_id"].Visible = false;
         }
 
         public TablaUsuarioForm()
@@ -39,8 +41,17 @@ namespace UberFrba.Dominio
         {
             get
             {
-                decimal resultado;
-                return decimal.TryParse(textBoxDNI.Text, out resultado) ? resultado : 0;
+                if (string.IsNullOrWhiteSpace(textBoxDNI.Text)) return 0;
+                decimal resultado = 0;
+                try
+                {
+                    resultado = decimal.Parse(textBoxDNI.Text);
+                }
+                catch (Exception e)
+                {
+                    Error.show(e.Message);
+                }
+                return resultado;
             }
         }
         public string Apellido
@@ -56,21 +67,36 @@ namespace UberFrba.Dominio
             return "USUARIOS";
         }
 
-        private void buttonFiltrar_Click(object sender, EventArgs e)
+        protected virtual byte rolAFiltrar()
         {
-            if (sinFiltros()) Refrescar();
-            else
-                dataGridViewUsuario.DataSource = Usuario.getXsConFiltro(tablaABuscar(),
-                                                                        Nombre,
-                                                                        Apellido,
-                                                                        DNI);
+            return 0;
         }
 
-        private Boolean sinFiltros()
+        public override void Refrescar()
         {
-            return string.IsNullOrWhiteSpace(Nombre) &&
-                    string.IsNullOrWhiteSpace(Apellido) &&
-                    DNI == 0;
+            CargarTabla();
+        }
+
+        protected void CargarTabla()
+        {
+            dataGridViewUsuario.DataSource = Usuario.getXsConFiltro(tablaABuscar(),
+                                                                        Nombre,
+                                                                        Apellido,
+                                                                        DNI,
+                                                                        rolAFiltrar());
+        }
+
+        private void buttonFiltrar_Click(object sender, EventArgs e)
+        {
+            CargarTabla();
+        }
+
+        private void buttonLimpiar_Click(object sender, EventArgs e)
+        {
+            textBoxNombre.Text = "";
+            textBoxApellido.Text = "";
+            textBoxDNI.Text = "";
+            CargarTabla();
         }
     }
 }

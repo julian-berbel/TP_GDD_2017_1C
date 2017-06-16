@@ -41,13 +41,14 @@
             this.label5 = new System.Windows.Forms.Label();
             this.textBoxModelo = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
-            this.textBoxMarca = new System.Windows.Forms.TextBox();
             this.buttonSeleccionarChofer = new System.Windows.Forms.Button();
+            this.checkBoxHabilitado = new System.Windows.Forms.CheckBox();
+            this.comboBoxMarca = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
             // buttonAceptar
             // 
-            this.buttonAceptar.Location = new System.Drawing.Point(28, 258);
+            this.buttonAceptar.Location = new System.Drawing.Point(28, 284);
             this.buttonAceptar.Name = "buttonAceptar";
             this.buttonAceptar.Size = new System.Drawing.Size(75, 23);
             this.buttonAceptar.TabIndex = 0;
@@ -122,7 +123,7 @@
             // 
             // buttonCancelar
             // 
-            this.buttonCancelar.Location = new System.Drawing.Point(127, 258);
+            this.buttonCancelar.Location = new System.Drawing.Point(127, 284);
             this.buttonCancelar.Name = "buttonCancelar";
             this.buttonCancelar.Size = new System.Drawing.Size(75, 23);
             this.buttonCancelar.TabIndex = 9;
@@ -155,13 +156,6 @@
             this.label6.TabIndex = 13;
             this.label6.Text = "Marca";
             // 
-            // textBoxMarca
-            // 
-            this.textBoxMarca.Location = new System.Drawing.Point(65, 222);
-            this.textBoxMarca.Name = "textBoxMarca";
-            this.textBoxMarca.Size = new System.Drawing.Size(100, 20);
-            this.textBoxMarca.TabIndex = 12;
-            // 
             // buttonSeleccionarChofer
             // 
             this.buttonSeleccionarChofer.Location = new System.Drawing.Point(171, 27);
@@ -172,14 +166,35 @@
             this.buttonSeleccionarChofer.UseVisualStyleBackColor = true;
             this.buttonSeleccionarChofer.Click += new System.EventHandler(this.buttonSeleccionarChofer_Click);
             // 
+            // checkBoxHabilitado
+            // 
+            this.checkBoxHabilitado.AutoSize = true;
+            this.checkBoxHabilitado.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.checkBoxHabilitado.Location = new System.Drawing.Point(79, 248);
+            this.checkBoxHabilitado.Name = "checkBoxHabilitado";
+            this.checkBoxHabilitado.Size = new System.Drawing.Size(73, 17);
+            this.checkBoxHabilitado.TabIndex = 15;
+            this.checkBoxHabilitado.Text = "Habilitado";
+            this.checkBoxHabilitado.UseVisualStyleBackColor = true;
+            // 
+            // comboBoxMarca
+            // 
+            this.comboBoxMarca.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxMarca.FormattingEnabled = true;
+            this.comboBoxMarca.Location = new System.Drawing.Point(65, 222);
+            this.comboBoxMarca.Name = "comboBoxMarca";
+            this.comboBoxMarca.Size = new System.Drawing.Size(100, 21);
+            this.comboBoxMarca.TabIndex = 16;
+            // 
             // EditarAutomovilForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(231, 300);
+            this.ClientSize = new System.Drawing.Size(231, 324);
+            this.Controls.Add(this.comboBoxMarca);
+            this.Controls.Add(this.checkBoxHabilitado);
             this.Controls.Add(this.buttonSeleccionarChofer);
             this.Controls.Add(this.label6);
-            this.Controls.Add(this.textBoxMarca);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.textBoxModelo);
             this.Controls.Add(this.buttonCancelar);
@@ -192,7 +207,9 @@
             this.Controls.Add(this.textBoxPatente);
             this.Controls.Add(this.textBoxChofer);
             this.Controls.Add(this.buttonAceptar);
+            this.MaximizeBox = false;
             this.Name = "EditarAutomovilForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Editar Automovil";
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -214,7 +231,8 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TextBox textBoxModelo;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.TextBox textBoxMarca;
         private System.Windows.Forms.Button buttonSeleccionarChofer;
+        private System.Windows.Forms.CheckBox checkBoxHabilitado;
+        private System.Windows.Forms.ComboBox comboBoxMarca;
     }
 }

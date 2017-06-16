@@ -51,6 +51,7 @@
             this.buttonEditar.TabIndex = 29;
             this.buttonEditar.Text = "Editar";
             this.buttonEditar.UseVisualStyleBackColor = true;
+            this.buttonEditar.Click += new System.EventHandler(this.buttonEditar_Click);
             // 
             // buttonVolver
             // 
@@ -70,6 +71,7 @@
             this.buttonNuevo.TabIndex = 27;
             this.buttonNuevo.Text = "Nuevo";
             this.buttonNuevo.UseVisualStyleBackColor = true;
+            this.buttonNuevo.Click += new System.EventHandler(this.buttonNuevo_Click);
             // 
             // ABMClienteForm
             // 
@@ -79,7 +81,9 @@
             this.Controls.Add(this.buttonEditar);
             this.Controls.Add(this.buttonVolver);
             this.Controls.Add(this.buttonNuevo);
+            this.MaximizeBox = false;
             this.Name = "ABMClienteForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "ABM Cliente";
             this.Controls.SetChildIndex(this.buttonNuevo, 0);
             this.Controls.SetChildIndex(this.buttonVolver, 0);

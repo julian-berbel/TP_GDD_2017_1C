@@ -71,6 +71,7 @@
             this.buttonNuevo.TabIndex = 15;
             this.buttonNuevo.Text = "Nuevo";
             this.buttonNuevo.UseVisualStyleBackColor = true;
+            this.buttonNuevo.Click += new System.EventHandler(this.buttonNuevo_Click);
             // 
             // ABMChoferForm
             // 
@@ -80,7 +81,9 @@
             this.Controls.Add(this.buttonEditar);
             this.Controls.Add(this.buttonVolver);
             this.Controls.Add(this.buttonNuevo);
+            this.MaximizeBox = false;
             this.Name = "ABMChoferForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "ABM Chofer";
             this.Controls.SetChildIndex(this.buttonNuevo, 0);
             this.Controls.SetChildIndex(this.buttonVolver, 0);

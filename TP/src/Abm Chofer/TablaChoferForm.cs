@@ -23,8 +23,7 @@ namespace UberFrba.Abm_Chofer
         
         public override void Refrescar()
         {
-            DataTable data = Chofer.getChoferes();
-            DataGridViewUsuario.DataSource = data;
+            CargarTabla();
         }
 
         public override String tablaABuscar()

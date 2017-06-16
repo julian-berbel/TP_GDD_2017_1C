@@ -90,6 +90,7 @@
             this.Controls.Add(this.textBoxContrasenia);
             this.Controls.Add(this.textBoxUsuario);
             this.Controls.Add(this.buttonLogin);
+            this.MaximizeBox = false;
             this.Name = "LoginForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Login";

@@ -36,12 +36,13 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.dataGridViewUsuario = new System.Windows.Forms.DataGridView();
+            this.buttonLimpiar = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewUsuario)).BeginInit();
             this.SuspendLayout();
             // 
             // buttonFiltrar
             // 
-            this.buttonFiltrar.Location = new System.Drawing.Point(425, 26);
+            this.buttonFiltrar.Location = new System.Drawing.Point(428, 14);
             this.buttonFiltrar.Name = "buttonFiltrar";
             this.buttonFiltrar.Size = new System.Drawing.Size(75, 23);
             this.buttonFiltrar.TabIndex = 26;
@@ -102,6 +103,7 @@
             this.dataGridViewUsuario.AllowUserToAddRows = false;
             this.dataGridViewUsuario.AllowUserToDeleteRows = false;
             this.dataGridViewUsuario.AllowUserToResizeRows = false;
+            this.dataGridViewUsuario.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
             this.dataGridViewUsuario.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewUsuario.Location = new System.Drawing.Point(12, 70);
             this.dataGridViewUsuario.MultiSelect = false;
@@ -112,11 +114,22 @@
             this.dataGridViewUsuario.Size = new System.Drawing.Size(501, 180);
             this.dataGridViewUsuario.TabIndex = 19;
             // 
+            // buttonLimpiar
+            // 
+            this.buttonLimpiar.Location = new System.Drawing.Point(428, 42);
+            this.buttonLimpiar.Name = "buttonLimpiar";
+            this.buttonLimpiar.Size = new System.Drawing.Size(75, 23);
+            this.buttonLimpiar.TabIndex = 27;
+            this.buttonLimpiar.Text = "Limpiar";
+            this.buttonLimpiar.UseVisualStyleBackColor = true;
+            this.buttonLimpiar.Click += new System.EventHandler(this.buttonLimpiar_Click);
+            // 
             // TablaUsuarioForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(529, 290);
+            this.Controls.Add(this.buttonLimpiar);
             this.Controls.Add(this.buttonFiltrar);
             this.Controls.Add(this.textBoxDNI);
             this.Controls.Add(this.textBoxApellido);
@@ -143,5 +156,6 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.DataGridView dataGridViewUsuario;
+        private System.Windows.Forms.Button buttonLimpiar;
     }
 }

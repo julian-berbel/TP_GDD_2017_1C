@@ -82,7 +82,9 @@
             this.Controls.Add(this.buttonEditar);
             this.Controls.Add(this.buttonVolver);
             this.Controls.Add(this.buttonNuevo);
+            this.MaximizeBox = false;
             this.Name = "ABMAutomovilForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "ABM Automovil";
             this.Controls.SetChildIndex(this.buttonNuevo, 0);
             this.Controls.SetChildIndex(this.buttonVolver, 0);

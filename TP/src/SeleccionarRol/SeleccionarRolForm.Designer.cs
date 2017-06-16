@@ -68,7 +68,9 @@
             this.Controls.Add(this.buttonContinuar);
             this.Controls.Add(this.comboBoxRoles);
             this.Controls.Add(this.label1);
+            this.MaximizeBox = false;
             this.Name = "SeleccionarRolForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Seleccionar Rol";
             this.Load += new System.EventHandler(this.SeleccionarRolForm_Load);
             this.ResumeLayout(false);

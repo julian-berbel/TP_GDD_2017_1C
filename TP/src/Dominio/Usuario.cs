@@ -9,23 +9,35 @@ namespace UberFrba.Dominio
 {
     public class Usuario
     {
+        public int id;
         public String nombre;
         public String apellido;
         public decimal dni;
-        public int id;
+        public String mail;
+        public decimal telefono;
+        public String domicilio;
+        public DateTime fechaNac;
+        public Boolean habilitado;
 
         public Usuario(DataRow data)
         {
-            nombre = (String)data["usua_nombre"];
-            apellido = (String)data["usua_apellido"];
-            dni = (decimal)data["usua_dni"];
             id = (int)data["usua_id"];
+            nombre = (String)data["Nombre"];
+            apellido = (String)data["Apellido"];
+            dni = (decimal)data["DNI"];
+            mail = (String)data["Mail"];
+            telefono = (decimal)data["Telefono"];
+            domicilio = (String)data["Domicilio"];
+            fechaNac = (DateTime)data["Fecha_Nac"];
+            habilitado = (Boolean)data["Habilitado"];
         }
 
-        public static DataRow get(int id)
+        public Usuario() { }
+
+        public static Usuario get(int id)
         {
-            return DB.correrFuncionDeTabla("USUARIO_GET",
-                                    "usuarioId", id).Rows[0];
+            return new Usuario(DB.correrFuncionDeTabla("USUARIO_GET",
+                                                        "id", id).Rows[0]);
         }
 
         public static int? usuarioSeleccionadoId = null;
@@ -52,12 +64,14 @@ namespace UberFrba.Dominio
         public static DataTable getXsConFiltro( String X, // "CLIENTES" / "CHOFERES"
                                                 String nombre,
                                                 String apellido,
-                                                decimal DNI)
+                                                decimal DNI,
+                                                byte rolAFiltrar)
         {
             return DB.correrFuncionDeTabla("GET_"+ X +"_CON_FILTROS",
                                             "nombre", nombre,
                                             "apellido", apellido,
-                                            "DNI", DNI);
+                                            "DNI", DNI,
+                                            "rolAFiltrar", rolAFiltrar);
         }
     }
 }

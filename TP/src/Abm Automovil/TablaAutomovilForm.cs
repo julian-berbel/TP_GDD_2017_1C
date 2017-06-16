@@ -16,6 +16,11 @@ namespace UberFrba.Abm_Automovil
         public TablaAutomovilForm(ReturningForm caller) : base(caller)
         {
             InitializeComponent();
+            comboBoxMarca.Items.Add("");
+            Automovil.getMarcas().ForEach(marca => comboBoxMarca.Items.Add(marca));
+            CargarTabla();
+            dataGridViewAutomovil.Columns["vehi_chofer"].Visible = false;
+            dataGridViewAutomovil.Columns["vehi_id"].Visible = false;
         }
 
         public TablaAutomovilForm() {
@@ -62,31 +67,29 @@ namespace UberFrba.Abm_Automovil
 
         public override void Refrescar()
         {
-            DataTable data = Automovil.getAutomoviles();
-            dataGridViewAutomovil.DataSource = data;
-            dataGridViewAutomovil.Columns[0].Visible = false;
-            dataGridViewAutomovil.Columns[1].Visible = false;
-            comboBoxMarca.Items.Clear();
-            comboBoxMarca.Items.Add("");
-            Automovil.getMarcas().ForEach(marca => comboBoxMarca.Items.Add(marca));
+            CargarTabla();
         }
 
-        private void buttonFiltrar_Click(object sender, EventArgs e)
+        protected void CargarTabla()
         {
-            if (sinFiltros()) Refrescar();
-            else
-                dataGridViewAutomovil.DataSource = Automovil.getAutomovilesConFiltro(   Chofer,
+            dataGridViewAutomovil.DataSource = Automovil.getAutomovilesConFiltro(Chofer,
                                                                                         Modelo,
                                                                                         Patente,
                                                                                         Marca);
         }
 
-        private Boolean sinFiltros()
+        private void buttonFiltrar_Click(object sender, EventArgs e)
         {
-            return string.IsNullOrWhiteSpace(Patente) &&
-                    string.IsNullOrWhiteSpace(Modelo) &&
-                    string.IsNullOrWhiteSpace(Marca) &&
-                    Chofer == 0;
+            CargarTabla();
+        }
+
+        private void buttonLimpiar_Click(object sender, EventArgs e)
+        {
+            textBoxChofer.Text = "";
+            textBoxModelo.Text = "";
+            textBoxPatente.Text = "";
+            comboBoxMarca.SelectedItem = "";
+            CargarTabla();
         }
     }
 }
