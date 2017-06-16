@@ -13,6 +13,7 @@ namespace UberFrba.Abm_Cliente
     {
         public TablaClienteForm(ReturningForm caller) : base(caller)
         {
+            _usuariosABuscar = "CLIENTES";
             InitializeComponent();
         }
 
@@ -24,11 +25,6 @@ namespace UberFrba.Abm_Cliente
         public override void Refrescar()
         {
             CargarTabla();
-        }
-
-        public override String tablaABuscar()
-        {
-            return "CLIENTES";
         }
     }
 }

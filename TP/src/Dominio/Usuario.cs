@@ -61,17 +61,15 @@ namespace UberFrba.Dominio
                         .ToList();
         }
 
-        public static DataTable getXsConFiltro( String X, // "CLIENTES" / "CHOFERES"
+        public static DataTable getXsConFiltros( String X, // "CLIENTES" / "CHOFERES" / "USUARIOS" / "NO_CLIENTES" / "NO_CHOFERES"
                                                 String nombre,
                                                 String apellido,
-                                                decimal DNI,
-                                                byte rolAFiltrar)
+                                                decimal DNI)
         {
             return DB.correrFuncionDeTabla("GET_"+ X +"_CON_FILTROS",
                                             "nombre", nombre,
                                             "apellido", apellido,
-                                            "DNI", DNI,
-                                            "rolAFiltrar", rolAFiltrar);
+                                            "DNI", DNI);
         }
     }
 }

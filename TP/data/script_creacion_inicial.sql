@@ -126,6 +126,12 @@ IF OBJECT_ID('LOS_MODERADAMENTE_ADECUADOS.GET_CHOFERES_CON_FILTROS') IS NOT NULL
 IF OBJECT_ID('LOS_MODERADAMENTE_ADECUADOS.GET_CLIENTES_CON_FILTROS') IS NOT NULL
     DROP FUNCTION LOS_MODERADAMENTE_ADECUADOS.GET_CLIENTES_CON_FILTROS;
 
+IF OBJECT_ID('LOS_MODERADAMENTE_ADECUADOS.GET_NO_CHOFERES_CON_FILTROS') IS NOT NULL
+    DROP FUNCTION LOS_MODERADAMENTE_ADECUADOS.GET_NO_CHOFERES_CON_FILTROS;
+
+IF OBJECT_ID('LOS_MODERADAMENTE_ADECUADOS.GET_NO_CLIENTES_CON_FILTROS') IS NOT NULL
+    DROP FUNCTION LOS_MODERADAMENTE_ADECUADOS.GET_NO_CLIENTES_CON_FILTROS;
+
 IF OBJECT_ID('LOS_MODERADAMENTE_ADECUADOS.GET_USUARIOS_CON_FILTROS') IS NOT NULL
     DROP FUNCTION LOS_MODERADAMENTE_ADECUADOS.GET_USUARIOS_CON_FILTROS;
 
@@ -742,8 +748,7 @@ GO
 
 CREATE FUNCTION LOS_MODERADAMENTE_ADECUADOS.GET_CHOFERES_CON_FILTROS (@nombre varchar(255),			
 																	 @apellido varchar(255),
-																	 @dni numeric(18,0),
-																	 @rolAFiltrar TINYINT)
+																	 @dni numeric(18,0))
 RETURNS TABLE
 AS 
 	RETURN	(SELECT  usua_id,
@@ -765,8 +770,7 @@ GO
 
 CREATE FUNCTION LOS_MODERADAMENTE_ADECUADOS.GET_CLIENTES_CON_FILTROS (@nombre varchar(255),			
 																	 @apellido varchar(255),
-																	 @dni numeric(18,0),
-																	 @rolAFiltrar TINYINT)
+																	 @dni numeric(18,0))
 RETURNS TABLE
 AS 
 	RETURN	(SELECT  usua_id,
@@ -787,10 +791,32 @@ AS
 				(@dni = 0 OR @dni = usua_dni))
 GO
 
-CREATE FUNCTION LOS_MODERADAMENTE_ADECUADOS.GET_USUARIOS_CON_FILTROS (@nombre varchar(255),			
+CREATE FUNCTION LOS_MODERADAMENTE_ADECUADOS.GET_NO_CHOFERES_CON_FILTROS (@nombre varchar(255),			
 																	 @apellido varchar(255),
-																	 @dni numeric(18,0),
-																	 @rolAFiltrar TINYINT)
+																	 @dni numeric(18,0))
+RETURNS TABLE
+AS 
+	RETURN	(SELECT  usua_id,
+					 usua_nombre AS Nombre,
+					 usua_apellido AS Apellido,
+					 usua_dni AS DNI,
+					 cont_mail AS Mail,
+					 cont_telefono AS Telefono,
+					 cont_domicilio AS Domicilio,
+					 usua_fecha_nacimiento AS Fecha_Nac,
+					 logi_id AS Habilitado
+			FROM LOS_MODERADAMENTE_ADECUADOS.Usuario
+				JOIN LOS_MODERADAMENTE_ADECUADOS.Contacto ON (cont_id = usua_id)
+				JOIN LOS_MODERADAMENTE_ADECUADOS.Login_Usuario ON (logi_id = usua_id)
+			WHERE (@nombre = '' OR CHARINDEX(@nombre, usua_nombre) > 0) AND
+				(@apellido = '' OR CHARINDEX(@apellido, usua_apellido) > 0) AND
+				(@dni = 0 OR @dni = usua_dni) AND
+				usua_id NOT IN (SELECT chof_id FROM LOS_MODERADAMENTE_ADECUADOS.Chofer))
+GO
+
+CREATE FUNCTION LOS_MODERADAMENTE_ADECUADOS.GET_NO_CLIENTES_CON_FILTROS (@nombre varchar(255),			
+																	 @apellido varchar(255),
+																	 @dni numeric(18,0))
 RETURNS TABLE
 AS 
 	RETURN	(SELECT  usua_id,
@@ -808,9 +834,29 @@ AS
 			WHERE (@nombre = '' OR CHARINDEX(@nombre, usua_nombre) > 0) AND
 				(@apellido = '' OR CHARINDEX(@apellido, usua_apellido) > 0) AND
 				(@dni = 0 OR @dni = usua_dni) AND
-				usua_id NOT IN (SELECT cod_login
-								FROM LOS_MODERADAMENTE_ADECUADOS.Rol_X_Login_Usuario
-								WHERE cod_rol = @rolAFiltrar))
+				usua_id NOT IN (SELECT clie_id FROM LOS_MODERADAMENTE_ADECUADOS.Cliente))
+GO
+
+CREATE FUNCTION LOS_MODERADAMENTE_ADECUADOS.GET_USUARIOS_CON_FILTROS (@nombre varchar(255),			
+																	 @apellido varchar(255),
+																	 @dni numeric(18,0))
+RETURNS TABLE
+AS 
+	RETURN	(SELECT  usua_id,
+					 usua_nombre AS Nombre,
+					 usua_apellido AS Apellido,
+					 usua_dni AS DNI,
+					 cont_mail AS Mail,
+					 cont_telefono AS Telefono,
+					 cont_domicilio AS Domicilio,
+					 usua_fecha_nacimiento AS Fecha_Nac,
+					 logi_habilitado AS Habilitado
+			FROM LOS_MODERADAMENTE_ADECUADOS.Usuario
+				JOIN LOS_MODERADAMENTE_ADECUADOS.Contacto ON (cont_id = usua_id)
+				JOIN LOS_MODERADAMENTE_ADECUADOS.Login_Usuario ON (logi_id = usua_id)
+			WHERE (@nombre = '' OR CHARINDEX(@nombre, usua_nombre) > 0) AND
+				(@apellido = '' OR CHARINDEX(@apellido, usua_apellido) > 0) AND
+				(@dni = 0 OR @dni = usua_dni))
 GO
 
 CREATE FUNCTION LOS_MODERADAMENTE_ADECUADOS.CLIENTE_GET_CODIGO_POSTAL(@id INT)

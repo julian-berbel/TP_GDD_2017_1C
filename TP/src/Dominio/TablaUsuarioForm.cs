@@ -13,6 +13,8 @@ namespace UberFrba.Dominio
 {
     public partial class TablaUsuarioForm : ReturningForm
     {
+        public String _usuariosABuscar = "USUARIOS";
+
         public TablaUsuarioForm(ReturningForm caller) : base(caller)
         {
             InitializeComponent();
@@ -62,14 +64,9 @@ namespace UberFrba.Dominio
             }
         }
 
-        public virtual String tablaABuscar()
+        public virtual String usuariosABuscar()
         {
-            return "USUARIOS";
-        }
-
-        protected virtual byte rolAFiltrar()
-        {
-            return 0;
+            return _usuariosABuscar;
         }
 
         public override void Refrescar()
@@ -79,11 +76,10 @@ namespace UberFrba.Dominio
 
         protected void CargarTabla()
         {
-            dataGridViewUsuario.DataSource = Usuario.getXsConFiltro(tablaABuscar(),
+            dataGridViewUsuario.DataSource = Usuario.getXsConFiltros(usuariosABuscar(),
                                                                         Nombre,
                                                                         Apellido,
-                                                                        DNI,
-                                                                        rolAFiltrar());
+                                                                        DNI);
         }
 
         private void buttonFiltrar_Click(object sender, EventArgs e)

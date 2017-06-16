@@ -13,6 +13,7 @@ namespace UberFrba.Abm_Chofer
     {
         public TablaChoferForm(ReturningForm caller) : base(caller)
         {
+            _usuariosABuscar = "CHOFERES";
             InitializeComponent();
         }
 
@@ -24,11 +25,6 @@ namespace UberFrba.Abm_Chofer
         public override void Refrescar()
         {
             CargarTabla();
-        }
-
-        public override String tablaABuscar()
-        {
-            return "CHOFERES";
         }
     }
 }

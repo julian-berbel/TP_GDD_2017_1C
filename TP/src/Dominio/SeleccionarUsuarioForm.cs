@@ -11,7 +11,6 @@ namespace UberFrba.Dominio
     public partial class SeleccionarUsuarioForm : TablaUsuarioForm
     {
         private Usuario usuarioSeleccionado;
-        private byte _rolAFiltrar;
 
         public SeleccionarUsuarioForm(ReturningForm caller) : base(caller)
         {
@@ -29,22 +28,17 @@ namespace UberFrba.Dominio
             usuarioSeleccionado = new Usuario(fila);
             this.Close();
         }
-
-        protected override byte rolAFiltrar()
-        {
-            return _rolAFiltrar;
-        }
-
+        
         public Usuario getNoCliente()
         {
-            _rolAFiltrar = 2;
+            _usuariosABuscar = "NO_CLIENTES";
             abrir();
             return usuarioSeleccionado;
         }
 
         public Usuario getNoChofer()
         {
-            _rolAFiltrar = 3;
+            _usuariosABuscar = "NO_CHOFERES";
             abrir();
             return usuarioSeleccionado;
         }
