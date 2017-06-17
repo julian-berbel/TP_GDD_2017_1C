@@ -43,11 +43,11 @@ namespace UberFrba.Dominio
                                                         "id", id).Rows[0]);
         }
 
-        public static int? usuarioSeleccionadoId = null;
+        public static int? usuarioSeleccionado;
 
         public static byte cantidadDeRoles()
         {
-            return (byte) DB.correrFuncion("USUARIO_CANTIDAD_DE_ROLES", "usuario", usuarioSeleccionadoId);
+            return (byte) DB.correrFuncion("USUARIO_CANTIDAD_DE_ROLES", "usuario", usuarioSeleccionado);
         }
 
         public static byte[] encriptar(string texto)
@@ -57,15 +57,15 @@ namespace UberFrba.Dominio
 
         public static void cargar(String username)
         {
-            usuarioSeleccionadoId = (int)DB.correrFuncion("GET_ID_USUARIO", "usuario", username);
+            usuarioSeleccionado = (int)DB.correrFuncion("USUARIO_GET_ID", "usuario", username);
         }
 
         public static List<Rol> getRoles()
         {
-            DataTable data = DB.correrFuncionDeTabla("USUARIO_GET_ROLES", "usuarioId", usuarioSeleccionadoId);
+            DataTable data = DB.correrFuncionDeTabla("USUARIO_GET_ROLES", "usuarioId", usuarioSeleccionado);
 
             return data.AsEnumerable()
-                        .Select(r => new Rol(r.Field<String>("rol_nombre"), r.Field<byte>("rol_id")))
+                        .Select(fila => new Rol(fila))
                         .ToList();
         }
 

@@ -154,11 +154,47 @@
     <Compile Include="Abm Rol\ABMRolForm.Designer.cs">
       <DependentUpon>ABMRolForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Abm Rol\EditarRolForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Abm Rol\EditarRolForm.Designer.cs">
+      <DependentUpon>EditarRolForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Abm Rol\SeleccionarRolForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Abm Rol\SeleccionarRolForm.Designer.cs">
+      <DependentUpon>SeleccionarRolForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Abm Rol\TablaRolForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Abm Rol\TablaRolForm.Designer.cs">
+      <DependentUpon>TablaRolForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Abm Turno\ABMTurnoForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Abm Turno\ABMTurnoForm.Designer.cs">
       <DependentUpon>ABMTurnoForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Abm Turno\EditarTurnoForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Abm Turno\EditarTurnoForm.Designer.cs">
+      <DependentUpon>EditarTurnoForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Abm Turno\SeleccionarTurnoForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Abm Turno\SeleccionarTurnoForm.Designer.cs">
+      <DependentUpon>SeleccionarTurnoForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Abm Turno\TablaTurnoForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Abm Turno\TablaTurnoForm.Designer.cs">
+      <DependentUpon>TablaTurnoForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Dominio\Automovil.cs" />
     <Compile Include="Dominio\Cliente.cs" />
@@ -173,6 +209,7 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Dominio\Rol.cs" />
+    <Compile Include="Dominio\Turno.cs" />
     <Compile Include="Usuarios\NuevoUsuarioForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -275,8 +312,26 @@
     <EmbeddedResource Include="Abm Rol\ABMRolForm.resx">
       <DependentUpon>ABMRolForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Abm Rol\EditarRolForm.resx">
+      <DependentUpon>EditarRolForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Abm Rol\SeleccionarRolForm.resx">
+      <DependentUpon>SeleccionarRolForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Abm Rol\TablaRolForm.resx">
+      <DependentUpon>TablaRolForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Abm Turno\ABMTurnoForm.resx">
       <DependentUpon>ABMTurnoForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Abm Turno\EditarTurnoForm.resx">
+      <DependentUpon>EditarTurnoForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Abm Turno\SeleccionarTurnoForm.resx">
+      <DependentUpon>SeleccionarTurnoForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Abm Turno\TablaTurnoForm.resx">
+      <DependentUpon>TablaTurnoForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Usuarios\NuevoUsuarioForm.resx">
       <DependentUpon>NuevoUsuarioForm.cs</DependentUpon>

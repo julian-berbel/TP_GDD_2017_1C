@@ -11,8 +11,6 @@ C:\Users\Windows7\Documents\Downloads\UTN\GDD\TP_GDD_2017_1C\TP\src\obj\x86\Debu
 C:\Users\Windows7\Documents\Downloads\UTN\GDD\TP_GDD_2017_1C\TP\src\obj\x86\Debug\UberFrba.Abm_Cliente.ABMClienteForm.resources
 C:\Users\Windows7\Documents\Downloads\UTN\GDD\TP_GDD_2017_1C\TP\src\obj\x86\Debug\UberFrba.Abm_Cliente.EditarClienteForm.resources
 C:\Users\Windows7\Documents\Downloads\UTN\GDD\TP_GDD_2017_1C\TP\src\obj\x86\Debug\UberFrba.Abm_Cliente.SeleccionarClienteForm.resources
-C:\Users\Windows7\Documents\Downloads\UTN\GDD\TP_GDD_2017_1C\TP\src\obj\x86\Debug\UberFrba.Abm_Rol.ABMRolForm.resources
-C:\Users\Windows7\Documents\Downloads\UTN\GDD\TP_GDD_2017_1C\TP\src\obj\x86\Debug\UberFrba.Abm_Turno.ABMTurnoForm.resources
 C:\Users\Windows7\Documents\Downloads\UTN\GDD\TP_GDD_2017_1C\TP\src\obj\x86\Debug\UberFrba.Facturacion.FacturacionForm.resources
 C:\Users\Windows7\Documents\Downloads\UTN\GDD\TP_GDD_2017_1C\TP\src\obj\x86\Debug\UberFrba.Listado_Estadistico.ListadoEstadisticoForm.resources
 C:\Users\Windows7\Documents\Downloads\UTN\GDD\TP_GDD_2017_1C\TP\src\obj\x86\Debug\UberFrba.Login.LoginForm.resources
@@ -29,3 +27,5 @@ C:\Users\Windows7\Documents\Downloads\UTN\GDD\TP_GDD_2017_1C\TP\src\obj\x86\Debu
 C:\Users\Windows7\Documents\Downloads\UTN\GDD\TP_GDD_2017_1C\TP\src\obj\x86\Debug\UberFrba.Usuarios.NuevoUsuarioForm.resources
 C:\Users\Windows7\Documents\Downloads\UTN\GDD\TP_GDD_2017_1C\TP\src\obj\x86\Debug\UberFrba.Usuarios.SeleccionarUsuarioForm.resources
 C:\Users\Windows7\Documents\Downloads\UTN\GDD\TP_GDD_2017_1C\TP\src\obj\x86\Debug\UberFrba.Usuarios.TablaUsuarioForm.resources
+C:\Users\Windows7\Documents\Downloads\UTN\GDD\TP_GDD_2017_1C\TP\src\obj\x86\Debug\UberFrba.Abm_Rol.TablaRolForm.resources
+C:\Users\Windows7\Documents\Downloads\UTN\GDD\TP_GDD_2017_1C\TP\src\obj\x86\Debug\UberFrba.Abm_Turno.TablaTurnoForm.resources

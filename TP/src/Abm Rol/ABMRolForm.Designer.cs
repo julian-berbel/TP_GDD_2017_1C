@@ -28,21 +28,74 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.buttonBaja = new System.Windows.Forms.Button();
+            this.buttonEditar = new System.Windows.Forms.Button();
+            this.buttonVolver = new System.Windows.Forms.Button();
+            this.buttonNuevo = new System.Windows.Forms.Button();
             this.SuspendLayout();
+            // 
+            // buttonBaja
+            // 
+            this.buttonBaja.Location = new System.Drawing.Point(296, 198);
+            this.buttonBaja.Name = "buttonBaja";
+            this.buttonBaja.Size = new System.Drawing.Size(75, 23);
+            this.buttonBaja.TabIndex = 26;
+            this.buttonBaja.Text = "Baja";
+            this.buttonBaja.UseVisualStyleBackColor = true;
+            this.buttonBaja.Click += new System.EventHandler(this.buttonBaja_Click);
+            // 
+            // buttonEditar
+            // 
+            this.buttonEditar.Location = new System.Drawing.Point(155, 198);
+            this.buttonEditar.Name = "buttonEditar";
+            this.buttonEditar.Size = new System.Drawing.Size(75, 23);
+            this.buttonEditar.TabIndex = 25;
+            this.buttonEditar.Text = "Editar";
+            this.buttonEditar.UseVisualStyleBackColor = true;
+            this.buttonEditar.Click += new System.EventHandler(this.buttonEditar_Click);
+            // 
+            // buttonVolver
+            // 
+            this.buttonVolver.Location = new System.Drawing.Point(437, 198);
+            this.buttonVolver.Name = "buttonVolver";
+            this.buttonVolver.Size = new System.Drawing.Size(75, 23);
+            this.buttonVolver.TabIndex = 24;
+            this.buttonVolver.Text = "Volver";
+            this.buttonVolver.UseVisualStyleBackColor = true;
+            this.buttonVolver.Click += new System.EventHandler(this.buttonVolver_Click);
+            // 
+            // buttonNuevo
+            // 
+            this.buttonNuevo.Location = new System.Drawing.Point(14, 198);
+            this.buttonNuevo.Name = "buttonNuevo";
+            this.buttonNuevo.Size = new System.Drawing.Size(75, 23);
+            this.buttonNuevo.TabIndex = 23;
+            this.buttonNuevo.Text = "Nuevo";
+            this.buttonNuevo.UseVisualStyleBackColor = true;
+            this.buttonNuevo.Click += new System.EventHandler(this.buttonNuevo_Click);
             // 
             // ABMRolForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(284, 262);
-            this.MaximizeBox = false;
+            this.ClientSize = new System.Drawing.Size(527, 231);
+            this.Controls.Add(this.buttonBaja);
+            this.Controls.Add(this.buttonEditar);
+            this.Controls.Add(this.buttonVolver);
+            this.Controls.Add(this.buttonNuevo);
             this.Name = "ABMRolForm";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "ABMRolForm";
+            this.Controls.SetChildIndex(this.buttonNuevo, 0);
+            this.Controls.SetChildIndex(this.buttonVolver, 0);
+            this.Controls.SetChildIndex(this.buttonEditar, 0);
+            this.Controls.SetChildIndex(this.buttonBaja, 0);
             this.ResumeLayout(false);
 
         }
 
         #endregion
+
+        private System.Windows.Forms.Button buttonBaja;
+        private System.Windows.Forms.Button buttonEditar;
+        private System.Windows.Forms.Button buttonVolver;
+        private System.Windows.Forms.Button buttonNuevo;
     }
 }
