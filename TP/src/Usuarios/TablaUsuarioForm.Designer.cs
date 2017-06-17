@@ -1,4 +1,4 @@
-﻿namespace UberFrba.Dominio
+﻿namespace UberFrba.Usuarios
 {
     partial class TablaUsuarioForm
     {

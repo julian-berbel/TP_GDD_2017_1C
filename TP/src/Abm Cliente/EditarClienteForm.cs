@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -62,17 +63,7 @@ namespace UberFrba.Abm_Cliente
         {
             get
             {
-                if (string.IsNullOrWhiteSpace(textBoxDNI.Text)) return 0;
-                decimal resultado = 0;
-                try
-                {
-                    resultado = decimal.Parse(textBoxDNI.Text);
-                }
-                catch (Exception e)
-                {
-                    Error.show(e.Message);
-                }
-                return resultado;
+                return decimal.Parse(textBoxCodigoPostal.Text);
             }
 
             set
@@ -98,17 +89,7 @@ namespace UberFrba.Abm_Cliente
         {
             get
             {
-                if (string.IsNullOrWhiteSpace(textBoxTelefono.Text)) return 0;
-                decimal resultado = 0;
-                try
-                {
-                    resultado = decimal.Parse(textBoxTelefono.Text);
-                }
-                catch (Exception e)
-                {
-                    Error.show(e.Message);
-                }
-                return resultado;
+                return decimal.Parse(textBoxCodigoPostal.Text);
             }
 
             set
@@ -147,17 +128,7 @@ namespace UberFrba.Abm_Cliente
         {
             get
             {
-                if (string.IsNullOrWhiteSpace(textBoxCodigoPostal.Text)) return 0;
-                decimal resultado = 0;
-                try
-                {
-                    resultado = decimal.Parse(textBoxCodigoPostal.Text);
-                }
-                catch (Exception e)
-                {
-                    Error.show(e.Message);
-                }
-                return resultado;
+                return decimal.Parse(textBoxCodigoPostal.Text);
             }
             set
             {
@@ -197,9 +168,11 @@ namespace UberFrba.Abm_Cliente
 
                 this.Close();
             }
-            catch (CampoVacioException exception)
+            catch (SqlException) { }
+            catch (Exception exception)
             {
-                Error.show(exception.Message);
+                if (exception is FormatException || exception is CampoVacioException) Error.show(exception.Message);
+                else throw;
             }
         }
 

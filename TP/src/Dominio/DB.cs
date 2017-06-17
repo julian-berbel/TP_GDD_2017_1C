@@ -65,11 +65,11 @@ namespace UberFrba.Dominio
             return nuevoComando(query, args);
         }
 
-        public static Boolean correrProcedimiento(String nombre, params object[] args)
+        public static void correrProcedimiento(String nombre, params object[] args)
         {
             SqlCommand comando = nuevoProcedimiento(nombre, args);
 
-            return ejecutarProcedimiento(comando);
+            ejecutarProcedimiento(comando);
         }
 
         public static object correrFuncion(String nombre, params object[] args)
@@ -93,19 +93,18 @@ namespace UberFrba.Dominio
             return ejecutarComandoDeTabla(comando);
         }
 
-        private static Boolean ejecutarProcedimiento(SqlCommand comando)
+        private static void ejecutarProcedimiento(SqlCommand comando)
         {
-            Boolean salioBien = true;
             try{
                 miConexion.Open();
                 comando.ExecuteNonQuery();
             } catch (SqlException exception){
+                miConexion.Close();
                 Error.show(exception.Message);
-                salioBien = false;
+                throw;
             }
 
             miConexion.Close();
-            return salioBien;
         }
 
         private static object ejecutarFuncion(SqlCommand comando)
@@ -119,7 +118,9 @@ namespace UberFrba.Dominio
             }
             catch (SqlException exception)
             {
+                miConexion.Close();
                 Error.show(exception.Message);
+                throw;
             }
 
             miConexion.Close();
@@ -141,7 +142,9 @@ namespace UberFrba.Dominio
             }
             catch (SqlException exception)
             {
+                miConexion.Close();
                 Error.show(exception.Message);
+                throw;
             }
 
             miConexion.Close();

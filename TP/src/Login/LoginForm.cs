@@ -13,6 +13,7 @@ using System.Windows.Forms;
 using UberFrba.Dominio;
 using UberFrba.SeleccionarFuncionalidad;
 using UberFrba.SeleccionarRol;
+using UberFrba.Usuarios;
 
 namespace UberFrba.Login
 {
@@ -27,31 +28,35 @@ namespace UberFrba.Login
         {
             String usuario = textBoxUsuario.Text;
 
-            byte[] contrasenia = getHashSha256(textBoxContrasenia.Text);
+            byte[] contrasenia = Usuario.encriptar(textBoxContrasenia.Text);
 
-            if (DB.correrProcedimiento("SPLOGIN", "usuario", usuario, "contrasenia", contrasenia))
-            {
+            try {
+                DB.correrProcedimiento("SPLOGIN", "usuario", usuario, "contrasenia", contrasenia);
+
                 Usuario.cargar(usuario);
 
                 int cantidadDeRoles = Usuario.cantidadDeRoles();
 
                 if (cantidadDeRoles == 0) Error.show("El usuario seleccionado no tiene ningún rol asignado!");
-                else if (cantidadDeRoles > 1){
+                else if (cantidadDeRoles > 1)
+                {
                     new SeleccionarRolForm(this).abrir();
-                }else{
+                }
+                else {
                     Rol.rolSeleccionado = Usuario.getRoles().First();
                     new SeleccionarFuncionalidadForm(this).abrir();
                 }
             }
-        }
-
-        private byte[] getHashSha256(string texto)
-        {
-            return new SHA256Managed().ComputeHash(Encoding.UTF8.GetBytes(texto), 0, Encoding.UTF8.GetByteCount(texto));
+            catch (SqlException) { }
         }
 
         protected override void OnFormClosing(FormClosingEventArgs e)
         {
+        }
+
+        private void buttonRegistrar_Click(object sender, EventArgs e)
+        {
+            new NuevoUsuarioForm(this).abrir();
         }
     }
 }

@@ -21,10 +21,11 @@ C:\Users\Windows7\Documents\Downloads\UTN\GDD\TP_GDD_2017_1C\TP\src\obj\x86\Debu
 C:\Users\Windows7\Documents\Downloads\UTN\GDD\TP_GDD_2017_1C\TP\src\obj\x86\Debug\UberFrba.Rendicion_Viajes.RendicionForm.resources
 C:\Users\Windows7\Documents\Downloads\UTN\GDD\TP_GDD_2017_1C\TP\src\obj\x86\Debug\UberFrba.SeleccionarFuncionalidad.SeleccionarFuncionalidadForm.resources
 C:\Users\Windows7\Documents\Downloads\UTN\GDD\TP_GDD_2017_1C\TP\src\obj\x86\Debug\UberFrba.SeleccionarRol.SeleccionarRolForm.resources
-C:\Users\Windows7\Documents\Downloads\UTN\GDD\TP_GDD_2017_1C\TP\src\obj\x86\Debug\UberFrba.Dominio.TablaUsuarioForm.resources
 C:\Users\Windows7\Documents\Downloads\UTN\GDD\TP_GDD_2017_1C\TP\src\obj\x86\Debug\UberFrba.csproj.GenerateResource.Cache
 C:\Users\Windows7\Documents\Downloads\UTN\GDD\TP_GDD_2017_1C\TP\src\obj\x86\Debug\UberFrba.exe
 C:\Users\Windows7\Documents\Downloads\UTN\GDD\TP_GDD_2017_1C\TP\src\obj\x86\Debug\UberFrba.pdb
 C:\Users\Windows7\Documents\Downloads\UTN\GDD\TP_GDD_2017_1C\TP\src\obj\x86\Debug\UberFrba.Abm_Chofer.NuevoChoferForm.resources
 C:\Users\Windows7\Documents\Downloads\UTN\GDD\TP_GDD_2017_1C\TP\src\obj\x86\Debug\UberFrba.Abm_Cliente.NuevoClienteForm.resources
-C:\Users\Windows7\Documents\Downloads\UTN\GDD\TP_GDD_2017_1C\TP\src\obj\x86\Debug\UberFrba.Dominio.SeleccionarUsuarioForm.resources
+C:\Users\Windows7\Documents\Downloads\UTN\GDD\TP_GDD_2017_1C\TP\src\obj\x86\Debug\UberFrba.Usuarios.NuevoUsuarioForm.resources
+C:\Users\Windows7\Documents\Downloads\UTN\GDD\TP_GDD_2017_1C\TP\src\obj\x86\Debug\UberFrba.Usuarios.SeleccionarUsuarioForm.resources
+C:\Users\Windows7\Documents\Downloads\UTN\GDD\TP_GDD_2017_1C\TP\src\obj\x86\Debug\UberFrba.Usuarios.TablaUsuarioForm.resources

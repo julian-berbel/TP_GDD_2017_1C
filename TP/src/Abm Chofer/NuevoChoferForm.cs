@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -9,6 +10,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using UberFrba.Dominio;
 using UberFrba.Dominio.Exceptions;
+using UberFrba.Usuarios;
 
 namespace UberFrba.Abm_Chofer
 {
@@ -87,10 +89,19 @@ namespace UberFrba.Abm_Chofer
 
         private void buttonAceptar_Click(object sender, EventArgs e)
         {
-            if (usuarioSeleccionado == null) Error.show("Debe Seleccionar un usuario para dar de alta como chofer!");
-            else Chofer.nuevo(usuarioSeleccionado.id, checkBoxHabilitado.Checked);
+            try
+            {
+                if (usuarioSeleccionado == null) throw new UsuarioNoSeleccionadoException();
+                else Chofer.nuevo(usuarioSeleccionado.id, checkBoxHabilitado.Checked);
 
-            this.Close();
+                this.Close();
+            }
+            catch (SqlException) { }
+            catch (Exception exception)
+            {
+                if (exception is FormatException || exception is UsuarioNoSeleccionadoException) Error.show(exception.Message);
+                else throw;
+            }
         }
 
         private void buttonCancelar_Click(object sender, EventArgs e)

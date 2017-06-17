@@ -33,6 +33,7 @@
             this.textBoxContrasenia = new System.Windows.Forms.TextBox();
             this.labelUsuario = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
+            this.buttonRegistrar = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // buttonLogin
@@ -80,11 +81,22 @@
             this.label1.TabIndex = 4;
             this.label1.Text = "Contraseña:";
             // 
+            // buttonRegistrar
+            // 
+            this.buttonRegistrar.Location = new System.Drawing.Point(17, 126);
+            this.buttonRegistrar.Name = "buttonRegistrar";
+            this.buttonRegistrar.Size = new System.Drawing.Size(175, 23);
+            this.buttonRegistrar.TabIndex = 5;
+            this.buttonRegistrar.Text = "Registrarme";
+            this.buttonRegistrar.UseVisualStyleBackColor = true;
+            this.buttonRegistrar.Click += new System.EventHandler(this.buttonRegistrar_Click);
+            // 
             // LoginForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(219, 145);
+            this.ClientSize = new System.Drawing.Size(219, 160);
+            this.Controls.Add(this.buttonRegistrar);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.labelUsuario);
             this.Controls.Add(this.textBoxContrasenia);
@@ -106,5 +118,6 @@
         private System.Windows.Forms.TextBox textBoxContrasenia;
         private System.Windows.Forms.Label labelUsuario;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Button buttonRegistrar;
     }
 }

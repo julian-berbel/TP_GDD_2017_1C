@@ -6,10 +6,11 @@ using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
 using UberFrba.Dominio;
+using UberFrba.Usuarios;
 
 namespace UberFrba.Abm_Cliente
 {
-    public partial class TablaClienteForm : UberFrba.Dominio.TablaUsuarioForm
+    public partial class TablaClienteForm : TablaUsuarioForm
     {
         public TablaClienteForm(ReturningForm caller) : base(caller)
         {

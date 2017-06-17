@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -9,6 +10,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using UberFrba.Dominio;
 using UberFrba.Dominio.Exceptions;
+using UberFrba.Usuarios;
 
 namespace UberFrba.Abm_Cliente
 {
@@ -73,17 +75,7 @@ namespace UberFrba.Abm_Cliente
         {
             get
             {
-                if (string.IsNullOrWhiteSpace(textBoxCodigoPostal.Text)) return 0;
-                decimal resultado = 0;
-                try
-                {
-                    resultado = decimal.Parse(textBoxCodigoPostal.Text);
-                }
-                catch (Exception e)
-                {
-                    Error.show(e.Message);
-                }
-                return resultado;
+                return decimal.Parse(textBoxCodigoPostal.Text);
             }
             set
             {
@@ -109,13 +101,25 @@ namespace UberFrba.Abm_Cliente
 
         private void buttonAceptar_Click(object sender, EventArgs e)
         {
-            if (usuarioSeleccionado == null) Error.show("Debe Seleccionar un usuario para dar de alta como chofer!");
-            else if (CodigoPostal == 0) Error.show(new CampoVacioException("Codigo Postal").Message);
-            else {
-                Cliente.nuevo(usuarioSeleccionado.id, CodigoPostal, checkBoxHabilitado.Checked);
+            try
+            {
+                validar();
 
+                Cliente.nuevo(usuarioSeleccionado.id, CodigoPostal, checkBoxHabilitado.Checked);
                 this.Close();
             }
+            catch (SqlException) { }
+            catch (Exception exception)
+            {
+                if (exception is FormatException || exception is CampoVacioException || exception is UsuarioNoSeleccionadoException) Error.show(exception.Message);
+                else throw;
+            }
+        }
+
+        private void validar()
+        {
+            if (usuarioSeleccionado == null) throw new UsuarioNoSeleccionadoException();
+            if (string.IsNullOrWhiteSpace(textBoxCodigoPostal.Text)) throw new CampoVacioException("Codigo Postal");
         }
 
         private void buttonCancelar_Click(object sender, EventArgs e)

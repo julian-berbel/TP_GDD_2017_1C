@@ -255,6 +255,7 @@
             this.Controls.Add(this.dateTimePickerFechaNac);
             this.MaximizeBox = false;
             this.Name = "NuevoClienteForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "NuevoClienteForm";
             this.ResumeLayout(false);
             this.PerformLayout();

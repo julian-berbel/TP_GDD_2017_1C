@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -18,6 +19,8 @@ namespace UberFrba.Dominio
         public String domicilio;
         public DateTime fechaNac;
         public Boolean habilitado;
+        public String nombreDeUsuario;
+        public byte[] contrasenia;
 
         public Usuario(DataRow data)
         {
@@ -45,6 +48,11 @@ namespace UberFrba.Dominio
         public static byte cantidadDeRoles()
         {
             return (byte) DB.correrFuncion("USUARIO_CANTIDAD_DE_ROLES", "usuario", usuarioSeleccionadoId);
+        }
+
+        public static byte[] encriptar(string texto)
+        {
+            return new SHA256Managed().ComputeHash(Encoding.UTF8.GetBytes(texto), 0, Encoding.UTF8.GetByteCount(texto));
         }
 
         public static void cargar(String username)
@@ -76,6 +84,20 @@ namespace UberFrba.Dominio
         {
             DB.correrProcedimiento(tipoDeUsuario + "_INHABILITAR",
                                             "id", id);
+        }
+
+        public void nuevo()
+        {
+            DB.correrProcedimiento("USUARIO_NUEVO",
+                                    "nombre", nombre,
+                                    "apellido", apellido,
+                                    "dni", dni,
+                                    "mail", mail,
+                                    "telefono", telefono,
+                                    "domicilio", domicilio,
+                                    "fechaNac", fechaNac,
+                                    "nombreDeUsuario", nombreDeUsuario,
+                                    "contrasenia", contrasenia);
         }
     }
 }

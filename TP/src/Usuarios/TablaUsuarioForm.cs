@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using UberFrba.Dominio;
 
-namespace UberFrba.Dominio
+namespace UberFrba.Usuarios
 {
     public partial class TablaUsuarioForm : ReturningForm
     {

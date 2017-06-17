@@ -165,6 +165,7 @@
     <Compile Include="Dominio\Chofer.cs" />
     <Compile Include="Dominio\DB.cs" />
     <Compile Include="Dominio\Error.cs" />
+    <Compile Include="Dominio\Exceptions\UsuarioNoSeleccionadoException.cs" />
     <Compile Include="Dominio\Exceptions\CampoVacioException.cs" />
     <Compile Include="Dominio\Funcionalidad.cs" />
     <Compile Include="Dominio\RepoFuncionalidades.cs" />
@@ -172,10 +173,16 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Dominio\Rol.cs" />
-    <Compile Include="Dominio\SeleccionarUsuarioForm.cs">
+    <Compile Include="Usuarios\NuevoUsuarioForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Dominio\SeleccionarUsuarioForm.Designer.cs">
+    <Compile Include="Usuarios\NuevoUsuarioForm.Designer.cs">
+      <DependentUpon>NuevoUsuarioForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Usuarios\SeleccionarUsuarioForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Usuarios\SeleccionarUsuarioForm.Designer.cs">
       <DependentUpon>SeleccionarUsuarioForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Dominio\Usuario.cs" />
@@ -223,10 +230,10 @@
     <Compile Include="SeleccionarRol\SeleccionarRolForm.Designer.cs">
       <DependentUpon>SeleccionarRolForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Dominio\TablaUsuarioForm.cs">
+    <Compile Include="Usuarios\TablaUsuarioForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Dominio\TablaUsuarioForm.Designer.cs">
+    <Compile Include="Usuarios\TablaUsuarioForm.Designer.cs">
       <DependentUpon>TablaUsuarioForm.cs</DependentUpon>
     </Compile>
     <EmbeddedResource Include="Abm Automovil\ABMAutomovilForm.resx">
@@ -271,7 +278,10 @@
     <EmbeddedResource Include="Abm Turno\ABMTurnoForm.resx">
       <DependentUpon>ABMTurnoForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Dominio\SeleccionarUsuarioForm.resx">
+    <EmbeddedResource Include="Usuarios\NuevoUsuarioForm.resx">
+      <DependentUpon>NuevoUsuarioForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Usuarios\SeleccionarUsuarioForm.resx">
       <DependentUpon>SeleccionarUsuarioForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Facturacion\FacturacionForm.resx">
@@ -304,7 +314,7 @@
     <EmbeddedResource Include="SeleccionarRol\SeleccionarRolForm.resx">
       <DependentUpon>SeleccionarRolForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Dominio\TablaUsuarioForm.resx">
+    <EmbeddedResource Include="Usuarios\TablaUsuarioForm.resx">
       <DependentUpon>TablaUsuarioForm.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
