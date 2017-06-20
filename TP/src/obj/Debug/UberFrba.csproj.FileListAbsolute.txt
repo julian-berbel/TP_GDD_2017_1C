@@ -37,9 +37,6 @@ C:\Users\JuliVM\Desktop\TP_GDD_2017_1C\TP\src\obj\Debug\UberFrba.Dominio.TablaUs
 C:\Users\JuliVM\Desktop\TP_GDD_2017_1C\TP\src\obj\Debug\UberFrba.csproj.GenerateResource.Cache
 C:\Users\JuliVM\Desktop\TP_GDD_2017_1C\TP\src\obj\Debug\UberFrba.exe
 C:\Users\JuliVM\Desktop\TP_GDD_2017_1C\TP\src\obj\Debug\UberFrba.pdb
-C:\Users\Windows7\Documents\Downloads\UTN\GDD\TP_GDD_2017_1C\TP\src\bin\Debug\UberFrba.exe.config
-C:\Users\Windows7\Documents\Downloads\UTN\GDD\TP_GDD_2017_1C\TP\src\bin\Debug\UberFrba.exe
-C:\Users\Windows7\Documents\Downloads\UTN\GDD\TP_GDD_2017_1C\TP\src\bin\Debug\UberFrba.pdb
 C:\Users\Windows7\Documents\Downloads\UTN\GDD\TP_GDD_2017_1C\TP\src\obj\Debug\UberFrba.Abm_Automovil.ABMAutomovilForm.resources
 C:\Users\Windows7\Documents\Downloads\UTN\GDD\TP_GDD_2017_1C\TP\src\obj\Debug\UberFrba.Abm_Automovil.EditarAutomovilForm.resources
 C:\Users\Windows7\Documents\Downloads\UTN\GDD\TP_GDD_2017_1C\TP\src\obj\Debug\UberFrba.Abm_Automovil.SeleccionarAutomovilForm.resources
@@ -72,5 +69,9 @@ C:\Users\Windows7\Documents\Downloads\UTN\GDD\TP_GDD_2017_1C\TP\src\obj\Debug\Ub
 C:\Users\Windows7\Documents\Downloads\UTN\GDD\TP_GDD_2017_1C\TP\src\obj\Debug\UberFrba.SeleccionarRol.SeleccionarRolForm.resources
 C:\Users\Windows7\Documents\Downloads\UTN\GDD\TP_GDD_2017_1C\TP\src\obj\Debug\UberFrba.Usuarios.TablaUsuarioForm.resources
 C:\Users\Windows7\Documents\Downloads\UTN\GDD\TP_GDD_2017_1C\TP\src\obj\Debug\UberFrba.csproj.GenerateResource.Cache
+C:\Users\Windows7\Documents\Downloads\UTN\GDD\TP_GDD_2017_1C\TP\src\bin\Debug\UberFrba.exe.config
+C:\Users\Windows7\Documents\Downloads\UTN\GDD\TP_GDD_2017_1C\TP\src\bin\Debug\UberFrba.exe
+C:\Users\Windows7\Documents\Downloads\UTN\GDD\TP_GDD_2017_1C\TP\src\bin\Debug\UberFrba.pdb
 C:\Users\Windows7\Documents\Downloads\UTN\GDD\TP_GDD_2017_1C\TP\src\obj\Debug\UberFrba.exe
 C:\Users\Windows7\Documents\Downloads\UTN\GDD\TP_GDD_2017_1C\TP\src\obj\Debug\UberFrba.pdb
+C:\Users\Windows7\Documents\Downloads\UTN\GDD\TP_GDD_2017_1C\TP\src\obj\Debug\UberFrba.csprojResolveAssemblyReference.cache

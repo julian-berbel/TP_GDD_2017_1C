@@ -18,6 +18,7 @@ namespace UberFrba.Dominio
         public String rodado;
         public String modelo;
         public String marca;
+        public Turno turno;
         public Boolean habilitado;
 
         public Automovil(DataRow data){
@@ -28,6 +29,7 @@ namespace UberFrba.Dominio
             rodado = (String)data["Rodado"];
             modelo = (String)data["Modelo"];
             marca = (String)data["Marca"];
+            turno = Turno.get((byte)data["vehi_turno"]);
             habilitado = (Boolean)data["Habilitado"];
         }
 
@@ -64,6 +66,7 @@ namespace UberFrba.Dominio
                                         "rodado", rodado,
                                         "modelo", modelo,
                                         "marca", marca,
+                                        "turno", turno.id,
                                         "habilitado", habilitado);
         }
 
@@ -76,6 +79,7 @@ namespace UberFrba.Dominio
                                         "rodado", rodado,
                                         "modelo", modelo,
                                         "marca", marca,
+                                        "turno", turno.id,
                                         "habilitado", habilitado);
         }
 
@@ -83,6 +87,14 @@ namespace UberFrba.Dominio
         {
             DB.correrProcedimiento("AUTOMOVIL_INHABILITAR",
                                    "idAutomovil", idAutomovil);
+        }
+
+        public static Automovil getAutomovilDe(int idChofer)
+        {
+            DataRow fila = DB.correrFuncionDeTabla("AUTOMOVIL_GET_DE",
+                                                    "idChofer", idChofer).Rows[0];
+
+            return new Automovil(fila);
         }
 
     }

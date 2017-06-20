@@ -42,6 +42,14 @@ namespace UberFrba.Dominio
                                     FROM LOS_MODERADAMENTE_ADECUADOS.Turno");
         }
 
+        public static List<Turno> getListaTurnos()
+        {
+            return getTurnos()
+                .AsEnumerable()
+                .Select(fila => new Turno(fila))
+                .ToList();
+        }
+
         public static void inhabilitar(byte id)
         {
             DB.correrProcedimiento("Turno_INHABILITAR",
@@ -69,6 +77,18 @@ namespace UberFrba.Dominio
                                     "valorKilometro", valorKilometro,
                                     "precioBase", precioBase,
                                     "habilitado", habilitado);
+        }
+
+        public static Turno get(byte id)
+        {
+            DataRow fila = DB.correrFuncionDeTabla( "TURNO_GET",
+                                                    "id", id).Rows[0];
+            return new Turno(fila);
+        }
+
+        public override string ToString()
+        {
+            return descripcion;
         }
     }
 }

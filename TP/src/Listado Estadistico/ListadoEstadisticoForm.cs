@@ -17,5 +17,18 @@ namespace UberFrba.Listado_Estadistico
         {
             InitializeComponent();
         }
+
+        internal int Anio
+        {
+            get
+            {
+                return (int) numericUpDownAnio.Value;
+            }
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
     }
 }

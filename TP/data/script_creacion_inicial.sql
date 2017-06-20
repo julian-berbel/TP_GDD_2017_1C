@@ -14,10 +14,7 @@ IF OBJECT_ID('LOS_MODERADAMENTE_ADECUADOS.Item_Rendicion','U') IS NOT NULL
 	
 IF OBJECT_ID('LOS_MODERADAMENTE_ADECUADOS.Viaje','U') IS NOT NULL
     DROP TABLE LOS_MODERADAMENTE_ADECUADOS.Viaje;
-
-IF OBJECT_ID('LOS_MODERADAMENTE_ADECUADOS.Turno_X_Vehiculo','U') IS NOT NULL
-    DROP TABLE LOS_MODERADAMENTE_ADECUADOS.Turno_X_Vehiculo;
-
+	
 IF OBJECT_ID('LOS_MODERADAMENTE_ADECUADOS.Vehiculo','U') IS NOT NULL
     DROP TABLE LOS_MODERADAMENTE_ADECUADOS.Vehiculo;
 	
@@ -114,6 +111,12 @@ IF OBJECT_ID('LOS_MODERADAMENTE_ADECUADOS.CLIENTE_INHABILITAR') IS NOT NULL
 IF OBJECT_ID('LOS_MODERADAMENTE_ADECUADOS.CHOFER_INHABILITAR') IS NOT NULL
     DROP PROCEDURE LOS_MODERADAMENTE_ADECUADOS.CHOFER_INHABILITAR;
 
+IF OBJECT_ID('LOS_MODERADAMENTE_ADECUADOS.TURNO_INHABILITAR') IS NOT NULL
+    DROP PROCEDURE LOS_MODERADAMENTE_ADECUADOS.TURNO_INHABILITAR;
+
+IF OBJECT_ID('LOS_MODERADAMENTE_ADECUADOS.REGISTRAR_VIAJE') IS NOT NULL
+    DROP PROCEDURE LOS_MODERADAMENTE_ADECUADOS.REGISTRAR_VIAJE;
+	
 IF OBJECT_ID('LOS_MODERADAMENTE_ADECUADOS.USUARIO_GET_ID') IS NOT NULL
     DROP FUNCTION LOS_MODERADAMENTE_ADECUADOS.USUARIO_GET_ID;
 
@@ -158,7 +161,25 @@ IF OBJECT_ID('LOS_MODERADAMENTE_ADECUADOS.GET_USUARIOS_CON_FILTROS') IS NOT NULL
 
 IF OBJECT_ID('LOS_MODERADAMENTE_ADECUADOS.CLIENTE_GET_CODIGO_POSTAL') IS NOT NULL
     DROP FUNCTION LOS_MODERADAMENTE_ADECUADOS.CLIENTE_GET_CODIGO_POSTAL;
-	
+
+IF OBJECT_ID('LOS_MODERADAMENTE_ADECUADOS.TURNO_GET') IS NOT NULL
+    DROP FUNCTION LOS_MODERADAMENTE_ADECUADOS.TURNO_GET;
+
+IF OBJECT_ID('LOS_MODERADAMENTE_ADECUADOS.AUTOMOVIL_GET_DE') IS NOT NULL
+    DROP FUNCTION LOS_MODERADAMENTE_ADECUADOS.AUTOMOVIL_GET_DE;	
+
+IF OBJECT_ID('LOS_MODERADAMENTE_ADECUADOS.ESTADISTICA_CHOFER_MAYOR_RECAUDACION') IS NOT NULL
+    DROP FUNCTION LOS_MODERADAMENTE_ADECUADOS.ESTADISTICA_CHOFER_MAYOR_RECAUDACION;	
+
+IF OBJECT_ID('LOS_MODERADAMENTE_ADECUADOS.ESTADISTICA_CHOFER_VIAJE_MAS_LARGO') IS NOT NULL
+    DROP FUNCTION LOS_MODERADAMENTE_ADECUADOS.ESTADISTICA_CHOFER_VIAJE_MAS_LARGO;
+
+IF OBJECT_ID('LOS_MODERADAMENTE_ADECUADOS.ESTADISTICA_CLIENTE_MAYOR_CONSUMO') IS NOT NULL
+    DROP FUNCTION LOS_MODERADAMENTE_ADECUADOS.ESTADISTICA_CLIENTE_MAYOR_CONSUMO;
+
+IF OBJECT_ID('LOS_MODERADAMENTE_ADECUADOS.ESTADISTICA_CLIENTE_MAYOR_USO_MISMO_VEHICULO') IS NOT NULL
+    DROP FUNCTION LOS_MODERADAMENTE_ADECUADOS.ESTADISTICA_CLIENTE_MAYOR_USO_MISMO_VEHICULO;
+				
 IF EXISTS (SELECT SCHEMA_NAME FROM INFORMATION_SCHEMA.SCHEMATA WHERE SCHEMA_NAME = 'LOS_MODERADAMENTE_ADECUADOS')
     DROP SCHEMA LOS_MODERADAMENTE_ADECUADOS
 GO
@@ -234,6 +255,7 @@ CREATE TABLE LOS_MODERADAMENTE_ADECUADOS.Rendicion(
     rend_turno TINYINT NOT NULL FOREIGN KEY REFERENCES LOS_MODERADAMENTE_ADECUADOS.Turno(turn_id),
 	rend_chofer INT NOT NULL FOREIGN KEY REFERENCES LOS_MODERADAMENTE_ADECUADOS.Chofer(chof_id),
 	rend_fecha DATETIME NOT NULL,
+	rend_porcentaje NUMERIC(2,2) NOT NULL CHECK (rend_porcentaje <=1 AND rend_porcentaje >= 0),
 	rend_importe_total NUMERIC(10,2) NOT NULL);
 
 CREATE TABLE LOS_MODERADAMENTE_ADECUADOS.Marca(
@@ -250,8 +272,9 @@ CREATE TABLE LOS_MODERADAMENTE_ADECUADOS.Vehiculo(
     vehi_chofer INT NOT NULL FOREIGN KEY REFERENCES LOS_MODERADAMENTE_ADECUADOS.Chofer(chof_id),
 	vehi_patente VARCHAR(10) UNIQUE NOT NULL,
 	vehi_licencia VARCHAR(26) NOT NULL,
-	vehi_rodado VARCHAR(10) NOT NULL,
+	vehi_rodado VARCHAR(10),
 	vehi_modelo INT NOT NULL FOREIGN KEY REFERENCES LOS_MODERADAMENTE_ADECUADOS.Modelo(mode_id),
+	vehi_turno TINYINT NOT NULL FOREIGN KEY REFERENCES LOS_MODERADAMENTE_ADECUADOS.Turno(turn_id),
 	vehi_habilitado BIT NOT NULL);
 
 CREATE TABLE LOS_MODERADAMENTE_ADECUADOS.Viaje(
@@ -268,11 +291,6 @@ CREATE TABLE LOS_MODERADAMENTE_ADECUADOS.Item_Rendicion(
     cod_rend INT FOREIGN KEY REFERENCES LOS_MODERADAMENTE_ADECUADOS.Rendicion(rend_numero),
     cod_viaje INT FOREIGN KEY REFERENCES LOS_MODERADAMENTE_ADECUADOS.Viaje(viaj_id),
     PRIMARY KEY (cod_rend, cod_viaje));
-	
-CREATE TABLE LOS_MODERADAMENTE_ADECUADOS.Turno_X_Vehiculo(
-	cod_turno TINYINT FOREIGN KEY REFERENCES LOS_MODERADAMENTE_ADECUADOS.Turno(turn_id),
-    cod_vehiculo INT FOREIGN KEY REFERENCES LOS_MODERADAMENTE_ADECUADOS.Vehiculo(vehi_id),
-    PRIMARY KEY (cod_turno, cod_vehiculo));
 
 CREATE TABLE LOS_MODERADAMENTE_ADECUADOS.Factura(
     fact_numero INT PRIMARY KEY,
@@ -389,8 +407,8 @@ INSERT LOS_MODERADAMENTE_ADECUADOS.Turno (turn_descripcion, turn_hora_inicio, tu
 	
 --Rendicion
 
-INSERT LOS_MODERADAMENTE_ADECUADOS.Rendicion (rend_numero, rend_turno, rend_chofer, rend_fecha, rend_importe_total)
-	SELECT Rendicion_Nro, t.turn_id, c.usua_id, Rendicion_Fecha, sum(Rendicion_Importe) 
+INSERT LOS_MODERADAMENTE_ADECUADOS.Rendicion (rend_numero, rend_turno, rend_chofer, rend_fecha, rend_porcentaje, rend_importe_total)
+	SELECT Rendicion_Nro, t.turn_id, c.usua_id, Rendicion_Fecha, 0.3, sum(Rendicion_Importe) 
 	FROM gd_esquema.Maestra m 
 		JOIN LOS_MODERADAMENTE_ADECUADOS.Usuario c ON m.Chofer_Dni = c.usua_dni
 		JOIN LOS_MODERADAMENTE_ADECUADOS.Turno t ON m.Turno_Descripcion = t.turn_descripcion
@@ -412,19 +430,16 @@ INSERT LOS_MODERADAMENTE_ADECUADOS.Modelo(mode_codigo, mode_marca)
 	
 --Vehiculo
 
-INSERT LOS_MODERADAMENTE_ADECUADOS.Vehiculo (vehi_chofer, vehi_patente, vehi_licencia, vehi_rodado, vehi_modelo, vehi_habilitado) 
-	SELECT DISTINCT u.usua_id, Auto_Patente, Auto_Licencia, Auto_Rodado, mode_id, 1
+INSERT LOS_MODERADAMENTE_ADECUADOS.Vehiculo (vehi_chofer, vehi_patente, vehi_licencia, vehi_rodado, vehi_modelo, vehi_turno, vehi_habilitado) 
+	SELECT DISTINCT usua_id, Auto_Patente, Auto_Licencia, Auto_Rodado, mode_id, 
+		(SELECT TOP 1 turn_id 
+		FROM gd_esquema.Maestra
+			JOIN LOS_MODERADAMENTE_ADECUADOS.Turno ON Turno_Descripcion = turn_descripcion
+		WHERE m.Auto_Licencia = Auto_Licencia 
+		ORDER BY Viaje_Fecha DESC), 1
 	FROM gd_esquema.Maestra m
-		JOIN LOS_MODERADAMENTE_ADECUADOS.Usuario u ON m.Chofer_Dni = u.usua_dni
-		JOIN LOS_MODERADAMENTE_ADECUADOS.Modelo ON mode_codigo = m.Auto_Modelo
-
---Turno_X_Vehiculo
-
-INSERT LOS_MODERADAMENTE_ADECUADOS.Turno_X_Vehiculo (cod_turno, cod_vehiculo)
-	SELECT DISTINCT turn_id, vehi_id
-	FROM gd_esquema.Maestra 
-		JOIN LOS_MODERADAMENTE_ADECUADOS.Turno ON Turno_Descripcion = turn_descripcion
-		JOIN LOS_MODERADAMENTE_ADECUADOS.Vehiculo ON Auto_Patente = vehi_patente
+		JOIN LOS_MODERADAMENTE_ADECUADOS.Usuario ON Chofer_Dni = usua_dni
+		JOIN LOS_MODERADAMENTE_ADECUADOS.Modelo ON mode_codigo = Auto_Modelo
 
 --Viaje
 
@@ -652,14 +667,14 @@ AS
 			WHERE usua_id = @id)
 GO
 
-CREATE PROC LOS_MODERADAMENTE_ADECUADOS.AUTOMOVIL_UPDATE(@automovilId INT, @chofer INT, @patente VARCHAR(10), @licencia VARCHAR(26), @rodado VARCHAR(10), @modelo VARCHAR(255), @marca VARCHAR(255), @habilitado BIT)
+CREATE PROC LOS_MODERADAMENTE_ADECUADOS.AUTOMOVIL_UPDATE(@automovilId INT, @chofer INT, @patente VARCHAR(10), @licencia VARCHAR(26), @rodado VARCHAR(10), @modelo VARCHAR(255), @marca VARCHAR(255), @turno TINYINT, @habilitado BIT)
 AS
 BEGIN
 	DECLARE @_modelo INT = (SELECT mode_id FROM LOS_MODERADAMENTE_ADECUADOS.Modelo WHERE mode_codigo = @modelo)
 	IF(@_modelo IS NULL) INSERT LOS_MODERADAMENTE_ADECUADOS.Modelo VALUES
 							(@modelo, (SELECT marc_id FROM LOS_MODERADAMENTE_ADECUADOS.Marca WHERE marc_nombre = @marca))
 
-	UPDATE LOS_MODERADAMENTE_ADECUADOS.Vehiculo SET vehi_chofer = @chofer, vehi_patente = @patente, vehi_licencia = @licencia, vehi_rodado = @rodado, vehi_modelo = ISNULL(@_modelo, SCOPE_IDENTITY()), vehi_habilitado = @habilitado
+	UPDATE LOS_MODERADAMENTE_ADECUADOS.Vehiculo SET vehi_chofer = @chofer, vehi_patente = @patente, vehi_licencia = @licencia, vehi_rodado = @rodado, vehi_modelo = ISNULL(@_modelo, SCOPE_IDENTITY()), vehi_turno = @turno, vehi_habilitado = @habilitado
 	WHERE vehi_id = @automovilId
 	
 	UPDATE LOS_MODERADAMENTE_ADECUADOS.Modelo SET mode_marca = (SELECT marc_id FROM LOS_MODERADAMENTE_ADECUADOS.Marca WHERE marc_nombre = @marca)
@@ -667,7 +682,7 @@ BEGIN
 END
 GO
 
-CREATE PROC LOS_MODERADAMENTE_ADECUADOS.AUTOMOVIL_NUEVO(@chofer INT, @patente VARCHAR(10), @licencia VARCHAR(26), @rodado VARCHAR(10), @modelo VARCHAR(255), @marca VARCHAR(255), @habilitado BIT)
+CREATE PROC LOS_MODERADAMENTE_ADECUADOS.AUTOMOVIL_NUEVO(@chofer INT, @patente VARCHAR(10), @licencia VARCHAR(26), @rodado VARCHAR(10), @modelo VARCHAR(255), @marca VARCHAR(255), @turno TINYINT, @habilitado BIT)
 AS
 BEGIN
 	DECLARE @_modelo INT = (SELECT mode_id FROM LOS_MODERADAMENTE_ADECUADOS.Modelo WHERE mode_codigo = @modelo)
@@ -675,7 +690,7 @@ BEGIN
 							(@modelo, (SELECT marc_id FROM LOS_MODERADAMENTE_ADECUADOS.Marca WHERE marc_nombre = @marca))
 
 	INSERT LOS_MODERADAMENTE_ADECUADOS.Vehiculo VALUES
-		(@chofer, @patente, @licencia, @rodado, ISNULL(@_modelo, SCOPE_IDENTITY()), @habilitado)
+		(@chofer, @patente, @licencia, @rodado, ISNULL(@_modelo, SCOPE_IDENTITY()), @turno, @habilitado)
 END
 GO
 
@@ -820,6 +835,21 @@ CREATE PROC LOS_MODERADAMENTE_ADECUADOS.TURNO_UPDATE(	@id TINYINT,
 														@habilitado BIT)
 AS
 BEGIN
+	DECLARE @colision VARCHAR(255) = (SELECT TOP 1 turn_descripcion
+										FROM LOS_MODERADAMENTE_ADECUADOS.Turno
+										WHERE turn_hora_inicio < @horaFin
+											AND turn_hora_fin > @horaInicio
+											AND turn_habilitado = 1
+											AND @habilitado = 1
+											AND turn_id <> @id)
+
+	IF(@colision IS NOT NULL) 
+	BEGIN
+		DECLARE @error VARCHAR(255) = 'El horario seleccionado se solapa con el del turno ' + @colision + ', puede deshabilitarlo y volver a intentar.'
+		RAISERROR(@error, 16, 1)
+		RETURN
+	END
+
 	UPDATE LOS_MODERADAMENTE_ADECUADOS.Turno SET	turn_hora_inicio = @horaInicio,
 													turn_hora_fin = @horaFin,
 													turn_descripcion = @descripcion,
@@ -838,8 +868,36 @@ CREATE PROC LOS_MODERADAMENTE_ADECUADOS.TURNO_NUEVO(	@horaInicio NUMERIC(18,0),
 														@habilitado BIT)
 AS
 BEGIN
+	DECLARE @colision VARCHAR(255) = (SELECT TOP 1 turn_descripcion
+										FROM LOS_MODERADAMENTE_ADECUADOS.Turno
+										WHERE turn_hora_inicio < @horaFin 
+											AND turn_hora_fin > @horaInicio 
+											AND turn_habilitado = 1
+											AND @habilitado = 1)
+
+	IF(@colision IS NOT NULL) 
+	BEGIN
+		DECLARE @error VARCHAR(255) = 'El horario seleccionado se solapa con el del turno ' + @colision + ', puede deshabilitarlo y volver a intentar.'
+		RAISERROR(@error, 16, 1)
+		RETURN
+	END
+
 	INSERT LOS_MODERADAMENTE_ADECUADOS.Turno VALUES
 		(@horaInicio, @horaFin, @descripcion, @valorKilometro, @precioBase, @habilitado)
+END
+GO
+
+CREATE PROC LOS_MODERADAMENTE_ADECUADOS.REGISTRAR_VIAJE(@chofer INT,
+														@vehiculo INT,
+														@cliente INT,
+														@turno TINYINT,
+														@kms NUMERIC(18,0),
+														@inicio DATETIME,
+														@fin DATETIME)
+AS
+BEGIN
+	INSERT LOS_MODERADAMENTE_ADECUADOS.Viaje VALUES
+		(@chofer, @vehiculo, @cliente, @turno, @kms, @inicio, @fin)
 END
 GO
 
@@ -850,17 +908,20 @@ CREATE FUNCTION LOS_MODERADAMENTE_ADECUADOS.GET_AUTOS_CON_FILTROS (@modelo varch
 RETURNS TABLE
 AS 
 	RETURN	(SELECT vehi_id, 
-                    vehi_chofer, 
+                    vehi_chofer,
+					vehi_turno,
                     vehi_patente AS Patente,
                     vehi_licencia AS Licencia,
                     vehi_rodado AS Rodado,
                     mode_codigo AS Modelo,
                     marc_nombre AS Marca,
+					turn_descripcion AS Turno,
                     vehi_habilitado AS Habilitado
 			FROM LOS_MODERADAMENTE_ADECUADOS.Vehiculo
 				JOIN LOS_MODERADAMENTE_ADECUADOS.Chofer ON (vehi_chofer = chof_id)
 				JOIN LOS_MODERADAMENTE_ADECUADOS.Modelo ON (vehi_modelo = mode_id)
 				JOIN LOS_MODERADAMENTE_ADECUADOS.Marca ON (mode_marca = marc_id)
+				JOIN LOS_MODERADAMENTE_ADECUADOS.Turno ON (turn_id = vehi_turno)
 			WHERE (@modelo = '' OR CHARINDEX(@modelo, mode_codigo) > 0) AND
 				(@patente = '' OR CHARINDEX(@patente, vehi_patente) > 0) AND
 				(@marca = '' OR @marca = marc_nombre) AND
@@ -988,4 +1049,114 @@ BEGIN
 			FROM LOS_MODERADAMENTE_ADECUADOS.Cliente
 			WHERE clie_id = @id)
 END
+GO
+
+CREATE FUNCTION LOS_MODERADAMENTE_ADECUADOS.TURNO_GET(@id INT) RETURNS TABLE
+AS
+	RETURN (SELECT  turn_id,
+					turn_hora_inicio AS Hora_Inicio,
+					turn_hora_fin AS Hora_Fin,
+					turn_descripcion AS Descripcion,
+					turn_valor_kilometro AS Valor_Km,
+					turn_precio_base AS Precio_Base,
+					turn_habilitado AS Habilitado
+			FROM LOS_MODERADAMENTE_ADECUADOS.Turno
+			WHERE turn_id = @id)
+GO
+
+CREATE FUNCTION LOS_MODERADAMENTE_ADECUADOS.AUTOMOVIL_GET_DE (@idChofer INT)
+RETURNS TABLE
+AS 
+	RETURN	(SELECT vehi_id, 
+                    vehi_chofer,
+					vehi_turno,
+                    vehi_patente AS Patente,
+                    vehi_licencia AS Licencia,
+                    vehi_rodado AS Rodado,
+                    mode_codigo AS Modelo,
+                    marc_nombre AS Marca,
+					turn_descripcion AS Turno,
+                    vehi_habilitado AS Habilitado
+			FROM LOS_MODERADAMENTE_ADECUADOS.Vehiculo
+				JOIN LOS_MODERADAMENTE_ADECUADOS.Chofer ON (vehi_chofer = chof_id)
+				JOIN LOS_MODERADAMENTE_ADECUADOS.Modelo ON (vehi_modelo = mode_id)
+				JOIN LOS_MODERADAMENTE_ADECUADOS.Marca ON (mode_marca = marc_id)
+				JOIN LOS_MODERADAMENTE_ADECUADOS.Turno ON (turn_id = vehi_turno)
+			WHERE chof_id = @idChofer AND vehi_habilitado = 1)
+GO
+
+CREATE FUNCTION LOS_MODERADAMENTE_ADECUADOS.ESTADISTICA_CHOFER_MAYOR_RECAUDACION (	@anio INT,
+																					@trimestre TINYINT)
+RETURNS TABLE
+AS 
+	RETURN	(SELECT TOP 5 usua_apellido AS Apellido, 
+                    usua_nombre AS Nombre,
+					usua_dni AS DNI,
+                    sum(rend_importe_total) AS Recaudado
+			FROM LOS_MODERADAMENTE_ADECUADOS.Usuario
+				JOIN LOS_MODERADAMENTE_ADECUADOS.Rendicion ON (usua_id = rend_chofer)
+			WHERE YEAR(rend_fecha) = @anio
+				AND MONTH(rend_fecha) BETWEEN (3*@trimestre - 2) AND (3*@trimestre)
+			GROUP BY usua_apellido, usua_nombre, usua_dni
+			ORDER BY sum(rend_importe_total) DESC)
+GO
+
+CREATE FUNCTION LOS_MODERADAMENTE_ADECUADOS.ESTADISTICA_CHOFER_VIAJE_MAS_LARGO (@anio INT,
+																				@trimestre TINYINT)
+RETURNS TABLE
+AS 
+	RETURN	(SELECT TOP 5 usua_apellido AS Apellido, 
+				usua_nombre AS Nombre,
+				usua_dni AS DNI,
+                MAX(viaj_kms) AS Cantidad_Kms,
+				(SELECT TOP 1 CONVERT(DATE, viaj_inicio)
+					FROM LOS_MODERADAMENTE_ADECUADOS.Viaje
+					WHERE viaj_chofer = u.usua_id 
+							AND YEAR(viaj_inicio) = @anio
+							AND MONTH(viaj_inicio) BETWEEN (3*@trimestre - 2) AND (3*@trimestre)
+							AND viaj_kms = (SELECT MAX(viaj_kms)
+											FROM LOS_MODERADAMENTE_ADECUADOS.Viaje
+											WHERE viaj_chofer = u.usua_id 
+												AND YEAR(viaj_inicio) = @anio
+												AND MONTH(viaj_inicio) BETWEEN (3*@trimestre - 2) AND (3*@trimestre))) AS Fecha_Viaje
+			FROM LOS_MODERADAMENTE_ADECUADOS.Usuario u
+				JOIN LOS_MODERADAMENTE_ADECUADOS.Viaje ON (usua_id = viaj_chofer)
+			WHERE YEAR(viaj_inicio) = @anio
+				AND MONTH(viaj_inicio) BETWEEN (3*@trimestre - 2) AND (3*@trimestre)
+			GROUP BY usua_apellido, usua_nombre, usua_dni, usua_id
+			ORDER BY MAX(viaj_kms) DESC)
+GO
+
+CREATE FUNCTION LOS_MODERADAMENTE_ADECUADOS.ESTADISTICA_CLIENTE_MAYOR_CONSUMO(@anio INT,
+																				@trimestre TINYINT)
+RETURNS TABLE
+AS 
+	RETURN	(SELECT TOP 5	usua_apellido AS Apellido, 
+				usua_nombre AS Nombre, 
+				usua_dni AS DNI, 
+				sum(fact_importe_total) AS Consumido
+			FROM LOS_MODERADAMENTE_ADECUADOS.Usuario
+				JOIN LOS_MODERADAMENTE_ADECUADOS.Factura ON fact_cliente = usua_id
+			WHERE YEAR(fact_fecha_inicio) = @anio
+					AND MONTH(fact_fecha_inicio) BETWEEN (3*@trimestre - 2) AND (3*@trimestre)
+			GROUP BY usua_apellido, usua_nombre, usua_dni
+			ORDER BY sum(fact_importe_total) DESC)
+GO
+
+CREATE FUNCTION LOS_MODERADAMENTE_ADECUADOS.ESTADISTICA_CLIENTE_MAYOR_USO_MISMO_VEHICULO(@anio INT,
+																						@trimestre TINYINT)
+RETURNS TABLE
+AS 
+	RETURN	(SELECT TOP 5	usua_apellido AS Apellido, 
+				usua_nombre AS Nombre, 
+				usua_dni AS DNI, 
+				count(*) AS Cantidad_de_Veces,
+				vehi_patente AS Patente_Vehiculo
+			FROM LOS_MODERADAMENTE_ADECUADOS.Usuario
+				JOIN LOS_MODERADAMENTE_ADECUADOS.Viaje ON viaj_cliente = usua_id
+				JOIN LOS_MODERADAMENTE_ADECUADOS.Vehiculo ON viaj_vehiculo = vehi_id
+			WHERE YEAR(viaj_inicio) = @anio
+					AND MONTH(viaj_inicio) BETWEEN (3*@trimestre - 2) AND (3*@trimestre)
+			GROUP BY usua_apellido, usua_nombre, usua_dni, vehi_patente
+			ORDER BY count(*) DESC)
 GO

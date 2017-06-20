@@ -210,6 +210,7 @@
     </Compile>
     <Compile Include="Dominio\Rol.cs" />
     <Compile Include="Dominio\Turno.cs" />
+    <Compile Include="Dominio\Viaje.cs" />
     <Compile Include="Usuarios\NuevoUsuarioForm.cs">
       <SubType>Form</SubType>
     </Compile>

@@ -100,6 +100,19 @@ namespace UberFrba.Abm_Automovil
             }
         }
 
+        public Turno Turno
+        {
+            get
+            {
+                return (Turno)comboBoxTurno.SelectedItem;
+            }
+
+            set
+            {
+                comboBoxTurno.Text = value.ToString();
+            }
+        }
+
         public Boolean Habilitado
         {
             get
@@ -119,6 +132,7 @@ namespace UberFrba.Abm_Automovil
             autoAEditar = new Automovil();
             InitializeComponent();
             Automovil.getMarcas().ForEach(marca => comboBoxMarca.Items.Add(marca));
+            Turno.getListaTurnos().ForEach(turno => comboBoxTurno.Items.Add(turno));
         }
 
         public EditarAutomovilForm(ReturningForm caller, Automovil autoAEditar) : base(caller)
@@ -128,12 +142,14 @@ namespace UberFrba.Abm_Automovil
             InitializeComponent();
 
             Automovil.getMarcas().ForEach(marca => comboBoxMarca.Items.Add(marca));
+            Turno.getListaTurnos().ForEach(turno => comboBoxTurno.Items.Add(turno));
             Chofer = autoAEditar.chofer;
             Patente = autoAEditar.patente;
             Licencia = autoAEditar.licencia;
             Rodado = autoAEditar.rodado;
             Modelo = autoAEditar.modelo;
             Marca = autoAEditar.marca;
+            Turno = autoAEditar.turno;
             Habilitado = autoAEditar.habilitado;
         }
 
@@ -148,6 +164,7 @@ namespace UberFrba.Abm_Automovil
                 autoAEditar.rodado = Rodado;
                 autoAEditar.modelo = Modelo;
                 autoAEditar.marca = Marca;
+                autoAEditar.turno = Turno;
                 autoAEditar.habilitado = Habilitado;
 
                 if (edicion)

@@ -13,7 +13,7 @@ namespace UberFrba.Abm_Cliente
     {
         private Cliente clienteSeleccionado;
 
-        public SeleccionarClienteForm()
+        public SeleccionarClienteForm(ReturningForm caller) : base(caller)
         {
             InitializeComponent();
         }

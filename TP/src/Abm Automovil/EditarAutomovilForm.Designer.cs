@@ -44,11 +44,13 @@
             this.buttonSeleccionarChofer = new System.Windows.Forms.Button();
             this.checkBoxHabilitado = new System.Windows.Forms.CheckBox();
             this.comboBoxMarca = new System.Windows.Forms.ComboBox();
+            this.comboBoxTurno = new System.Windows.Forms.ComboBox();
+            this.label7 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // buttonAceptar
             // 
-            this.buttonAceptar.Location = new System.Drawing.Point(28, 284);
+            this.buttonAceptar.Location = new System.Drawing.Point(28, 326);
             this.buttonAceptar.Name = "buttonAceptar";
             this.buttonAceptar.Size = new System.Drawing.Size(75, 23);
             this.buttonAceptar.TabIndex = 0;
@@ -123,7 +125,7 @@
             // 
             // buttonCancelar
             // 
-            this.buttonCancelar.Location = new System.Drawing.Point(127, 284);
+            this.buttonCancelar.Location = new System.Drawing.Point(127, 326);
             this.buttonCancelar.Name = "buttonCancelar";
             this.buttonCancelar.Size = new System.Drawing.Size(75, 23);
             this.buttonCancelar.TabIndex = 9;
@@ -170,7 +172,7 @@
             // 
             this.checkBoxHabilitado.AutoSize = true;
             this.checkBoxHabilitado.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.checkBoxHabilitado.Location = new System.Drawing.Point(79, 248);
+            this.checkBoxHabilitado.Location = new System.Drawing.Point(79, 290);
             this.checkBoxHabilitado.Name = "checkBoxHabilitado";
             this.checkBoxHabilitado.Size = new System.Drawing.Size(73, 17);
             this.checkBoxHabilitado.TabIndex = 15;
@@ -186,11 +188,31 @@
             this.comboBoxMarca.Size = new System.Drawing.Size(100, 21);
             this.comboBoxMarca.TabIndex = 16;
             // 
+            // comboBoxTurno
+            // 
+            this.comboBoxTurno.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxTurno.FormattingEnabled = true;
+            this.comboBoxTurno.Location = new System.Drawing.Point(65, 263);
+            this.comboBoxTurno.Name = "comboBoxTurno";
+            this.comboBoxTurno.Size = new System.Drawing.Size(100, 21);
+            this.comboBoxTurno.TabIndex = 18;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(62, 247);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(35, 13);
+            this.label7.TabIndex = 17;
+            this.label7.Text = "Turno";
+            // 
             // EditarAutomovilForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(231, 324);
+            this.ClientSize = new System.Drawing.Size(231, 361);
+            this.Controls.Add(this.comboBoxTurno);
+            this.Controls.Add(this.label7);
             this.Controls.Add(this.comboBoxMarca);
             this.Controls.Add(this.checkBoxHabilitado);
             this.Controls.Add(this.buttonSeleccionarChofer);
@@ -234,5 +256,7 @@
         private System.Windows.Forms.Button buttonSeleccionarChofer;
         private System.Windows.Forms.CheckBox checkBoxHabilitado;
         private System.Windows.Forms.ComboBox comboBoxMarca;
+        private System.Windows.Forms.ComboBox comboBoxTurno;
+        private System.Windows.Forms.Label label7;
     }
 }

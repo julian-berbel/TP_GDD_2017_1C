@@ -67,6 +67,7 @@ namespace UberFrba.Abm_Automovil
             CargarTabla();
             dataGridViewAutomovil.Columns["vehi_chofer"].Visible = false;
             dataGridViewAutomovil.Columns["vehi_id"].Visible = false;
+            dataGridViewAutomovil.Columns["vehi_turno"].Visible = false;
         }
 
         protected void CargarTabla()
