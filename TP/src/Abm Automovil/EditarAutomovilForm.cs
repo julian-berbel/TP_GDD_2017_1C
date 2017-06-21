@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.SqlClient;
 using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
@@ -176,7 +177,9 @@ namespace UberFrba.Abm_Automovil
                     autoAEditar.nuevo();
                 }
                 this.Close();
-            }catch (CampoVacioException exception)
+            }
+            catch (SqlException) { }
+            catch (CampoVacioException exception)
             {
                 Error.show(exception.Message);
             }

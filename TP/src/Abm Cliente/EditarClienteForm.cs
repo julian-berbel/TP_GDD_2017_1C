@@ -63,7 +63,7 @@ namespace UberFrba.Abm_Cliente
         {
             get
             {
-                return decimal.Parse(textBoxCodigoPostal.Text);
+                return decimal.Parse(textBoxDNI.Text);
             }
 
             set
@@ -89,7 +89,7 @@ namespace UberFrba.Abm_Cliente
         {
             get
             {
-                return decimal.Parse(textBoxCodigoPostal.Text);
+                return decimal.Parse(textBoxTelefono.Text);
             }
 
             set

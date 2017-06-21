@@ -122,6 +122,10 @@ IF OBJECT_ID('LOS_MODERADAMENTE_ADECUADOS.FACTURA_GENERAR') IS NOT NULL
 
 IF OBJECT_ID('LOS_MODERADAMENTE_ADECUADOS.USUARIO_ROL_UPDATE') IS NOT NULL
     DROP PROCEDURE LOS_MODERADAMENTE_ADECUADOS.USUARIO_ROL_UPDATE;
+
+	
+IF OBJECT_ID('LOS_MODERADAMENTE_ADECUADOS.RENDICION_GENERAR') IS NOT NULL
+    DROP PROCEDURE LOS_MODERADAMENTE_ADECUADOS.RENDICION_GENERAR;
 			
 IF OBJECT_ID('LOS_MODERADAMENTE_ADECUADOS.USUARIO_GET_ID') IS NOT NULL
     DROP FUNCTION LOS_MODERADAMENTE_ADECUADOS.USUARIO_GET_ID;
@@ -165,6 +169,9 @@ IF OBJECT_ID('LOS_MODERADAMENTE_ADECUADOS.GET_NO_CLIENTES_CON_FILTROS') IS NOT N
 IF OBJECT_ID('LOS_MODERADAMENTE_ADECUADOS.GET_USUARIOS_CON_FILTROS') IS NOT NULL
     DROP FUNCTION LOS_MODERADAMENTE_ADECUADOS.GET_USUARIOS_CON_FILTROS;
 
+IF OBJECT_ID('LOS_MODERADAMENTE_ADECUADOS.GET_TURNOS_CON_FILTROS') IS NOT NULL
+    DROP FUNCTION LOS_MODERADAMENTE_ADECUADOS.GET_TURNOS_CON_FILTROS;
+
 IF OBJECT_ID('LOS_MODERADAMENTE_ADECUADOS.CLIENTE_GET_CODIGO_POSTAL') IS NOT NULL
     DROP FUNCTION LOS_MODERADAMENTE_ADECUADOS.CLIENTE_GET_CODIGO_POSTAL;
 
@@ -207,9 +214,6 @@ IF OBJECT_ID('LOS_MODERADAMENTE_ADECUADOS.RENDICION_GET') IS NOT NULL
 IF OBJECT_ID('LOS_MODERADAMENTE_ADECUADOS.RENDICION_GET_VIAJES') IS NOT NULL
     DROP FUNCTION LOS_MODERADAMENTE_ADECUADOS.RENDICION_GET_VIAJES;
 
-IF OBJECT_ID('LOS_MODERADAMENTE_ADECUADOS.RENDICION_GENERAR') IS NOT NULL
-    DROP PROCEDURE LOS_MODERADAMENTE_ADECUADOS.RENDICION_GENERAR;
-
 IF OBJECT_ID(N'LOS_MODERADAMENTE_ADECUADOS.GET_TABLA_ROL_USUARIOS') IS NOT NULL
 	DROP FUNCTION LOS_MODERADAMENTE_ADECUADOS.GET_TABLA_ROL_USUARIOS;
 
@@ -231,7 +235,7 @@ GO
 CREATE SCHEMA LOS_MODERADAMENTE_ADECUADOS;
 GO
 
-/* Creación de las tablas */
+/* Creacion de las tablas */
 
 CREATE TABLE LOS_MODERADAMENTE_ADECUADOS.Rol(
     rol_id TINYINT IDENTITY PRIMARY KEY,
@@ -424,7 +428,7 @@ INSERT LOS_MODERADAMENTE_ADECUADOS.Contacto (cont_mail, cont_telefono, cont_domi
 --Cliente
 
 INSERT LOS_MODERADAMENTE_ADECUADOS.Cliente (clie_id, clie_codigo_postal, clie_habilitado)
-	SELECT DISTINCT usua_id,  ROUND(10000*RAND(), 0), 1
+	SELECT DISTINCT usua_id, 0, 1
 	FROM LOS_MODERADAMENTE_ADECUADOS.Usuario
 		JOIN gd_esquema.Maestra ON usua_dni = Cliente_Dni
 
@@ -648,102 +652,19 @@ BEGIN
 END
 GO
 
-CREATE FUNCTION LOS_MODERADAMENTE_ADECUADOS.USUARIO_GET_ID(@usuario VARCHAR(20)) RETURNS INT AS
-BEGIN
-	RETURN	(SELECT logi_id
-			FROM LOS_MODERADAMENTE_ADECUADOS.Login_Usuario
-			WHERE logi_user = @usuario)
-END
-GO
-
-CREATE FUNCTION LOS_MODERADAMENTE_ADECUADOS.USUARIO_CANTIDAD_DE_ROLES(@usuarioId int) RETURNS TINYINT
-AS
-BEGIN
-	RETURN	(SELECT count(*)
-			FROM LOS_MODERADAMENTE_ADECUADOS.Rol_X_Login_Usuario
-			WHERE cod_login = @usuarioId)
-END
-GO
-
-CREATE FUNCTION LOS_MODERADAMENTE_ADECUADOS.USUARIO_GET_ROLES(@usuarioId int) RETURNS TABLE
-AS
-	RETURN	(	SELECT rol_nombre AS Nombre, rol_id, rol_detalle AS Descripcion, rol_habilitado AS Habilitado
-				FROM LOS_MODERADAMENTE_ADECUADOS.Rol
-					JOIN Rol_X_Login_Usuario ON cod_rol = rol_id
-				WHERE cod_login = @usuarioId)
-GO
-
-CREATE FUNCTION LOS_MODERADAMENTE_ADECUADOS.FUNCIONALIDAD_GET_DESCRIPCION(@funcionalidadId TINYINT) RETURNS varchar(200)
-AS
-BEGIN
-	RETURN	(	SELECT func_descripcion
-				FROM LOS_MODERADAMENTE_ADECUADOS.Funcionalidad
-				WHERE func_id = @funcionalidadId)
-END
-GO
-
-CREATE FUNCTION LOS_MODERADAMENTE_ADECUADOS.ROL_GET_FUNCIONALIDADES(@rolId TINYINT) RETURNS TABLE
-AS
-	RETURN	(	SELECT cod_func
-				FROM LOS_MODERADAMENTE_ADECUADOS.Funcionalidad_X_Rol
-				WHERE cod_rol = @rolId)
-GO
-
-CREATE FUNCTION LOS_MODERADAMENTE_ADECUADOS.USUARIO_GET(@id INT) RETURNS TABLE
-AS
-	RETURN (SELECT  usua_id,
-					usua_nombre AS Nombre,
-					usua_apellido AS Apellido,
-					usua_dni AS DNI,
-					cont_mail AS Mail,
-					cont_telefono AS Telefono,
-					cont_domicilio AS Domicilio,
-					usua_fecha_nacimiento AS Fecha_Nac,
-					logi_habilitado AS Habilitado
-			FROM LOS_MODERADAMENTE_ADECUADOS.Usuario
-				JOIN LOS_MODERADAMENTE_ADECUADOS.Contacto ON (cont_id = usua_id)
-				JOIN LOS_MODERADAMENTE_ADECUADOS.Login_Usuario ON (logi_id = usua_id)
-			WHERE usua_id = @id)
-GO
-
-CREATE FUNCTION LOS_MODERADAMENTE_ADECUADOS.CLIENTE_GET(@id INT) RETURNS TABLE
-AS
-	RETURN (SELECT  usua_id,
-					usua_nombre AS Nombre,
-					usua_apellido AS Apellido,
-					usua_dni AS DNI,
-					cont_mail AS Mail,
-					cont_telefono AS Telefono,
-					cont_domicilio AS Domicilio,
-					usua_fecha_nacimiento AS Fecha_Nac,
-					clie_codigo_postal AS Codigo_Postal,
-					clie_habilitado AS Habilitado
-			FROM LOS_MODERADAMENTE_ADECUADOS.Usuario
-				JOIN LOS_MODERADAMENTE_ADECUADOS.Cliente ON (clie_id = usua_id)
-				JOIN LOS_MODERADAMENTE_ADECUADOS.Contacto ON (cont_id = usua_id)
-			WHERE usua_id = @id)
-GO
-
-CREATE FUNCTION LOS_MODERADAMENTE_ADECUADOS.CHOFER_GET(@id INT) RETURNS TABLE
-AS
-	RETURN (SELECT  usua_id,
-					usua_nombre AS Nombre,
-					usua_apellido AS Apellido,
-					usua_dni AS DNI,
-					cont_mail AS Mail,
-					cont_telefono AS Telefono,
-					cont_domicilio AS Domicilio,
-					usua_fecha_nacimiento AS Fecha_Nac,
-					chof_habilitado AS Habilitado
-			FROM LOS_MODERADAMENTE_ADECUADOS.Usuario
-				JOIN LOS_MODERADAMENTE_ADECUADOS.Chofer ON (chof_id = usua_id)
-				JOIN LOS_MODERADAMENTE_ADECUADOS.Contacto ON (cont_id = usua_id)
-			WHERE usua_id = @id)
-GO
-
 CREATE PROC LOS_MODERADAMENTE_ADECUADOS.AUTOMOVIL_UPDATE(@automovilId INT, @chofer INT, @patente VARCHAR(10), @licencia VARCHAR(26), @rodado VARCHAR(10), @modelo VARCHAR(255), @marca VARCHAR(255), @turno TINYINT, @habilitado BIT)
 AS
 BEGIN
+	DECLARE @yaTieneVehiculoHabilitado INT = (	SELECT count(*)
+												FROM LOS_MODERADAMENTE_ADECUADOS.Vehiculo
+												WHERE vehi_chofer = @chofer AND @habilitado = 1)
+
+	IF(@habilitado = 1 AND @yaTieneVehiculoHabilitado <> 0)
+	BEGIN
+		RAISERROR('El chofer indicado ya tiene un vehiculo habilitado, si quiere habilitar este, por favor deshabilite el otro primero.', 16, 1)
+		RETURN
+	END
+
 	DECLARE @_modelo INT = (SELECT mode_id FROM LOS_MODERADAMENTE_ADECUADOS.Modelo WHERE mode_codigo = @modelo)
 	IF(@_modelo IS NULL) INSERT LOS_MODERADAMENTE_ADECUADOS.Modelo VALUES
 							(@modelo, (SELECT marc_id FROM LOS_MODERADAMENTE_ADECUADOS.Marca WHERE marc_nombre = @marca))
@@ -759,6 +680,16 @@ GO
 CREATE PROC LOS_MODERADAMENTE_ADECUADOS.AUTOMOVIL_NUEVO(@chofer INT, @patente VARCHAR(10), @licencia VARCHAR(26), @rodado VARCHAR(10), @modelo VARCHAR(255), @marca VARCHAR(255), @turno TINYINT, @habilitado BIT)
 AS
 BEGIN
+	DECLARE @yaTieneVehiculoHabilitado INT = (	SELECT count(*)
+												FROM LOS_MODERADAMENTE_ADECUADOS.Vehiculo
+												WHERE vehi_chofer = @chofer AND @habilitado = 1)
+
+	IF(@habilitado = 1 AND @yaTieneVehiculoHabilitado <> 0)
+	BEGIN
+		RAISERROR('El chofer indicado ya tiene un vehiculo habilitado, si quiere habilitar este, por favor deshabilite el otro primero.', 16, 1)
+		RETURN
+	END
+
 	DECLARE @_modelo INT = (SELECT mode_id FROM LOS_MODERADAMENTE_ADECUADOS.Modelo WHERE mode_codigo = @modelo)
 	IF(@_modelo IS NULL) INSERT LOS_MODERADAMENTE_ADECUADOS.Modelo VALUES
 							(@modelo, (SELECT marc_id FROM LOS_MODERADAMENTE_ADECUADOS.Marca WHERE marc_nombre = @marca))
@@ -1057,10 +988,103 @@ BEGIN
 END
 GO
 
+CREATE FUNCTION LOS_MODERADAMENTE_ADECUADOS.USUARIO_GET_ID(@usuario VARCHAR(20)) RETURNS INT AS
+BEGIN
+	RETURN	(SELECT logi_id
+			FROM LOS_MODERADAMENTE_ADECUADOS.Login_Usuario
+			WHERE logi_user = @usuario)
+END
+GO
+
+CREATE FUNCTION LOS_MODERADAMENTE_ADECUADOS.USUARIO_CANTIDAD_DE_ROLES(@usuarioId int) RETURNS TINYINT
+AS
+BEGIN
+	RETURN	(SELECT count(*)
+			FROM LOS_MODERADAMENTE_ADECUADOS.Rol_X_Login_Usuario
+			WHERE cod_login = @usuarioId)
+END
+GO
+
+CREATE FUNCTION LOS_MODERADAMENTE_ADECUADOS.USUARIO_GET_ROLES(@usuarioId int) RETURNS TABLE
+AS
+	RETURN	(	SELECT rol_nombre AS Nombre, rol_id, rol_detalle AS Descripcion, rol_habilitado AS Habilitado
+				FROM LOS_MODERADAMENTE_ADECUADOS.Rol
+					JOIN Rol_X_Login_Usuario ON cod_rol = rol_id
+				WHERE cod_login = @usuarioId)
+GO
+
+CREATE FUNCTION LOS_MODERADAMENTE_ADECUADOS.FUNCIONALIDAD_GET_DESCRIPCION(@funcionalidadId TINYINT) RETURNS varchar(200)
+AS
+BEGIN
+	RETURN	(	SELECT func_descripcion
+				FROM LOS_MODERADAMENTE_ADECUADOS.Funcionalidad
+				WHERE func_id = @funcionalidadId)
+END
+GO
+
+CREATE FUNCTION LOS_MODERADAMENTE_ADECUADOS.ROL_GET_FUNCIONALIDADES(@rolId TINYINT) RETURNS TABLE
+AS
+	RETURN	(	SELECT cod_func
+				FROM LOS_MODERADAMENTE_ADECUADOS.Funcionalidad_X_Rol
+				WHERE cod_rol = @rolId)
+GO
+
+CREATE FUNCTION LOS_MODERADAMENTE_ADECUADOS.USUARIO_GET(@id INT) RETURNS TABLE
+AS
+	RETURN (SELECT  usua_id,
+					usua_nombre AS Nombre,
+					usua_apellido AS Apellido,
+					usua_dni AS DNI,
+					cont_mail AS Mail,
+					cont_telefono AS Telefono,
+					cont_domicilio AS Domicilio,
+					usua_fecha_nacimiento AS Fecha_Nac,
+					logi_habilitado AS Habilitado
+			FROM LOS_MODERADAMENTE_ADECUADOS.Usuario
+				JOIN LOS_MODERADAMENTE_ADECUADOS.Contacto ON (cont_id = usua_id)
+				JOIN LOS_MODERADAMENTE_ADECUADOS.Login_Usuario ON (logi_id = usua_id)
+			WHERE usua_id = @id)
+GO
+
+CREATE FUNCTION LOS_MODERADAMENTE_ADECUADOS.CLIENTE_GET(@id INT) RETURNS TABLE
+AS
+	RETURN (SELECT  usua_id,
+					usua_nombre AS Nombre,
+					usua_apellido AS Apellido,
+					usua_dni AS DNI,
+					cont_mail AS Mail,
+					cont_telefono AS Telefono,
+					cont_domicilio AS Domicilio,
+					usua_fecha_nacimiento AS Fecha_Nac,
+					clie_codigo_postal AS Codigo_Postal,
+					clie_habilitado AS Habilitado
+			FROM LOS_MODERADAMENTE_ADECUADOS.Usuario
+				JOIN LOS_MODERADAMENTE_ADECUADOS.Cliente ON (clie_id = usua_id)
+				JOIN LOS_MODERADAMENTE_ADECUADOS.Contacto ON (cont_id = usua_id)
+			WHERE usua_id = @id)
+GO
+
+CREATE FUNCTION LOS_MODERADAMENTE_ADECUADOS.CHOFER_GET(@id INT) RETURNS TABLE
+AS
+	RETURN (SELECT  usua_id,
+					usua_nombre AS Nombre,
+					usua_apellido AS Apellido,
+					usua_dni AS DNI,
+					cont_mail AS Mail,
+					cont_telefono AS Telefono,
+					cont_domicilio AS Domicilio,
+					usua_fecha_nacimiento AS Fecha_Nac,
+					chof_habilitado AS Habilitado
+			FROM LOS_MODERADAMENTE_ADECUADOS.Usuario
+				JOIN LOS_MODERADAMENTE_ADECUADOS.Chofer ON (chof_id = usua_id)
+				JOIN LOS_MODERADAMENTE_ADECUADOS.Contacto ON (cont_id = usua_id)
+			WHERE usua_id = @id)
+GO
+
 CREATE FUNCTION LOS_MODERADAMENTE_ADECUADOS.GET_AUTOS_CON_FILTROS (@modelo varchar(255),			
 																 @patente varchar(10),
 																 @marca varchar(255),
-																 @choferID int)
+																 @DNIchofer NUMERIC(18,0))
 RETURNS TABLE
 AS 
 	RETURN	(SELECT vehi_id, 
@@ -1071,17 +1095,20 @@ AS
                     vehi_rodado AS Rodado,
                     mode_codigo AS Modelo,
                     marc_nombre AS Marca,
+					(usua_apellido + ', ' + usua_nombre) AS Chofer,
+					usua_dni AS DNI_Chofer,
 					turn_descripcion AS Turno,
                     vehi_habilitado AS Habilitado
 			FROM LOS_MODERADAMENTE_ADECUADOS.Vehiculo
 				JOIN LOS_MODERADAMENTE_ADECUADOS.Chofer ON (vehi_chofer = chof_id)
+				JOIN LOS_MODERADAMENTE_ADECUADOS.Usuario ON (chof_id = usua_id)
 				JOIN LOS_MODERADAMENTE_ADECUADOS.Modelo ON (vehi_modelo = mode_id)
 				JOIN LOS_MODERADAMENTE_ADECUADOS.Marca ON (mode_marca = marc_id)
 				JOIN LOS_MODERADAMENTE_ADECUADOS.Turno ON (turn_id = vehi_turno)
 			WHERE (@modelo = '' OR CHARINDEX(@modelo, mode_codigo) > 0) AND
 				(@patente = '' OR CHARINDEX(@patente, vehi_patente) > 0) AND
 				(@marca = '' OR @marca = marc_nombre) AND
-				(@choferID = 0 OR chof_id = @choferID))
+				(@DNIchofer = 0 OR usua_dni = @DNIchofer))
 GO
 
 CREATE FUNCTION LOS_MODERADAMENTE_ADECUADOS.GET_CHOFERES_CON_FILTROS (@nombre varchar(255),			
@@ -1129,52 +1156,6 @@ AS
 				(@dni = 0 OR @dni = usua_dni))
 GO
 
-CREATE FUNCTION LOS_MODERADAMENTE_ADECUADOS.GET_NO_CHOFERES_CON_FILTROS (@nombre varchar(255),			
-																	 @apellido varchar(255),
-																	 @dni numeric(18,0))
-RETURNS TABLE
-AS 
-	RETURN	(SELECT  usua_id,
-					 usua_apellido AS Apellido,
-					 usua_nombre AS Nombre,
-					 usua_dni AS DNI,
-					 cont_mail AS Mail,
-					 cont_telefono AS Telefono,
-					 cont_domicilio AS Domicilio,
-					 usua_fecha_nacimiento AS Fecha_Nac,
-					 logi_id AS Habilitado
-			FROM LOS_MODERADAMENTE_ADECUADOS.Usuario
-				JOIN LOS_MODERADAMENTE_ADECUADOS.Contacto ON (cont_id = usua_id)
-				JOIN LOS_MODERADAMENTE_ADECUADOS.Login_Usuario ON (logi_id = usua_id)
-			WHERE (@nombre = '' OR CHARINDEX(@nombre, usua_nombre) > 0) AND
-				(@apellido = '' OR CHARINDEX(@apellido, usua_apellido) > 0) AND
-				(@dni = 0 OR @dni = usua_dni) AND
-				usua_id NOT IN (SELECT chof_id FROM LOS_MODERADAMENTE_ADECUADOS.Chofer))
-GO
-
-CREATE FUNCTION LOS_MODERADAMENTE_ADECUADOS.GET_NO_CLIENTES_CON_FILTROS (@nombre varchar(255),			
-																	 @apellido varchar(255),
-																	 @dni numeric(18,0))
-RETURNS TABLE
-AS 
-	RETURN	(SELECT  usua_id,
-					 usua_apellido AS Apellido,
-					 usua_nombre AS Nombre,
-					 usua_dni AS DNI,
-					 cont_mail AS Mail,
-					 cont_telefono AS Telefono,
-					 cont_domicilio AS Domicilio,
-					 usua_fecha_nacimiento AS Fecha_Nac,
-					 logi_habilitado AS Habilitado
-			FROM LOS_MODERADAMENTE_ADECUADOS.Usuario
-				JOIN LOS_MODERADAMENTE_ADECUADOS.Contacto ON (cont_id = usua_id)
-				JOIN LOS_MODERADAMENTE_ADECUADOS.Login_Usuario ON (logi_id = usua_id)
-			WHERE (@nombre = '' OR CHARINDEX(@nombre, usua_nombre) > 0) AND
-				(@apellido = '' OR CHARINDEX(@apellido, usua_apellido) > 0) AND
-				(@dni = 0 OR @dni = usua_dni) AND
-				usua_id NOT IN (SELECT clie_id FROM LOS_MODERADAMENTE_ADECUADOS.Cliente))
-GO
-
 CREATE FUNCTION LOS_MODERADAMENTE_ADECUADOS.GET_USUARIOS_CON_FILTROS (@nombre varchar(255),			
 																	 @apellido varchar(255),
 																	 @dni numeric(18,0))
@@ -1195,6 +1176,40 @@ AS
 			WHERE (@nombre = '' OR CHARINDEX(@nombre, usua_nombre) > 0) AND
 				(@apellido = '' OR CHARINDEX(@apellido, usua_apellido) > 0) AND
 				(@dni = 0 OR @dni = usua_dni))
+GO
+
+CREATE FUNCTION LOS_MODERADAMENTE_ADECUADOS.GET_NO_CHOFERES_CON_FILTROS (@nombre varchar(255),			
+																	 @apellido varchar(255),
+																	 @dni numeric(18,0))
+RETURNS TABLE
+AS 
+	RETURN	(SELECT *
+			FROM LOS_MODERADAMENTE_ADECUADOS.GET_USUARIOS_CON_FILTROS(@nombre, @apellido, @dni)
+			WHERE usua_id NOT IN (SELECT chof_id FROM LOS_MODERADAMENTE_ADECUADOS.Chofer))
+GO
+
+CREATE FUNCTION LOS_MODERADAMENTE_ADECUADOS.GET_NO_CLIENTES_CON_FILTROS (@nombre varchar(255),			
+																	 @apellido varchar(255),
+																	 @dni numeric(18,0))
+RETURNS TABLE
+AS 
+	RETURN	(SELECT *
+			FROM LOS_MODERADAMENTE_ADECUADOS.GET_USUARIOS_CON_FILTROS(@nombre, @apellido, @dni)
+			WHERE usua_id NOT IN (SELECT clie_id FROM LOS_MODERADAMENTE_ADECUADOS.Cliente))
+GO
+
+CREATE FUNCTION LOS_MODERADAMENTE_ADECUADOS.GET_TURNOS_CON_FILTROS (@descripcion varchar(255))
+RETURNS TABLE
+AS 
+	RETURN	(SELECT  turn_id,
+                    turn_hora_inicio AS Hora_Inicio,
+                    turn_hora_fin AS Hora_Fin,
+                    turn_descripcion AS Descripcion,
+                    turn_valor_kilometro AS Valor_Km,
+                    turn_precio_base AS Precio_Base,
+                    turn_habilitado AS Habilitado
+            FROM LOS_MODERADAMENTE_ADECUADOS.Turno
+			WHERE (@descripcion = '' OR CHARINDEX(@descripcion, turn_descripcion) > 0))
 GO
 
 CREATE FUNCTION LOS_MODERADAMENTE_ADECUADOS.CLIENTE_GET_CODIGO_POSTAL(@id INT)
@@ -1379,7 +1394,8 @@ GO
 
 CREATE FUNCTION LOS_MODERADAMENTE_ADECUADOS.VIAJES_GET_DE_CHOFER(	@idChofer INT,
 																	@fecha DATETIME,
-																	@turno TINYINT)
+																	@turno TINYINT,
+																	@porcentaje NUMERIC(2,2))
 RETURNS TABLE
 AS 
 	RETURN	(SELECT cliente.usua_apellido AS Apellido_Cliente,
@@ -1392,7 +1408,7 @@ AS
 					viaj_kms AS Kms,
 					turn_precio_base AS Precio_Base,
 					turn_valor_kilometro AS Valor_Kilometro,
-					(turn_valor_kilometro * viaj_kms + turn_precio_base) AS Monto
+					(turn_valor_kilometro * viaj_kms + turn_precio_base) * @porcentaje AS Monto
 			FROM LOS_MODERADAMENTE_ADECUADOS.Viaje
 				JOIN LOS_MODERADAMENTE_ADECUADOS.Vehiculo ON viaj_vehiculo = vehi_id
 				JOIN LOS_MODERADAMENTE_ADECUADOS.Usuario cliente ON cliente.usua_id = viaj_cliente
@@ -1431,7 +1447,7 @@ AS
 				AND rend_turno = @turno)
 GO
 
-CREATE FUNCTION LOS_MODERADAMENTE_ADECUADOS.RENDICION_GET_VIAJES(@idRendicion INT)
+CREATE FUNCTION LOS_MODERADAMENTE_ADECUADOS.RENDICION_GET_VIAJES(	@idRendicion INT)
 RETURNS TABLE
 AS 
 	RETURN	(SELECT cliente.usua_apellido AS Apellido_Cliente,
@@ -1444,13 +1460,14 @@ AS
 					viaj_kms AS Kms,
 					turn_precio_base AS Precio_Base,
 					turn_valor_kilometro AS Valor_Kilometro,
-					(turn_valor_kilometro * viaj_kms + turn_precio_base) AS Monto
-			FROM LOS_MODERADAMENTE_ADECUADOS.Item_Rendicion
+					(turn_valor_kilometro * viaj_kms + turn_precio_base) * rend_porcentaje AS Monto
+			FROM LOS_MODERADAMENTE_ADECUADOS.Rendicion
+				JOIN LOS_MODERADAMENTE_ADECUADOS.Item_Rendicion ON cod_rend = rend_numero
 				JOIN LOS_MODERADAMENTE_ADECUADOS.Viaje ON cod_viaje = viaj_id
 				JOIN LOS_MODERADAMENTE_ADECUADOS.Vehiculo ON viaj_vehiculo = vehi_id
 				JOIN LOS_MODERADAMENTE_ADECUADOS.Usuario cliente ON cliente.usua_id = viaj_cliente
 				JOIN LOS_MODERADAMENTE_ADECUADOS.Turno ON viaj_turno = turn_id
-			WHERE cod_rend = @idRendicion)
+			WHERE rend_numero = @idRendicion)
 GO
 
 CREATE FUNCTION LOS_MODERADAMENTE_ADECUADOS.GET_TABLA_ROL_CHOFERES (@nombre varchar(255),			

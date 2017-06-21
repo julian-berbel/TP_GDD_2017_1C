@@ -1,4 +1,4 @@
-﻿Curso: K3012 + <curso de esteban>
+﻿Curso: K3012 + K3114
  
 Grupo: 39
 

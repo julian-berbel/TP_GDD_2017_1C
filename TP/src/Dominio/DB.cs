@@ -10,8 +10,8 @@ namespace UberFrba.Dominio
 {
     static class DB
     {
-        private static SqlConnection miConexion = new SqlConnection("user id=sa;" +
-                                       "password=gestiondedatos;server=localhost\\SQLSERVER2012;" +
+        private static SqlConnection miConexion = new SqlConnection("user id=gd;" +
+                                       "password=gd2017;server=localhost\\SQLSERVER2012;" +
                                        "Trusted_Connection=yes;" +
                                        "database=GD1C2017; " +
                                        "connection timeout=10");
@@ -151,33 +151,5 @@ namespace UberFrba.Dominio
             return tabla;
         }
 
-        /*probando funciones*/
-
-        public static DataTable realizarSelectComunacho(String nombre, params object[] campos)
-        {
-            String query = querySelect("SELECT ", nombre, campos);
-            SqlCommand comando = new SqlCommand(query, miConexion);
-
-            return ejecutarComandoDeTabla(comando);
-        }
-
-        private static String querySelect(String prefijo, String nombreTabla, params object[] campos)
-        {
-            String query = prefijo;
-
-            for(int i = 0; i < campos.Length; i++)
-            {
-                query += (string)campos[i] + (i == campos.Length - 1 ? " " : ", ");
-            }
-
-            return query += "FROM "+ esquema + nombreTabla;
-        }
-
-        public static DataTable correProcedimientoDeTabla(String nombre, params object[] args)
-        {
-            SqlCommand comando = nuevoProcedimiento(nombre, args);
-
-            return ejecutarComandoDeTabla(comando);
-        }
     }
 }

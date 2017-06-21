@@ -57,7 +57,12 @@ namespace UberFrba.Abm_Rol
         private void buttonAsignar_Click(object sender, EventArgs e)
         {
             DataRow fila = ((DataRowView)dataGridViewRol.SelectedRows[0].DataBoundItem).Row;
-            new AsignarRolForm(this, new Rol(fila)).abrir();
+            Rol rol = new Rol(fila);
+            if (!rol.habilitado) {
+                Error.show("No se puede asignar usuarios a un rol inhabilitado!");
+                return;
+            }
+            new AsignarRolForm(this, rol).abrir();
         }
     }
 }

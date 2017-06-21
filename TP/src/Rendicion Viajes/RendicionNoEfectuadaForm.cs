@@ -12,14 +12,17 @@ namespace UberFrba.Rendicion_Viajes
 {
     public partial class RendicionNoEfectuadaForm : UberFrba.Rendicion_Viajes.TablaRendicionForm
     {
-        private decimal total;
+        private Chofer chofer;
+        private DateTime fecha;
+        private Turno turno;
         public RendicionNoEfectuadaForm(ReturningForm caller, Chofer chofer, DateTime fecha, Turno turno) : base(caller, chofer, fecha)
         {
             InitializeComponent();
-            DataTable viajes = Viaje.getDeChofer(chofer.id, fecha, turno.id);
-            DataGridViewRendicion.DataSource = viajes;
-            total = viajes.AsEnumerable().Sum(f => (decimal)f["Monto"]);
-            ImporteTotal = total * Porcentaje;
+            this.chofer = chofer;
+            this.fecha = fecha;
+            this.turno = turno;
+            Cargar();
+            
             Turno = turno;
         }
 
@@ -42,9 +45,16 @@ namespace UberFrba.Rendicion_Viajes
             this.Close();
         }
 
+        private void Cargar()
+        {
+            DataTable viajes = Viaje.getDeChofer(chofer.id, fecha, turno.id, Porcentaje);
+            DataGridViewRendicion.DataSource = viajes;
+            ImporteTotal = viajes.AsEnumerable().Sum(f => (decimal)f["Monto"]);
+        }
+
         private void numericUpDownPorcentaje_ValueChanged(object sender, EventArgs e)
         {
-            ImporteTotal = total * Porcentaje;
+            Cargar();
         }
     }
 }

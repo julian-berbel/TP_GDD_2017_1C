@@ -183,6 +183,7 @@
     <Compile Include="Dominio\Chofer.cs" />
     <Compile Include="Dominio\DB.cs" />
     <Compile Include="Dominio\Error.cs" />
+    <Compile Include="Dominio\Exceptions\KilometrosNegativosException.cs" />
     <Compile Include="Dominio\Exceptions\UsuarioNoSeleccionadoException.cs" />
     <Compile Include="Dominio\Exceptions\CampoVacioException.cs" />
     <Compile Include="Dominio\Rendicion.cs" />

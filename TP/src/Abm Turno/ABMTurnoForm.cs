@@ -16,6 +16,14 @@ namespace UberFrba.Abm_Turno
             InitializeComponent();
         }
 
+        internal String Descripcion
+        {
+            get
+            {
+                return textBoxDescripcion.Text;
+            }
+        }
+
         private void buttonNuevo_Click(object sender, EventArgs e)
         {
             new EditarTurnoForm(this).abrir();
@@ -46,7 +54,18 @@ namespace UberFrba.Abm_Turno
 
         protected void CargarTabla()
         {
-             dataGridViewTurno.DataSource = Turno.getTurnos();
+             dataGridViewTurno.DataSource = Turno.getTurnosConFiltros(Descripcion);
+        }
+
+        private void buttonFiltrar_Click(object sender, EventArgs e)
+        {
+            CargarTabla();
+        }
+
+        private void buttonLimpiar_Click(object sender, EventArgs e)
+        {
+            textBoxDescripcion.Text = "";
+            CargarTabla();
         }
     }
 }

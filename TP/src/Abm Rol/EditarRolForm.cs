@@ -112,7 +112,6 @@ namespace UberFrba.Abm_Rol
         private void validar()
         {
             if (string.IsNullOrWhiteSpace(Nombre)) throw new CampoVacioException("Nombre");
-            if (string.IsNullOrWhiteSpace(Descripcion)) throw new CampoVacioException("Descripcion");
         }
 
         private void buttonCancelar_Click(object sender, EventArgs e)

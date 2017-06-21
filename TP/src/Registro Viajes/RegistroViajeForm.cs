@@ -117,9 +117,15 @@ namespace UberFrba.Registro_Viajes
             Chofer seleccionado = new SeleccionarChoferForm(this).getChofer();
             if (seleccionado != null)
             {
-                Chofer = seleccionado;
-                Automovil = Automovil.getAutomovilDe(chofer.id);
-                Turno = automovil.turno;
+                try {
+                    Automovil = Automovil.getAutomovilDe(seleccionado.id);
+                    Chofer = seleccionado;
+                    Turno = automovil.turno;
+                }
+                catch (IndexOutOfRangeException)
+                {
+                    Error.show("El chofer seleccionado no tiene ningún automovil habilitado asignado.");
+                }
             }
         }
 
@@ -146,7 +152,9 @@ namespace UberFrba.Registro_Viajes
             catch (SqlException) { }
             catch (Exception exception)
             {
-                if (exception is FormatException || exception is CampoVacioException) Error.show(exception.Message);
+                if (exception is FormatException ||
+                    exception is CampoVacioException ||
+                    exception is KilometrosNegativosException) Error.show(exception.Message);
                 else throw;
             }
         }
@@ -155,6 +163,7 @@ namespace UberFrba.Registro_Viajes
         {
             if (Chofer == null) throw new CampoVacioException("Chofer");
             if (string.IsNullOrWhiteSpace(textBoxCantidadKms.Text)) throw new CampoVacioException("Cantidad de Kilómetros");
+            if (CantidadKms <= 0) throw new KilometrosNegativosException();
             if (Cliente == null) throw new CampoVacioException("Cliente");
         }
 

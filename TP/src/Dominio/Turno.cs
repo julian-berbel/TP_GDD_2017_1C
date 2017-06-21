@@ -30,21 +30,15 @@ namespace UberFrba.Dominio
 
         public Turno() { }
 
-        public static DataTable getTurnos()
+        public static DataTable getTurnosConFiltros(String descripcion)
         {
-            return DB.correrQuery(@"SELECT  turn_id,
-                                            turn_hora_inicio AS Hora_Inicio,
-                                            turn_hora_fin AS Hora_Fin,
-                                            turn_descripcion AS Descripcion,
-                                            turn_valor_kilometro AS Valor_Km,
-                                            turn_precio_base AS Precio_Base,
-                                            turn_habilitado AS Habilitado
-                                    FROM LOS_MODERADAMENTE_ADECUADOS.Turno");
+            return DB.correrFuncionDeTabla("GET_TURNOS_CON_FILTROS",
+                                            "descripcion", descripcion);
         }
 
         public static List<Turno> getListaTurnos()
         {
-            return getTurnos()
+            return getTurnosConFiltros("")
                 .AsEnumerable()
                 .Select(fila => new Turno(fila))
                 .ToList();

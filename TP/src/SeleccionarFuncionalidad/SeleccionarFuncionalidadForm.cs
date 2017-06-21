@@ -32,8 +32,11 @@ namespace UberFrba.SeleccionarFuncionalidad
 
         private void buttonContinuar_Click(object sender, EventArgs e)
         {
-            Funcionalidad funcionalidadSeleccionada = (Funcionalidad)comboBoxFuncionalidades.SelectedItem;
-            funcionalidadSeleccionada.elegir(this);
+            if (comboBoxFuncionalidades.SelectedItem != null)
+            {
+                Funcionalidad funcionalidadSeleccionada = (Funcionalidad)comboBoxFuncionalidades.SelectedItem;
+                funcionalidadSeleccionada.elegir(this);
+            }
         }
 
     }

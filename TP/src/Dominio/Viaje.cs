@@ -34,12 +34,13 @@ namespace UberFrba.Dominio
                                             "fecha", fecha);
         }
 
-        public static DataTable getDeChofer(int idChofer, DateTime fecha, byte idturno)
+        public static DataTable getDeChofer(int idChofer, DateTime fecha, byte idturno, decimal porcentaje)
         {
             return DB.correrFuncionDeTabla("VIAJES_GET_DE_CHOFER",
                                             "idChofer", idChofer,
                                             "fecha", fecha,
-                                            "turno", idturno);
+                                            "turno", idturno,
+                                            "porcentaje", porcentaje);
         }
     }
 }
