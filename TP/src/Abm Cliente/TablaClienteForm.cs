@@ -22,5 +22,12 @@ namespace UberFrba.Abm_Cliente
         {
             InitializeComponent();
         }
+
+        public override void Refrescar()
+        {
+            base.Refrescar();
+            DataGridViewUsuario.Columns["Usuario_Habilitado"].Visible = false;
+            DataGridViewUsuario.Columns["Cliente_Habilitado"].HeaderText = "Habilitado";
+        }
     }
 }

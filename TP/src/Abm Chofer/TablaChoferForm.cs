@@ -18,6 +18,13 @@ namespace UberFrba.Abm_Chofer
             InitializeComponent();
         }
 
+        public override void Refrescar()
+        {
+            base.Refrescar();
+            DataGridViewUsuario.Columns["Usuario_Habilitado"].Visible = false;
+            DataGridViewUsuario.Columns["Chofer_Habilitado"].HeaderText = "Habilitado";
+        }
+
         public TablaChoferForm()
         {
             InitializeComponent();

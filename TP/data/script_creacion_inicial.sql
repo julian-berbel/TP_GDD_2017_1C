@@ -1111,51 +1111,6 @@ AS
 				(@DNIchofer = 0 OR usua_dni = @DNIchofer))
 GO
 
-CREATE FUNCTION LOS_MODERADAMENTE_ADECUADOS.GET_CHOFERES_CON_FILTROS (@nombre varchar(255),			
-																	 @apellido varchar(255),
-																	 @dni numeric(18,0))
-RETURNS TABLE
-AS 
-	RETURN	(SELECT  usua_id,
-					 usua_apellido AS Apellido,
-					 usua_nombre AS Nombre,
-					 usua_dni AS DNI,
-					 cont_mail AS Mail,
-					 cont_telefono AS Telefono,
-					 cont_domicilio AS Domicilio,
-					 usua_fecha_nacimiento AS Fecha_Nac,
-					 chof_habilitado AS Habilitado
-			FROM LOS_MODERADAMENTE_ADECUADOS.Chofer
-				JOIN LOS_MODERADAMENTE_ADECUADOS.Usuario ON (chof_id = usua_id)
-				JOIN LOS_MODERADAMENTE_ADECUADOS.Contacto ON (cont_id = usua_id)
-			WHERE (@nombre = '' OR CHARINDEX(@nombre, usua_nombre) > 0) AND
-				(@apellido = '' OR CHARINDEX(@apellido, usua_apellido) > 0) AND
-				(@dni = 0 OR @dni = usua_dni))
-GO
-
-CREATE FUNCTION LOS_MODERADAMENTE_ADECUADOS.GET_CLIENTES_CON_FILTROS (@nombre varchar(255),			
-																	 @apellido varchar(255),
-																	 @dni numeric(18,0))
-RETURNS TABLE
-AS 
-	RETURN	(SELECT  usua_id,
-					 usua_apellido AS Apellido,
-					 usua_nombre AS Nombre,
-					 usua_dni AS DNI,
-					 cont_mail AS Mail,
-					 cont_telefono AS Telefono,
-					 cont_domicilio AS Domicilio,
-					 clie_codigo_postal AS Codigo_Postal,
-					 usua_fecha_nacimiento AS Fecha_Nac,
-					 clie_habilitado AS Habilitado
-			FROM LOS_MODERADAMENTE_ADECUADOS.Cliente
-				JOIN LOS_MODERADAMENTE_ADECUADOS.Usuario ON (clie_id = usua_id)
-				JOIN LOS_MODERADAMENTE_ADECUADOS.Contacto ON (cont_id = usua_id)
-			WHERE (@nombre = '' OR CHARINDEX(@nombre, usua_nombre) > 0) AND
-				(@apellido = '' OR CHARINDEX(@apellido, usua_apellido) > 0) AND
-				(@dni = 0 OR @dni = usua_dni))
-GO
-
 CREATE FUNCTION LOS_MODERADAMENTE_ADECUADOS.GET_USUARIOS_CON_FILTROS (@nombre varchar(255),			
 																	 @apellido varchar(255),
 																	 @dni numeric(18,0))
@@ -1169,13 +1124,33 @@ AS
 					 cont_telefono AS Telefono,
 					 cont_domicilio AS Domicilio,
 					 usua_fecha_nacimiento AS Fecha_Nac,
-					 logi_habilitado AS Habilitado
+					 logi_habilitado AS Usuario_Habilitado
 			FROM LOS_MODERADAMENTE_ADECUADOS.Usuario
 				JOIN LOS_MODERADAMENTE_ADECUADOS.Contacto ON (cont_id = usua_id)
 				JOIN LOS_MODERADAMENTE_ADECUADOS.Login_Usuario ON (logi_id = usua_id)
 			WHERE (@nombre = '' OR CHARINDEX(@nombre, usua_nombre) > 0) AND
 				(@apellido = '' OR CHARINDEX(@apellido, usua_apellido) > 0) AND
 				(@dni = 0 OR @dni = usua_dni))
+GO
+
+CREATE FUNCTION LOS_MODERADAMENTE_ADECUADOS.GET_CHOFERES_CON_FILTROS (@nombre varchar(255),			
+																	 @apellido varchar(255),
+																	 @dni numeric(18,0))
+RETURNS TABLE
+AS 
+	RETURN	(SELECT  u.*, chof_habilitado AS Chofer_Habilitado
+			FROM LOS_MODERADAMENTE_ADECUADOS.GET_USUARIOS_CON_FILTROS (@nombre,	@apellido, @dni) u
+				JOIN LOS_MODERADAMENTE_ADECUADOS.Chofer ON usua_id = chof_id)
+GO
+
+CREATE FUNCTION LOS_MODERADAMENTE_ADECUADOS.GET_CLIENTES_CON_FILTROS (@nombre varchar(255),			
+																	 @apellido varchar(255),
+																	 @dni numeric(18,0))
+RETURNS TABLE
+AS 
+	RETURN	(SELECT  u.*, clie_codigo_postal AS Codigo_Postal, clie_habilitado AS Cliente_Habilitado
+			FROM LOS_MODERADAMENTE_ADECUADOS.GET_USUARIOS_CON_FILTROS (@nombre,	@apellido, @dni) u
+				JOIN LOS_MODERADAMENTE_ADECUADOS.Cliente ON usua_id = clie_id)
 GO
 
 CREATE FUNCTION LOS_MODERADAMENTE_ADECUADOS.GET_NO_CHOFERES_CON_FILTROS (@nombre varchar(255),			

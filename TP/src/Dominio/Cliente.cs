@@ -12,8 +12,10 @@ namespace UberFrba.Dominio
     {
         public decimal codigoPostal;
 
-        public Cliente(DataRow data) : base(data)
+        public Cliente(DataRow data)
         {
+            New(data);
+            habilitado = (Boolean)data["Cliente_Habilitado"];
             codigoPostal = (decimal)data["Codigo_Postal"];
         }
 

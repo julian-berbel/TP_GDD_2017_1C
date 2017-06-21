@@ -24,6 +24,14 @@ namespace UberFrba.Dominio
 
         public Usuario(DataRow data)
         {
+            New(data);
+            habilitado = (Boolean)data["Usuario_Habilitado"];
+        }
+
+        public Usuario() { }
+
+        protected void New(DataRow data)
+        {
             id = (int)data["usua_id"];
             nombre = (String)data["Nombre"];
             apellido = (String)data["Apellido"];
@@ -32,10 +40,7 @@ namespace UberFrba.Dominio
             telefono = (decimal)data["Telefono"];
             domicilio = (String)data["Domicilio"];
             fechaNac = (DateTime)data["Fecha_Nac"];
-            habilitado = (Boolean)data["Habilitado"];
         }
-
-        public Usuario() { }
 
         public static Usuario get(int id)
         {

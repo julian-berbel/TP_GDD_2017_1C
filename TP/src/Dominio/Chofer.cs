@@ -10,8 +10,10 @@ namespace UberFrba.Dominio
 {
     public class Chofer : Usuario
     {
-        public Chofer(DataRow data): base(data)
+        public Chofer(DataRow data)
         {
+            New(data);
+            habilitado = (Boolean)data["Chofer_Habilitado"];
         }
 
         public Chofer() {}
