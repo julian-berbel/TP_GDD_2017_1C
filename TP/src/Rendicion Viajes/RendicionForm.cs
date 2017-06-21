@@ -20,8 +20,8 @@ namespace UberFrba.Rendicion_Viajes
         public RendicionForm(ReturningForm caller) : base(caller)
         {
             InitializeComponent();
-            dateTimePickerFecha.Value = DateTime.Now.AddDays(-1);
-            dateTimePickerFecha.MaxDate = DateTime.Now.AddDays(-1);
+            dateTimePickerFecha.Value = Program.FechaEjecucion.AddDays(-1);
+            dateTimePickerFecha.MaxDate = Program.FechaEjecucion.AddDays(-1);
             Turno.getListaTurnos().ForEach(turno => comboBoxTurnos.Items.Add(turno));
         }
 

@@ -10,11 +10,7 @@ namespace UberFrba.Dominio
 {
     static class DB
     {
-        private static SqlConnection miConexion = new SqlConnection("user id=gd;" +
-                                       "password=gd2017;server=localhost\\SQLSERVER2012;" +
-                                       "Trusted_Connection=yes;" +
-                                       "database=GD1C2017; " +
-                                       "connection timeout=10");
+        public static SqlConnection miConexion;
 
         private static String esquema = "[LOS_MODERADAMENTE_ADECUADOS].";
         

@@ -22,7 +22,7 @@ namespace UberFrba.Abm_Cliente
         {
             DataRow fila = ((DataRowView)DataGridViewUsuario.SelectedRows[0].DataBoundItem).Row;
 
-            if (!(Boolean)fila["Habilitado"])
+            if (!(Boolean)fila["Cliente_Habilitado"])
             {
                 Error.show("No se puede seleccionar un cliente inhabilitado!");
                 return;

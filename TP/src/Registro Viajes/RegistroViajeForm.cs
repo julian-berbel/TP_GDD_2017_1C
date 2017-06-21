@@ -20,9 +20,9 @@ namespace UberFrba.Registro_Viajes
         public RegistroViajeForm(ReturningForm caller) : base(caller)
         {
             InitializeComponent();
-            dateTimePickerFechaHoraInicio.Value = DateTime.Now.AddMinutes(-10);
-            dateTimePickerFechaHoraFin.Value = DateTime.Now;
-            dateTimePickerFechaHoraFin.MaxDate = DateTime.Now;
+            dateTimePickerFechaHoraInicio.Value = Program.FechaEjecucion.AddMinutes(-10);
+            dateTimePickerFechaHoraFin.Value = Program.FechaEjecucion;
+            dateTimePickerFechaHoraFin.MaxDate = Program.FechaEjecucion;
             dateTimePickerFechaHoraFin.MinDate = dateTimePickerFechaHoraInicio.Value;
             dateTimePickerFechaHoraInicio.MaxDate = dateTimePickerFechaHoraFin.Value;
         }

@@ -374,7 +374,7 @@ VALUES	('ABM de Rol'),
 --Funcionalidad_X_Rol
 
 INSERT LOS_MODERADAMENTE_ADECUADOS.Funcionalidad_X_Rol (cod_func, cod_rol)
-	VALUES (1, 1), (2, 1), (3, 1), (4, 1), (5, 1), (6, 1), (7, 1), (8, 1), (9, 1)
+	VALUES (1, 1), (2, 1), (3, 1), (4, 1), (5, 1), (6, 1), (7, 1), (8, 1), (9, 1), (6, 2), (6, 3)
 
 --Login_Usuario
 
@@ -580,6 +580,16 @@ BEGIN
 	DELETE LOS_MODERADAMENTE_ADECUADOS.Rol_X_Login_Usuario 
 	WHERE cod_rol = @rol
 
+	IF(@rol = 2)
+	BEGIN
+		UPDATE LOS_MODERADAMENTE_ADECUADOS.Cliente SET clie_habilitado = 0
+	END
+
+	IF(@rol = 3)
+	BEGIN
+		UPDATE LOS_MODERADAMENTE_ADECUADOS.Chofer SET chof_habilitado = 0
+	END
+
 	UPDATE LOS_MODERADAMENTE_ADECUADOS.Rol SET rol_habilitado = 0
 	WHERE rol_id = @rol
 END
@@ -596,6 +606,9 @@ CREATE PROC LOS_MODERADAMENTE_ADECUADOS.CLIENTE_INHABILITAR(@id INT) AS
 BEGIN
 	UPDATE LOS_MODERADAMENTE_ADECUADOS.Cliente SET clie_habilitado = 0
 	WHERE clie_id = @id
+
+	DELETE LOS_MODERADAMENTE_ADECUADOS.Rol_X_Login_Usuario
+	WHERE cod_login = @id AND cod_rol = 2
 END
 GO
 
@@ -603,6 +616,9 @@ CREATE PROC LOS_MODERADAMENTE_ADECUADOS.CHOFER_INHABILITAR(@id INT) AS
 BEGIN
 	UPDATE LOS_MODERADAMENTE_ADECUADOS.Chofer SET chof_habilitado = 0
 	WHERE chof_id = @id
+
+	DELETE LOS_MODERADAMENTE_ADECUADOS.Rol_X_Login_Usuario
+	WHERE cod_login = @id AND cod_rol = 3
 END
 GO
 
@@ -648,6 +664,18 @@ BEGIN
 			INSERT LOS_MODERADAMENTE_ADECUADOS.Rol_X_Login_Usuario VALUES
 				(@idRol, @idUsuario)
 		END
+	END
+
+	IF(@idRol = 2)
+	BEGIN
+		UPDATE LOS_MODERADAMENTE_ADECUADOS.Cliente SET clie_habilitado = @habilitado
+			WHERE clie_id = @idUsuario
+	END
+
+	IF(@idRol = 3)
+	BEGIN
+		UPDATE LOS_MODERADAMENTE_ADECUADOS.Chofer SET chof_habilitado = @habilitado
+			WHERE chof_id = @idUsuario
 	END
 END
 GO
@@ -734,6 +762,29 @@ CREATE PROC LOS_MODERADAMENTE_ADECUADOS.CHOFER_UPDATE(	@id INT,
 														@habilitado BIT)
 AS
 BEGIN
+	IF(@habilitado = 0)
+	BEGIN
+		DELETE LOS_MODERADAMENTE_ADECUADOS.Rol_X_Login_Usuario
+		WHERE cod_login = @id AND cod_rol = 3
+	END
+	ELSE
+	BEGIN
+		IF((SELECT rol_habilitado
+			FROM LOS_MODERADAMENTE_ADECUADOS.Rol
+			WHERE rol_id = 3) = 0)
+		BEGIN
+			RAISERROR('El rol de Chofer se encuentra deshabilitado. Si quiere habilitar el chofer, debe habilitar el rol primero.', 16, 1)
+			RETURN
+		END
+		IF(@id NOT IN (	SELECT cod_login
+						FROM LOS_MODERADAMENTE_ADECUADOS.Rol_X_Login_Usuario
+						WHERE cod_rol = 3))
+		BEGIN
+			INSERT LOS_MODERADAMENTE_ADECUADOS.Rol_X_Login_Usuario VALUES 
+				(3, @id)
+		END 
+	END
+
 	UPDATE LOS_MODERADAMENTE_ADECUADOS.Chofer SET chof_habilitado = @habilitado
 	WHERE chof_id = @id
 	
@@ -754,6 +805,14 @@ CREATE PROC LOS_MODERADAMENTE_ADECUADOS.CHOFER_NUEVO(	@id INT,
 														@habilitado BIT)
 AS
 BEGIN
+	
+	IF(@habilitado = 1 AND (SELECT rol_habilitado
+							FROM LOS_MODERADAMENTE_ADECUADOS.Rol
+							WHERE rol_id = 3) = 0)
+	BEGIN
+		RAISERROR('El rol de Chofer se encuentra deshabilitado. Si quiere habilitar el chofer, debe habilitar el rol primero.', 16, 1)
+		RETURN
+	END
 	INSERT LOS_MODERADAMENTE_ADECUADOS.Chofer VALUES
 		(@id, @habilitado)
 	IF(@habilitado = 1)
@@ -776,6 +835,28 @@ CREATE PROC LOS_MODERADAMENTE_ADECUADOS.CLIENTE_UPDATE(	@id INT,
 														@habilitado BIT)
 AS
 BEGIN
+	IF(@habilitado = 0)
+	BEGIN
+		DELETE LOS_MODERADAMENTE_ADECUADOS.Rol_X_Login_Usuario
+		WHERE cod_login = @id AND cod_rol = 2
+	END
+	ELSE
+	BEGIN
+		IF((SELECT rol_habilitado
+			FROM LOS_MODERADAMENTE_ADECUADOS.Rol
+			WHERE rol_id = 2) = 0)
+		BEGIN
+			RAISERROR('El rol de Cliente se encuentra deshabilitado. Si quiere habilitar el cliente, debe habilitar el rol primero.', 16, 1)
+			RETURN
+		END
+		IF(@id NOT IN (	SELECT cod_login
+						FROM LOS_MODERADAMENTE_ADECUADOS.Rol_X_Login_Usuario
+						WHERE cod_rol = 2))
+		BEGIN
+			INSERT LOS_MODERADAMENTE_ADECUADOS.Rol_X_Login_Usuario VALUES 
+				(2, @id)
+		END 
+	END
 	UPDATE LOS_MODERADAMENTE_ADECUADOS.Cliente SET	clie_habilitado = @habilitado,
 													clie_codigo_postal = @codigoPostal
 	WHERE clie_id = @id
@@ -798,6 +879,14 @@ CREATE PROC LOS_MODERADAMENTE_ADECUADOS.CLIENTE_NUEVO(	@id INT,
 														@habilitado BIT)
 AS
 BEGIN
+	IF(@habilitado = 1 AND (SELECT rol_habilitado
+		FROM LOS_MODERADAMENTE_ADECUADOS.Rol
+		WHERE rol_id = 2) = 0)
+	BEGIN
+		RAISERROR('El rol de Cliente se encuentra deshabilitado. Si quiere habilitar el cliente, debe habilitar el rol primero.', 16, 1)
+		RETURN
+	END
+
 	INSERT LOS_MODERADAMENTE_ADECUADOS.Cliente VALUES
 		(@id, @codigoPostal, @habilitado)
 	IF(@habilitado = 1)
@@ -1057,7 +1146,7 @@ AS
 					cont_domicilio AS Domicilio,
 					usua_fecha_nacimiento AS Fecha_Nac,
 					clie_codigo_postal AS Codigo_Postal,
-					clie_habilitado AS Habilitado
+					clie_habilitado AS Cliente_Habilitado
 			FROM LOS_MODERADAMENTE_ADECUADOS.Usuario
 				JOIN LOS_MODERADAMENTE_ADECUADOS.Cliente ON (clie_id = usua_id)
 				JOIN LOS_MODERADAMENTE_ADECUADOS.Contacto ON (cont_id = usua_id)
@@ -1074,7 +1163,7 @@ AS
 					cont_telefono AS Telefono,
 					cont_domicilio AS Domicilio,
 					usua_fecha_nacimiento AS Fecha_Nac,
-					chof_habilitado AS Habilitado
+					chof_habilitado AS Chofer_Habilitado
 			FROM LOS_MODERADAMENTE_ADECUADOS.Usuario
 				JOIN LOS_MODERADAMENTE_ADECUADOS.Chofer ON (chof_id = usua_id)
 				JOIN LOS_MODERADAMENTE_ADECUADOS.Contacto ON (cont_id = usua_id)

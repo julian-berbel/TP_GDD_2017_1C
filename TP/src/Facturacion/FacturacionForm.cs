@@ -19,8 +19,8 @@ namespace UberFrba.Facturacion
         public FacturacionForm(ReturningForm caller) : base(caller)
         {
             InitializeComponent();
-            dateTimePickerFecha.Value = DateTime.Now.AddMonths(-1);
-            dateTimePickerFecha.MaxDate = DateTime.Now.AddMonths(-1);
+            dateTimePickerFecha.Value = Program.FechaEjecucion.AddMonths(-1);
+            dateTimePickerFecha.MaxDate = Program.FechaEjecucion.AddMonths(-1);
         }
 
         private Cliente cliente;

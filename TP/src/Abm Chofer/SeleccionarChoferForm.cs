@@ -27,7 +27,7 @@ namespace UberFrba.Abm_Chofer
         {
             DataRow fila = ((DataRowView)DataGridViewUsuario.SelectedRows[0].DataBoundItem).Row;
 
-            if (!(Boolean)fila["Habilitado"])
+            if (!(Boolean)fila["Chofer_Habilitado"])
             {
                 Error.show("No se puede seleccionar un chofer inhabilitado!");
                 return;
