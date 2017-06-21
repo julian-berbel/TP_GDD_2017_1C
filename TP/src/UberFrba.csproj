@@ -160,12 +160,6 @@
     <Compile Include="Abm Rol\EditarRolForm.Designer.cs">
       <DependentUpon>EditarRolForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Abm Rol\SeleccionarRolForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Abm Rol\SeleccionarRolForm.Designer.cs">
-      <DependentUpon>SeleccionarRolForm.cs</DependentUpon>
-    </Compile>
     <Compile Include="Abm Rol\TablaRolForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -203,6 +197,7 @@
     <Compile Include="Dominio\Error.cs" />
     <Compile Include="Dominio\Exceptions\UsuarioNoSeleccionadoException.cs" />
     <Compile Include="Dominio\Exceptions\CampoVacioException.cs" />
+    <Compile Include="Dominio\Factura.cs" />
     <Compile Include="Dominio\Funcionalidad.cs" />
     <Compile Include="Dominio\RepoFuncionalidades.cs" />
     <Compile Include="Dominio\ReturningForm.cs">
@@ -211,6 +206,24 @@
     <Compile Include="Dominio\Rol.cs" />
     <Compile Include="Dominio\Turno.cs" />
     <Compile Include="Dominio\Viaje.cs" />
+    <Compile Include="Facturacion\FacturaEfectuadaForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Facturacion\FacturaEfectuadaForm.Designer.cs">
+      <DependentUpon>FacturaEfectuadaForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Facturacion\FacturaNoEfectuadaForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Facturacion\FacturaNoEfectuadaForm.Designer.cs">
+      <DependentUpon>FacturaNoEfectuadaForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Facturacion\TablaFacturaForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Facturacion\TablaFacturaForm.Designer.cs">
+      <DependentUpon>TablaFacturaForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Usuarios\NuevoUsuarioForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -316,9 +329,6 @@
     <EmbeddedResource Include="Abm Rol\EditarRolForm.resx">
       <DependentUpon>EditarRolForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Abm Rol\SeleccionarRolForm.resx">
-      <DependentUpon>SeleccionarRolForm.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Abm Rol\TablaRolForm.resx">
       <DependentUpon>TablaRolForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -333,6 +343,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Abm Turno\TablaTurnoForm.resx">
       <DependentUpon>TablaTurnoForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Facturacion\FacturaEfectuadaForm.resx">
+      <DependentUpon>FacturaEfectuadaForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Facturacion\FacturaNoEfectuadaForm.resx">
+      <DependentUpon>FacturaNoEfectuadaForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Facturacion\TablaFacturaForm.resx">
+      <DependentUpon>TablaFacturaForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Usuarios\NuevoUsuarioForm.resx">
       <DependentUpon>NuevoUsuarioForm.cs</DependentUpon>

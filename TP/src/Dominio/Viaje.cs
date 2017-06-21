@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -24,6 +25,13 @@ namespace UberFrba.Dominio
                                     "kms", kms,
                                     "inicio", inicio,
                                     "fin", fin);
+        }
+
+        public static DataTable get(int idCliente, DateTime fecha)
+        {
+            return DB.correrFuncionDeTabla( "VIAJES_GET",
+                                            "idCliente", idCliente,
+                                            "fecha", fecha);
         }
     }
 }

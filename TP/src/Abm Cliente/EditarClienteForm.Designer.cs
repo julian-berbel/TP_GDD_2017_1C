@@ -234,7 +234,7 @@
             this.Controls.Add(this.dateTimePickerFechaNac);
             this.MaximizeBox = false;
             this.Name = "EditarClienteForm";
-            this.Text = "EditarClienteForm";
+            this.Text = "Editar Cliente";
             this.ResumeLayout(false);
             this.PerformLayout();
 

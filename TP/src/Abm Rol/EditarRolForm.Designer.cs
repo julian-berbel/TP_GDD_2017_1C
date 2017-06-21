@@ -35,13 +35,15 @@
             this.textBoxNombre = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
+            this.dataGridViewFuncionalidades = new System.Windows.Forms.DataGridView();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewFuncionalidades)).BeginInit();
             this.SuspendLayout();
             // 
             // checkBoxHabilitado
             // 
             this.checkBoxHabilitado.AutoSize = true;
             this.checkBoxHabilitado.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.checkBoxHabilitado.Location = new System.Drawing.Point(79, 87);
+            this.checkBoxHabilitado.Location = new System.Drawing.Point(98, 230);
             this.checkBoxHabilitado.Name = "checkBoxHabilitado";
             this.checkBoxHabilitado.Size = new System.Drawing.Size(73, 17);
             this.checkBoxHabilitado.TabIndex = 31;
@@ -50,7 +52,7 @@
             // 
             // buttonCancelar
             // 
-            this.buttonCancelar.Location = new System.Drawing.Point(127, 110);
+            this.buttonCancelar.Location = new System.Drawing.Point(146, 253);
             this.buttonCancelar.Name = "buttonCancelar";
             this.buttonCancelar.Size = new System.Drawing.Size(75, 23);
             this.buttonCancelar.TabIndex = 26;
@@ -60,7 +62,7 @@
             // 
             // buttonAceptar
             // 
-            this.buttonAceptar.Location = new System.Drawing.Point(28, 110);
+            this.buttonAceptar.Location = new System.Drawing.Point(47, 253);
             this.buttonAceptar.Name = "buttonAceptar";
             this.buttonAceptar.Size = new System.Drawing.Size(75, 23);
             this.buttonAceptar.TabIndex = 17;
@@ -70,14 +72,14 @@
             // 
             // textBoxDescripcion
             // 
-            this.textBoxDescripcion.Location = new System.Drawing.Point(12, 61);
+            this.textBoxDescripcion.Location = new System.Drawing.Point(31, 61);
             this.textBoxDescripcion.Name = "textBoxDescripcion";
             this.textBoxDescripcion.Size = new System.Drawing.Size(200, 20);
             this.textBoxDescripcion.TabIndex = 35;
             // 
             // textBoxNombre
             // 
-            this.textBoxNombre.Location = new System.Drawing.Point(12, 22);
+            this.textBoxNombre.Location = new System.Drawing.Point(31, 22);
             this.textBoxNombre.Name = "textBoxNombre";
             this.textBoxNombre.Size = new System.Drawing.Size(200, 20);
             this.textBoxNombre.TabIndex = 34;
@@ -85,7 +87,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(9, 45);
+            this.label2.Location = new System.Drawing.Point(28, 45);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(63, 13);
             this.label2.TabIndex = 33;
@@ -94,17 +96,33 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(9, 6);
+            this.label1.Location = new System.Drawing.Point(28, 6);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(44, 13);
             this.label1.TabIndex = 32;
             this.label1.Text = "Nombre";
             // 
+            // dataGridViewFuncionalidades
+            // 
+            this.dataGridViewFuncionalidades.AllowUserToAddRows = false;
+            this.dataGridViewFuncionalidades.AllowUserToDeleteRows = false;
+            this.dataGridViewFuncionalidades.AllowUserToResizeRows = false;
+            this.dataGridViewFuncionalidades.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
+            this.dataGridViewFuncionalidades.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewFuncionalidades.Location = new System.Drawing.Point(31, 87);
+            this.dataGridViewFuncionalidades.MultiSelect = false;
+            this.dataGridViewFuncionalidades.Name = "dataGridViewFuncionalidades";
+            this.dataGridViewFuncionalidades.RowHeadersVisible = false;
+            this.dataGridViewFuncionalidades.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dataGridViewFuncionalidades.Size = new System.Drawing.Size(200, 137);
+            this.dataGridViewFuncionalidades.TabIndex = 36;
+            // 
             // EditarRolForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(231, 144);
+            this.ClientSize = new System.Drawing.Size(258, 288);
+            this.Controls.Add(this.dataGridViewFuncionalidades);
             this.Controls.Add(this.textBoxDescripcion);
             this.Controls.Add(this.textBoxNombre);
             this.Controls.Add(this.label2);
@@ -113,7 +131,8 @@
             this.Controls.Add(this.buttonCancelar);
             this.Controls.Add(this.buttonAceptar);
             this.Name = "EditarRolForm";
-            this.Text = "EditarRolForm";
+            this.Text = "Editar Rol";
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewFuncionalidades)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -127,5 +146,6 @@
         private System.Windows.Forms.TextBox textBoxNombre;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.DataGridView dataGridViewFuncionalidades;
     }
 }

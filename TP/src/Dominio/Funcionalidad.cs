@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -29,6 +30,12 @@ namespace UberFrba.Dominio
         public override string ToString()
         {
             return descripcion;
+        }
+
+        public static DataTable getTablaDe(byte idRol)
+        {
+            return DB.correrFuncionDeTabla( "FUNCIONALIDADES_GET_TABLA_DE_ROL",
+                                            "idRol", idRol);
         }
     }
 }

@@ -173,7 +173,7 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Name = "EditarTurnoForm";
-            this.Text = "EditarTurnoForm";
+            this.Text = "Editar Turno";
             this.ResumeLayout(false);
             this.PerformLayout();
 

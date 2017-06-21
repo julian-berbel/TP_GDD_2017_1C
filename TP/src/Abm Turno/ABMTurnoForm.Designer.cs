@@ -83,6 +83,7 @@
             this.Controls.Add(this.buttonVolver);
             this.Controls.Add(this.buttonNuevo);
             this.Name = "ABMTurnoForm";
+            this.Text = "ABM Turno";
             this.Controls.SetChildIndex(this.buttonNuevo, 0);
             this.Controls.SetChildIndex(this.buttonVolver, 0);
             this.Controls.SetChildIndex(this.buttonEditar, 0);

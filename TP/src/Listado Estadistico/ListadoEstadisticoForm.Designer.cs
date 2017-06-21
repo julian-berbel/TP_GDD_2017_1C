@@ -28,35 +28,35 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.dataGridViewUsuario = new System.Windows.Forms.DataGridView();
+            this.dataGridViewEstadistica = new System.Windows.Forms.DataGridView();
             this.comboBoxEstadisticas = new System.Windows.Forms.ComboBox();
             this.numericUpDownTrimestre = new System.Windows.Forms.NumericUpDown();
             this.numericUpDownAnio = new System.Windows.Forms.NumericUpDown();
-            this.button1 = new System.Windows.Forms.Button();
+            this.buttonCalcular = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            this.button2 = new System.Windows.Forms.Button();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewUsuario)).BeginInit();
+            this.buttonVolver = new System.Windows.Forms.Button();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewEstadistica)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownTrimestre)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownAnio)).BeginInit();
             this.SuspendLayout();
             // 
-            // dataGridViewUsuario
+            // dataGridViewEstadistica
             // 
-            this.dataGridViewUsuario.AllowUserToAddRows = false;
-            this.dataGridViewUsuario.AllowUserToDeleteRows = false;
-            this.dataGridViewUsuario.AllowUserToResizeRows = false;
-            this.dataGridViewUsuario.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
-            this.dataGridViewUsuario.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewUsuario.Location = new System.Drawing.Point(12, 52);
-            this.dataGridViewUsuario.MultiSelect = false;
-            this.dataGridViewUsuario.Name = "dataGridViewUsuario";
-            this.dataGridViewUsuario.ReadOnly = true;
-            this.dataGridViewUsuario.RowHeadersVisible = false;
-            this.dataGridViewUsuario.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridViewUsuario.Size = new System.Drawing.Size(501, 180);
-            this.dataGridViewUsuario.TabIndex = 20;
+            this.dataGridViewEstadistica.AllowUserToAddRows = false;
+            this.dataGridViewEstadistica.AllowUserToDeleteRows = false;
+            this.dataGridViewEstadistica.AllowUserToResizeRows = false;
+            this.dataGridViewEstadistica.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
+            this.dataGridViewEstadistica.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewEstadistica.Location = new System.Drawing.Point(12, 52);
+            this.dataGridViewEstadistica.MultiSelect = false;
+            this.dataGridViewEstadistica.Name = "dataGridViewEstadistica";
+            this.dataGridViewEstadistica.ReadOnly = true;
+            this.dataGridViewEstadistica.RowHeadersVisible = false;
+            this.dataGridViewEstadistica.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dataGridViewEstadistica.Size = new System.Drawing.Size(501, 180);
+            this.dataGridViewEstadistica.TabIndex = 20;
             // 
             // comboBoxEstadisticas
             // 
@@ -113,14 +113,15 @@
             0,
             0});
             // 
-            // button1
+            // buttonCalcular
             // 
-            this.button1.Location = new System.Drawing.Point(404, 16);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 24;
-            this.button1.Text = "Calcular!";
-            this.button1.UseVisualStyleBackColor = true;
+            this.buttonCalcular.Location = new System.Drawing.Point(404, 16);
+            this.buttonCalcular.Name = "buttonCalcular";
+            this.buttonCalcular.Size = new System.Drawing.Size(75, 23);
+            this.buttonCalcular.TabIndex = 24;
+            this.buttonCalcular.Text = "Calcular!";
+            this.buttonCalcular.UseVisualStyleBackColor = true;
+            this.buttonCalcular.Click += new System.EventHandler(this.buttonCalcular_Click);
             // 
             // label1
             // 
@@ -149,35 +150,35 @@
             this.label3.TabIndex = 27;
             this.label3.Text = "Trimestre:";
             // 
-            // button2
+            // buttonVolver
             // 
-            this.button2.Location = new System.Drawing.Point(226, 238);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 23);
-            this.button2.TabIndex = 28;
-            this.button2.Text = "Volver";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
+            this.buttonVolver.Location = new System.Drawing.Point(226, 238);
+            this.buttonVolver.Name = "buttonVolver";
+            this.buttonVolver.Size = new System.Drawing.Size(75, 23);
+            this.buttonVolver.TabIndex = 28;
+            this.buttonVolver.Text = "Volver";
+            this.buttonVolver.UseVisualStyleBackColor = true;
+            this.buttonVolver.Click += new System.EventHandler(this.buttonVolver_Click);
             // 
             // ListadoEstadisticoForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(526, 271);
-            this.Controls.Add(this.button2);
+            this.Controls.Add(this.buttonVolver);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.buttonCalcular);
             this.Controls.Add(this.numericUpDownAnio);
             this.Controls.Add(this.numericUpDownTrimestre);
             this.Controls.Add(this.comboBoxEstadisticas);
-            this.Controls.Add(this.dataGridViewUsuario);
+            this.Controls.Add(this.dataGridViewEstadistica);
             this.MaximizeBox = false;
             this.Name = "ListadoEstadisticoForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "ListadoEstadisticoForm";
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewUsuario)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewEstadistica)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownTrimestre)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownAnio)).EndInit();
             this.ResumeLayout(false);
@@ -187,14 +188,14 @@
 
         #endregion
 
-        private System.Windows.Forms.DataGridView dataGridViewUsuario;
+        private System.Windows.Forms.DataGridView dataGridViewEstadistica;
         private System.Windows.Forms.ComboBox comboBoxEstadisticas;
         private System.Windows.Forms.NumericUpDown numericUpDownTrimestre;
         private System.Windows.Forms.NumericUpDown numericUpDownAnio;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button buttonCalcular;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button buttonVolver;
     }
 }

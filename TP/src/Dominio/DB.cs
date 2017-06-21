@@ -47,7 +47,7 @@ namespace UberFrba.Dominio
             return comando;
         }
         
-        private static SqlCommand nuevoProcedimiento(String nombre, params object[] args)
+        public static SqlCommand nuevoProcedimiento(String nombre, params object[] args)
         {
             String query = queryProcedimiento(nombre);
 
@@ -93,7 +93,7 @@ namespace UberFrba.Dominio
             return ejecutarComandoDeTabla(comando);
         }
 
-        private static void ejecutarProcedimiento(SqlCommand comando)
+        public static void ejecutarProcedimiento(SqlCommand comando)
         {
             try{
                 miConexion.Open();

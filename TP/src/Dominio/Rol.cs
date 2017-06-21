@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -54,21 +55,32 @@ namespace UberFrba.Dominio
                                     "rol", id);
         }
 
-        public void editar()
+        public void editar(DataTable funcionalidades)
         {
-            DB.correrProcedimiento( "ROL_UPDATE",
-                                    "id", id,
-                                    "nombre", nombre,
-                                    "detalle", detalle,
-                                    "habilitado", habilitado);
+
+            SqlCommand comando = DB.nuevoProcedimiento( "ROL_UPDATE",
+                                                        "id", id,
+                                                        "nombre", nombre,
+                                                        "detalle", detalle,
+                                                        "habilitado", habilitado);
+            SqlParameter parametroFuncionalidades = new SqlParameter("@funcionalidades", SqlDbType.Structured);
+            parametroFuncionalidades.TypeName = "LOS_MODERADAMENTE_ADECUADOS.TABLA_ROL_X_FUNCIONALIDAD";
+            parametroFuncionalidades.Value = funcionalidades;
+            comando.Parameters.Add(parametroFuncionalidades);
+            DB.ejecutarProcedimiento(comando);
         }
 
-        public void nuevo()
+        public void nuevo(DataTable funcionalidades)
         {
-            DB.correrProcedimiento( "ROL_NUEVO",
-                                    "nombre", nombre,
-                                    "detalle", detalle,
-                                    "habilitado", habilitado);
+            SqlCommand comando = DB.nuevoProcedimiento( "ROL_NUEVO",
+                                                        "nombre", nombre,
+                                                        "detalle", detalle,
+                                                        "habilitado", habilitado);
+            SqlParameter parametroFuncionalidades = new SqlParameter("@funcionalidades", SqlDbType.Structured);
+            parametroFuncionalidades.TypeName = "LOS_MODERADAMENTE_ADECUADOS.TABLA_ROL_X_FUNCIONALIDAD";
+            parametroFuncionalidades.Value = funcionalidades;
+            comando.Parameters.Add(parametroFuncionalidades);
+            DB.ejecutarProcedimiento(comando);
         }
     }
 }

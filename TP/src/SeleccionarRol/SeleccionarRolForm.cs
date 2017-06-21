@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using UberFrba.Dominio;
+using UberFrba.SeleccionarFuncionalidad;
 
 namespace UberFrba.SeleccionarRol
 {
@@ -20,14 +21,20 @@ namespace UberFrba.SeleccionarRol
             InitializeComponent();
         }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-            Rol.rolSeleccionado = (Rol) comboBoxRoles.SelectedItem;
-        }
-
         private void SeleccionarRolForm_Load(object sender, EventArgs e)
         {
             Usuario.getRoles().ForEach(r => comboBoxRoles.Items.Add(r));
+        }
+
+        private void buttonAtras_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void buttonContinuar_Click(object sender, EventArgs e)
+        {
+            Rol.rolSeleccionado = (Rol)comboBoxRoles.SelectedItem;
+            new SeleccionarFuncionalidadForm(this).abrir();
         }
     }
 }

@@ -51,7 +51,6 @@ C:\Users\Windows7\Documents\Downloads\UTN\GDD\TP_GDD_2017_1C\TP\src\obj\Debug\Ub
 C:\Users\Windows7\Documents\Downloads\UTN\GDD\TP_GDD_2017_1C\TP\src\obj\Debug\UberFrba.Abm_Cliente.SeleccionarClienteForm.resources
 C:\Users\Windows7\Documents\Downloads\UTN\GDD\TP_GDD_2017_1C\TP\src\obj\Debug\UberFrba.Abm_Rol.ABMRolForm.resources
 C:\Users\Windows7\Documents\Downloads\UTN\GDD\TP_GDD_2017_1C\TP\src\obj\Debug\UberFrba.Abm_Rol.EditarRolForm.resources
-C:\Users\Windows7\Documents\Downloads\UTN\GDD\TP_GDD_2017_1C\TP\src\obj\Debug\UberFrba.Abm_Rol.SeleccionarRolForm.resources
 C:\Users\Windows7\Documents\Downloads\UTN\GDD\TP_GDD_2017_1C\TP\src\obj\Debug\UberFrba.Abm_Rol.TablaRolForm.resources
 C:\Users\Windows7\Documents\Downloads\UTN\GDD\TP_GDD_2017_1C\TP\src\obj\Debug\UberFrba.Abm_Turno.ABMTurnoForm.resources
 C:\Users\Windows7\Documents\Downloads\UTN\GDD\TP_GDD_2017_1C\TP\src\obj\Debug\UberFrba.Abm_Turno.EditarTurnoForm.resources
@@ -74,4 +73,7 @@ C:\Users\Windows7\Documents\Downloads\UTN\GDD\TP_GDD_2017_1C\TP\src\bin\Debug\Ub
 C:\Users\Windows7\Documents\Downloads\UTN\GDD\TP_GDD_2017_1C\TP\src\bin\Debug\UberFrba.pdb
 C:\Users\Windows7\Documents\Downloads\UTN\GDD\TP_GDD_2017_1C\TP\src\obj\Debug\UberFrba.exe
 C:\Users\Windows7\Documents\Downloads\UTN\GDD\TP_GDD_2017_1C\TP\src\obj\Debug\UberFrba.pdb
+C:\Users\Windows7\Documents\Downloads\UTN\GDD\TP_GDD_2017_1C\TP\src\obj\Debug\UberFrba.Facturacion.TablaFacturaForm.resources
+C:\Users\Windows7\Documents\Downloads\UTN\GDD\TP_GDD_2017_1C\TP\src\obj\Debug\UberFrba.Facturacion.FacturaEfectuadaForm.resources
 C:\Users\Windows7\Documents\Downloads\UTN\GDD\TP_GDD_2017_1C\TP\src\obj\Debug\UberFrba.csprojResolveAssemblyReference.cache
+C:\Users\Windows7\Documents\Downloads\UTN\GDD\TP_GDD_2017_1C\TP\src\obj\Debug\UberFrba.Facturacion.FacturaNoEfectuadaForm.resources

@@ -116,7 +116,10 @@ IF OBJECT_ID('LOS_MODERADAMENTE_ADECUADOS.TURNO_INHABILITAR') IS NOT NULL
 
 IF OBJECT_ID('LOS_MODERADAMENTE_ADECUADOS.REGISTRAR_VIAJE') IS NOT NULL
     DROP PROCEDURE LOS_MODERADAMENTE_ADECUADOS.REGISTRAR_VIAJE;
-	
+
+IF OBJECT_ID('LOS_MODERADAMENTE_ADECUADOS.FACTURA_GENERAR') IS NOT NULL
+    DROP PROCEDURE LOS_MODERADAMENTE_ADECUADOS.FACTURA_GENERAR;
+		
 IF OBJECT_ID('LOS_MODERADAMENTE_ADECUADOS.USUARIO_GET_ID') IS NOT NULL
     DROP FUNCTION LOS_MODERADAMENTE_ADECUADOS.USUARIO_GET_ID;
 
@@ -179,16 +182,30 @@ IF OBJECT_ID('LOS_MODERADAMENTE_ADECUADOS.ESTADISTICA_CLIENTE_MAYOR_CONSUMO') IS
 
 IF OBJECT_ID('LOS_MODERADAMENTE_ADECUADOS.ESTADISTICA_CLIENTE_MAYOR_USO_MISMO_VEHICULO') IS NOT NULL
     DROP FUNCTION LOS_MODERADAMENTE_ADECUADOS.ESTADISTICA_CLIENTE_MAYOR_USO_MISMO_VEHICULO;
-				
+
+IF OBJECT_ID('LOS_MODERADAMENTE_ADECUADOS.FACTURA_GET') IS NOT NULL
+    DROP FUNCTION LOS_MODERADAMENTE_ADECUADOS.FACTURA_GET;
+
+IF OBJECT_ID('LOS_MODERADAMENTE_ADECUADOS.FACTURA_GET_VIAJES') IS NOT NULL
+    DROP FUNCTION LOS_MODERADAMENTE_ADECUADOS.FACTURA_GET_VIAJES;
+
+IF OBJECT_ID('LOS_MODERADAMENTE_ADECUADOS.VIAJES_GET') IS NOT NULL
+    DROP FUNCTION LOS_MODERADAMENTE_ADECUADOS.VIAJES_GET;
+
+IF OBJECT_ID('LOS_MODERADAMENTE_ADECUADOS.FUNCIONALIDADES_GET_TABLA_DE_ROL') IS NOT NULL
+    DROP FUNCTION LOS_MODERADAMENTE_ADECUADOS.FUNCIONALIDADES_GET_TABLA_DE_ROL;
+
+IF TYPE_ID(N'LOS_MODERADAMENTE_ADECUADOS.TABLA_ROL_X_FUNCIONALIDAD') IS NOT NULL
+	DROP TYPE LOS_MODERADAMENTE_ADECUADOS.TABLA_ROL_X_FUNCIONALIDAD;
+
 IF EXISTS (SELECT SCHEMA_NAME FROM INFORMATION_SCHEMA.SCHEMATA WHERE SCHEMA_NAME = 'LOS_MODERADAMENTE_ADECUADOS')
     DROP SCHEMA LOS_MODERADAMENTE_ADECUADOS
 GO
 
-/* Creación del esquema */
+/* Creacion del esquema */
 
 CREATE SCHEMA LOS_MODERADAMENTE_ADECUADOS;
 GO
-
 
 /* Creación de las tablas */
 
@@ -293,7 +310,7 @@ CREATE TABLE LOS_MODERADAMENTE_ADECUADOS.Item_Rendicion(
     PRIMARY KEY (cod_rend, cod_viaje));
 
 CREATE TABLE LOS_MODERADAMENTE_ADECUADOS.Factura(
-    fact_numero INT PRIMARY KEY,
+    fact_numero INT IDENTITY PRIMARY KEY,
     fact_cliente INT NOT NULL FOREIGN KEY REFERENCES LOS_MODERADAMENTE_ADECUADOS.Cliente(clie_id),
     fact_fecha_inicio DATETIME NOT NULL,
     fact_fecha_fin DATETIME NOT NULL,
@@ -323,12 +340,13 @@ VALUES	('ABM de Rol'),
 		('ABM de Chofer'),
 		('Registro de Viaje'),
 		('Facturacion de Clientes'),
+		('Rendicion de Viajes'),
 		('Listado Estadistico')
 
 --Funcionalidad_X_Rol
 
 INSERT LOS_MODERADAMENTE_ADECUADOS.Funcionalidad_X_Rol (cod_func, cod_rol)
-	VALUES (1, 1), (2, 1), (3, 1), (4, 1), (5, 1), (6, 1), (7, 1), (8, 1)
+	VALUES (1, 1), (2, 1), (3, 1), (4, 1), (5, 1), (6, 1), (7, 1), (8, 1), (9, 1)
 
 --Login_Usuario
 
@@ -463,6 +481,7 @@ INSERT LOS_MODERADAMENTE_ADECUADOS.Item_Rendicion (cod_rend, cod_viaje)
 												AND viaj_chofer = rend_chofer
 
 --Factura
+SET IDENTITY_INSERT LOS_MODERADAMENTE_ADECUADOS.Factura ON
 
 INSERT LOS_MODERADAMENTE_ADECUADOS.Factura (fact_numero, fact_cliente, fact_fecha_inicio, fact_fecha_fin, fact_importe_total) 
 	SELECT DISTINCT Factura_Nro, cliente.clie_id, Factura_Fecha_Inicio, Factura_Fecha_Fin, sum(Viaje_Cant_Kilometros*Turno_Valor_Kilometro+Turno_Precio_Base)
@@ -472,13 +491,15 @@ INSERT LOS_MODERADAMENTE_ADECUADOS.Factura (fact_numero, fact_cliente, fact_fech
 	WHERE Factura_Nro IS NOT NULL
 	GROUP BY Factura_Nro, cliente.clie_id, Factura_Fecha_Inicio, Factura_Fecha_Fin
 
+SET IDENTITY_INSERT LOS_MODERADAMENTE_ADECUADOS.Factura OFF
+
 --Item_Factura
 
 INSERT LOS_MODERADAMENTE_ADECUADOS.Item_Factura (cod_factura, cod_viaje)
 	SELECT DISTINCT factura.fact_numero, viaje.viaj_id
 	FROM LOS_MODERADAMENTE_ADECUADOS.Factura factura
 		JOIN LOS_MODERADAMENTE_ADECUADOS.Viaje viaje ON viaje.viaj_cliente = factura.fact_cliente
-													AND CONVERT(DATE, viaje.viaj_inicio) BETWEEN CONVERT(DATE, factura.fact_fecha_inicio) AND CONVERT(DATE, factura.fact_fecha_fin)
+													AND viaje.viaj_inicio BETWEEN factura.fact_fecha_inicio AND factura.fact_fecha_fin
 GO
 
 /* Procedures */
@@ -803,26 +824,55 @@ BEGIN
 END
 GO
 
+CREATE TYPE LOS_MODERADAMENTE_ADECUADOS.TABLA_ROL_X_FUNCIONALIDAD AS TABLE(
+    idFuncionalidad TINYINT,
+	descripcion VARCHAR(255),
+	habilitado BIT
+)
+GO
+
 CREATE PROC LOS_MODERADAMENTE_ADECUADOS.ROL_UPDATE(	@id TINYINT,
 													@nombre VARCHAR(200),
 													@detalle VARCHAR(200),
+													@funcionalidades TABLA_ROL_X_FUNCIONALIDAD READONLY,
 													@habilitado BIT)
 AS
 BEGIN
+	IF (@habilitado = 0)
+	BEGIN
+		EXEC LOS_MODERADAMENTE_ADECUADOS.ROL_INHABILITAR @id
+	END
+
 	UPDATE LOS_MODERADAMENTE_ADECUADOS.Rol SET	rol_nombre = @nombre,
 												rol_detalle = @detalle,
 												rol_habilitado = @habilitado
 	WHERE rol_id = @id
+
+	DELETE LOS_MODERADAMENTE_ADECUADOS.Funcionalidad_X_Rol
+	WHERE cod_rol = @id
+
+	INSERT LOS_MODERADAMENTE_ADECUADOS.Funcionalidad_X_Rol
+		SELECT idFuncionalidad, @id
+		FROM @funcionalidades
+		WHERE habilitado = 1
 END
 GO
 
 CREATE PROC LOS_MODERADAMENTE_ADECUADOS.ROL_NUEVO(	@nombre VARCHAR(200),
 													@detalle VARCHAR(200),
+													@funcionalidades TABLA_ROL_X_FUNCIONALIDAD READONLY,
 													@habilitado BIT)
 AS
 BEGIN
 	INSERT LOS_MODERADAMENTE_ADECUADOS.Rol VALUES
 		(@nombre, @detalle, @habilitado)
+
+	DECLARE @rol TINYINT = SCOPE_IDENTITY()
+
+	INSERT LOS_MODERADAMENTE_ADECUADOS.Funcionalidad_X_Rol
+		SELECT idFuncionalidad, @rol
+		FROM @funcionalidades
+		WHERE habilitado = 1
 END
 GO
 
@@ -896,8 +946,40 @@ CREATE PROC LOS_MODERADAMENTE_ADECUADOS.REGISTRAR_VIAJE(@chofer INT,
 														@fin DATETIME)
 AS
 BEGIN
+	DECLARE @colision INT = (SELECT count(*)
+							FROM LOS_MODERADAMENTE_ADECUADOS.Viaje
+							WHERE viaj_inicio < @fin
+								AND viaj_fin > @inicio
+								AND viaj_cliente = @cliente)
+
+	IF(@colision <> 0) 
+	BEGIN
+		DECLARE @error VARCHAR(255) = 'El cliente seleccionado ya tiene un viaje realizado durante el periodo indicado.'
+		RAISERROR(@error, 16, 1)
+		RETURN
+	END
+
 	INSERT LOS_MODERADAMENTE_ADECUADOS.Viaje VALUES
 		(@chofer, @vehiculo, @cliente, @turno, @kms, @inicio, @fin)
+END
+GO
+
+CREATE PROC LOS_MODERADAMENTE_ADECUADOS.FACTURA_GENERAR(@idCliente INT,
+														@fechaInicio DATETIME,
+														@fechaFin DATETIME,
+														@importeTotal NUMERIC(18,2))
+AS
+BEGIN
+	INSERT LOS_MODERADAMENTE_ADECUADOS.Factura VALUES
+		(@idCliente, @fechaInicio, @fechaFin, @importeTotal)
+
+	DECLARE @idFactura INT = SCOPE_IDENTITY()
+
+	INSERT LOS_MODERADAMENTE_ADECUADOS.Item_Factura (cod_factura, cod_viaje)
+		SELECT @idFactura, viaj_id
+		FROM LOS_MODERADAMENTE_ADECUADOS.Viaje
+		WHERE viaj_inicio BETWEEN @fechaInicio AND @fechaFin AND
+			viaj_cliente = @idCliente
 END
 GO
 
@@ -934,8 +1016,8 @@ CREATE FUNCTION LOS_MODERADAMENTE_ADECUADOS.GET_CHOFERES_CON_FILTROS (@nombre va
 RETURNS TABLE
 AS 
 	RETURN	(SELECT  usua_id,
-					 usua_nombre AS Nombre,
 					 usua_apellido AS Apellido,
+					 usua_nombre AS Nombre,
 					 usua_dni AS DNI,
 					 cont_mail AS Mail,
 					 cont_telefono AS Telefono,
@@ -956,8 +1038,8 @@ CREATE FUNCTION LOS_MODERADAMENTE_ADECUADOS.GET_CLIENTES_CON_FILTROS (@nombre va
 RETURNS TABLE
 AS 
 	RETURN	(SELECT  usua_id,
-					 usua_nombre AS Nombre,
 					 usua_apellido AS Apellido,
+					 usua_nombre AS Nombre,
 					 usua_dni AS DNI,
 					 cont_mail AS Mail,
 					 cont_telefono AS Telefono,
@@ -979,8 +1061,8 @@ CREATE FUNCTION LOS_MODERADAMENTE_ADECUADOS.GET_NO_CHOFERES_CON_FILTROS (@nombre
 RETURNS TABLE
 AS 
 	RETURN	(SELECT  usua_id,
-					 usua_nombre AS Nombre,
 					 usua_apellido AS Apellido,
+					 usua_nombre AS Nombre,
 					 usua_dni AS DNI,
 					 cont_mail AS Mail,
 					 cont_telefono AS Telefono,
@@ -1002,8 +1084,8 @@ CREATE FUNCTION LOS_MODERADAMENTE_ADECUADOS.GET_NO_CLIENTES_CON_FILTROS (@nombre
 RETURNS TABLE
 AS 
 	RETURN	(SELECT  usua_id,
-					 usua_nombre AS Nombre,
 					 usua_apellido AS Apellido,
+					 usua_nombre AS Nombre,
 					 usua_dni AS DNI,
 					 cont_mail AS Mail,
 					 cont_telefono AS Telefono,
@@ -1025,8 +1107,8 @@ CREATE FUNCTION LOS_MODERADAMENTE_ADECUADOS.GET_USUARIOS_CON_FILTROS (@nombre va
 RETURNS TABLE
 AS 
 	RETURN	(SELECT  usua_id,
-					 usua_nombre AS Nombre,
 					 usua_apellido AS Apellido,
+					 usua_nombre AS Nombre,
 					 usua_dni AS DNI,
 					 cont_mail AS Mail,
 					 cont_telefono AS Telefono,
@@ -1159,4 +1241,75 @@ AS
 					AND MONTH(viaj_inicio) BETWEEN (3*@trimestre - 2) AND (3*@trimestre)
 			GROUP BY usua_apellido, usua_nombre, usua_dni, vehi_patente
 			ORDER BY count(*) DESC)
+GO
+
+CREATE FUNCTION LOS_MODERADAMENTE_ADECUADOS.FACTURA_GET(@idCliente INT,
+														@fecha DATETIME)
+RETURNS TABLE
+AS 
+	RETURN	(SELECT fact_numero,
+					fact_fecha_inicio,
+					fact_fecha_fin,
+					fact_importe_total
+			FROM LOS_MODERADAMENTE_ADECUADOS.Factura
+			WHERE fact_cliente = @idCliente
+				AND @fecha BETWEEN fact_fecha_inicio AND fact_fecha_fin)
+GO
+
+CREATE FUNCTION LOS_MODERADAMENTE_ADECUADOS.FACTURA_GET_VIAJES(@idFactura INT)
+RETURNS TABLE
+AS 
+	RETURN	(SELECT chofer.usua_apellido AS Apellido_Chofer,
+					chofer.usua_nombre AS Nombre_Chofer,
+					chofer.usua_dni AS DNI_Chofer,
+					vehi_patente AS Patente,
+					viaj_inicio AS Inicio,
+					viaj_fin AS Fin,
+					turn_descripcion AS Turno,
+					viaj_kms AS Kms,
+					turn_precio_base AS Precio_Base,
+					turn_valor_kilometro AS Valor_Kilometro,
+					(turn_valor_kilometro * viaj_kms + turn_precio_base) AS Monto
+			FROM LOS_MODERADAMENTE_ADECUADOS.Item_Factura
+				JOIN LOS_MODERADAMENTE_ADECUADOS.Viaje ON cod_viaje = viaj_id
+				JOIN LOS_MODERADAMENTE_ADECUADOS.Vehiculo ON viaj_vehiculo = vehi_id
+				JOIN LOS_MODERADAMENTE_ADECUADOS.Usuario chofer ON chofer.usua_id = viaj_chofer
+				JOIN LOS_MODERADAMENTE_ADECUADOS.Turno ON viaj_turno = turn_id
+			WHERE cod_factura = @idFactura)
+GO
+
+CREATE FUNCTION LOS_MODERADAMENTE_ADECUADOS.VIAJES_GET(	@idCliente INT,
+														@fecha DATETIME)
+RETURNS TABLE
+AS 
+	RETURN	(SELECT chofer.usua_apellido AS Apellido_Chofer,
+					chofer.usua_nombre AS Nombre_Chofer,
+					chofer.usua_dni AS DNI_Chofer,
+					vehi_patente AS Patente,
+					viaj_inicio AS Inicio,
+					viaj_fin AS Fin,
+					turn_descripcion AS Turno,
+					viaj_kms AS Kms,
+					turn_precio_base AS Precio_Base,
+					turn_valor_kilometro AS Valor_Kilometro,
+					(turn_valor_kilometro * viaj_kms + turn_precio_base) AS Monto
+			FROM LOS_MODERADAMENTE_ADECUADOS.Viaje
+				JOIN LOS_MODERADAMENTE_ADECUADOS.Vehiculo ON viaj_vehiculo = vehi_id
+				JOIN LOS_MODERADAMENTE_ADECUADOS.Usuario chofer ON chofer.usua_id = viaj_chofer
+				JOIN LOS_MODERADAMENTE_ADECUADOS.Turno ON viaj_turno = turn_id
+			WHERE viaj_cliente = @idCliente AND
+				MONTH(viaj_inicio) = MONTH(@fecha) AND
+				YEAR(viaj_inicio) = YEAR(@fecha))
+GO
+
+CREATE FUNCTION LOS_MODERADAMENTE_ADECUADOS.FUNCIONALIDADES_GET_TABLA_DE_ROL(@idRol TINYINT)
+RETURNS TABLE
+AS 
+	RETURN	(SELECT func_id, func_descripcion AS Descripcion, Habilitado = CONVERT(BIT,	CASE 
+																							WHEN (@idRol IN (SELECT cod_rol
+																											FROM LOS_MODERADAMENTE_ADECUADOS.Funcionalidad_X_Rol
+																											WHERE cod_func = func_id)) THEN 1
+																							ELSE 0 
+																						END)
+			FROM LOS_MODERADAMENTE_ADECUADOS.Funcionalidad f)
 GO

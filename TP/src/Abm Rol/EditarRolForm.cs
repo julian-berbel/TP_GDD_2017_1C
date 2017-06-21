@@ -18,11 +18,16 @@ namespace UberFrba.Abm_Rol
 
         private Boolean edicion = false;
         private Rol rolAEditar = null;
+        private DataTable funcionalidades;
 
         public EditarRolForm(ReturningForm caller) : base(caller)
         {
             rolAEditar = new Rol();
             InitializeComponent();
+            funcionalidades = Funcionalidad.getTablaDe(0);
+            dataGridViewFuncionalidades.DataSource = funcionalidades;
+            dataGridViewFuncionalidades.Columns["func_id"].Visible = false;
+            dataGridViewFuncionalidades.Columns["Descripcion"].ReadOnly = true;
         }
 
         public EditarRolForm(ReturningForm caller, Rol rolAEditar) : base(caller)
@@ -30,6 +35,10 @@ namespace UberFrba.Abm_Rol
             edicion = true;
             this.rolAEditar = rolAEditar;
             InitializeComponent();
+            funcionalidades = Funcionalidad.getTablaDe(rolAEditar.id);
+            dataGridViewFuncionalidades.DataSource = funcionalidades;
+            dataGridViewFuncionalidades.Columns["func_id"].Visible = false;
+            dataGridViewFuncionalidades.Columns["Descripcion"].ReadOnly = true;
 
             Nombre = rolAEditar.nombre;
             Descripcion = rolAEditar.detalle;
@@ -87,11 +96,11 @@ namespace UberFrba.Abm_Rol
 
                 if (edicion)
                 {
-                    rolAEditar.editar();
+                    rolAEditar.editar(funcionalidades);
                 }
                 else
                 {
-                    rolAEditar.nuevo();
+                    rolAEditar.nuevo(funcionalidades);
                 }
                 this.Close();
             }

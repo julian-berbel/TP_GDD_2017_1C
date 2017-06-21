@@ -61,7 +61,7 @@
             this.MaximizeBox = false;
             this.Name = "SeleccionarChoferForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Seleccionar Usuario";
+            this.Text = "Seleccionar Chofer";
             this.Controls.SetChildIndex(this.buttonSeleccionar, 0);
             this.Controls.SetChildIndex(this.buttonCancelar, 0);
             this.ResumeLayout(false);

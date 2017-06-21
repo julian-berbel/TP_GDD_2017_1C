@@ -256,7 +256,7 @@
             this.MaximizeBox = false;
             this.Name = "NuevoClienteForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "NuevoClienteForm";
+            this.Text = "Nuevo Cliente";
             this.ResumeLayout(false);
             this.PerformLayout();
 

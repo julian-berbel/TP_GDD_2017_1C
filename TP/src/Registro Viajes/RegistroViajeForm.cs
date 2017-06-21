@@ -20,6 +20,11 @@ namespace UberFrba.Registro_Viajes
         public RegistroViajeForm(ReturningForm caller) : base(caller)
         {
             InitializeComponent();
+            dateTimePickerFechaHoraInicio.Value = DateTime.Now.AddMinutes(-10);
+            dateTimePickerFechaHoraFin.Value = DateTime.Now;
+            dateTimePickerFechaHoraFin.MaxDate = DateTime.Now;
+            dateTimePickerFechaHoraFin.MinDate = dateTimePickerFechaHoraInicio.Value;
+            dateTimePickerFechaHoraInicio.MaxDate = dateTimePickerFechaHoraFin.Value;
         }
 
         private Chofer chofer;
@@ -151,6 +156,16 @@ namespace UberFrba.Registro_Viajes
             if (Chofer == null) throw new CampoVacioException("Chofer");
             if (string.IsNullOrWhiteSpace(textBoxCantidadKms.Text)) throw new CampoVacioException("Cantidad de Kilómetros");
             if (Cliente == null) throw new CampoVacioException("Cliente");
+        }
+
+        private void dateTimePickerFechaHoraInicio_ValueChanged(object sender, EventArgs e)
+        {
+            dateTimePickerFechaHoraFin.MinDate = dateTimePickerFechaHoraInicio.Value;
+        }
+
+        private void dateTimePickerFechaHoraFin_ValueChanged(object sender, EventArgs e)
+        {
+            dateTimePickerFechaHoraInicio.MaxDate = dateTimePickerFechaHoraFin.Value;
         }
     }
 }

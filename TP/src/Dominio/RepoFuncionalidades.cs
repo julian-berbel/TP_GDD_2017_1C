@@ -16,7 +16,8 @@ namespace UberFrba.Dominio
             new Funcionalidad(5, typeof(Abm_Chofer.ABMChoferForm)),
             new Funcionalidad(6, typeof(Registro_Viajes.RegistroViajeForm)),
             new Funcionalidad(7, typeof(Facturacion.FacturacionForm)),
-            new Funcionalidad(8, typeof(Listado_Estadistico.ListadoEstadisticoForm))};
+            new Funcionalidad(8, typeof(Rendicion_Viajes.RendicionForm)),
+            new Funcionalidad(9, typeof(Listado_Estadistico.ListadoEstadisticoForm))};
 
         public static Funcionalidad get(byte idFuncionalidad)
         {

@@ -30,6 +30,7 @@
         {
             this.label1 = new System.Windows.Forms.Label();
             this.comboBoxRoles = new System.Windows.Forms.ComboBox();
+            this.buttonAtras = new System.Windows.Forms.Button();
             this.buttonContinuar = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
@@ -50,21 +51,32 @@
             this.comboBoxRoles.Size = new System.Drawing.Size(239, 21);
             this.comboBoxRoles.TabIndex = 1;
             // 
+            // buttonAtras
+            // 
+            this.buttonAtras.Location = new System.Drawing.Point(149, 79);
+            this.buttonAtras.Name = "buttonAtras";
+            this.buttonAtras.Size = new System.Drawing.Size(75, 23);
+            this.buttonAtras.TabIndex = 3;
+            this.buttonAtras.Text = "Atras";
+            this.buttonAtras.UseVisualStyleBackColor = true;
+            this.buttonAtras.Click += new System.EventHandler(this.buttonAtras_Click);
+            // 
             // buttonContinuar
             // 
-            this.buttonContinuar.Location = new System.Drawing.Point(97, 79);
+            this.buttonContinuar.Location = new System.Drawing.Point(45, 79);
             this.buttonContinuar.Name = "buttonContinuar";
             this.buttonContinuar.Size = new System.Drawing.Size(75, 23);
             this.buttonContinuar.TabIndex = 2;
             this.buttonContinuar.Text = "Continuar";
             this.buttonContinuar.UseVisualStyleBackColor = true;
-            this.buttonContinuar.Click += new System.EventHandler(this.button1_Click);
+            this.buttonContinuar.Click += new System.EventHandler(this.buttonContinuar_Click);
             // 
             // SeleccionarRolForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(268, 114);
+            this.Controls.Add(this.buttonAtras);
             this.Controls.Add(this.buttonContinuar);
             this.Controls.Add(this.comboBoxRoles);
             this.Controls.Add(this.label1);
@@ -82,6 +94,7 @@
 
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ComboBox comboBoxRoles;
+        private System.Windows.Forms.Button buttonAtras;
         private System.Windows.Forms.Button buttonContinuar;
     }
 }
