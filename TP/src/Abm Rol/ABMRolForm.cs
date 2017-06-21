@@ -53,5 +53,11 @@ namespace UberFrba.Abm_Rol
         {
             dataGridViewRol.DataSource = Rol.getRoles();
         }
+
+        private void buttonAsignar_Click(object sender, EventArgs e)
+        {
+            DataRow fila = ((DataRowView)dataGridViewRol.SelectedRows[0].DataBoundItem).Row;
+            new AsignarRolForm(this, new Rol(fila)).abrir();
+        }
     }
 }

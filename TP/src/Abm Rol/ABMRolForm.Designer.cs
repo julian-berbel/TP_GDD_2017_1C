@@ -33,12 +33,13 @@
             this.buttonVolver = new System.Windows.Forms.Button();
             this.buttonNuevo = new System.Windows.Forms.Button();
             this.dataGridViewRol = new System.Windows.Forms.DataGridView();
+            this.buttonAsignar = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewRol)).BeginInit();
             this.SuspendLayout();
             // 
             // buttonBaja
             // 
-            this.buttonBaja.Location = new System.Drawing.Point(296, 198);
+            this.buttonBaja.Location = new System.Drawing.Point(331, 198);
             this.buttonBaja.Name = "buttonBaja";
             this.buttonBaja.Size = new System.Drawing.Size(75, 23);
             this.buttonBaja.TabIndex = 26;
@@ -48,7 +49,7 @@
             // 
             // buttonEditar
             // 
-            this.buttonEditar.Location = new System.Drawing.Point(155, 198);
+            this.buttonEditar.Location = new System.Drawing.Point(121, 198);
             this.buttonEditar.Name = "buttonEditar";
             this.buttonEditar.Size = new System.Drawing.Size(75, 23);
             this.buttonEditar.TabIndex = 25;
@@ -58,7 +59,7 @@
             // 
             // buttonVolver
             // 
-            this.buttonVolver.Location = new System.Drawing.Point(437, 198);
+            this.buttonVolver.Location = new System.Drawing.Point(436, 198);
             this.buttonVolver.Name = "buttonVolver";
             this.buttonVolver.Size = new System.Drawing.Size(75, 23);
             this.buttonVolver.TabIndex = 24;
@@ -68,7 +69,7 @@
             // 
             // buttonNuevo
             // 
-            this.buttonNuevo.Location = new System.Drawing.Point(14, 198);
+            this.buttonNuevo.Location = new System.Drawing.Point(16, 198);
             this.buttonNuevo.Name = "buttonNuevo";
             this.buttonNuevo.Size = new System.Drawing.Size(75, 23);
             this.buttonNuevo.TabIndex = 23;
@@ -92,9 +93,20 @@
             this.dataGridViewRol.Size = new System.Drawing.Size(501, 180);
             this.dataGridViewRol.TabIndex = 27;
             // 
+            // buttonAsignar
+            // 
+            this.buttonAsignar.Location = new System.Drawing.Point(226, 198);
+            this.buttonAsignar.Name = "buttonAsignar";
+            this.buttonAsignar.Size = new System.Drawing.Size(75, 23);
+            this.buttonAsignar.TabIndex = 28;
+            this.buttonAsignar.Text = "Asignar";
+            this.buttonAsignar.UseVisualStyleBackColor = true;
+            this.buttonAsignar.Click += new System.EventHandler(this.buttonAsignar_Click);
+            // 
             // ABMRolForm
             // 
             this.ClientSize = new System.Drawing.Size(527, 231);
+            this.Controls.Add(this.buttonAsignar);
             this.Controls.Add(this.dataGridViewRol);
             this.Controls.Add(this.buttonBaja);
             this.Controls.Add(this.buttonEditar);
@@ -114,5 +126,6 @@
         private System.Windows.Forms.Button buttonVolver;
         private System.Windows.Forms.Button buttonNuevo;
         private System.Windows.Forms.DataGridView dataGridViewRol;
+        private System.Windows.Forms.Button buttonAsignar;
     }
 }

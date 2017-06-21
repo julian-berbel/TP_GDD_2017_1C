@@ -80,6 +80,19 @@ namespace UberFrba.Dominio
                                             "DNI", DNI);
         }
 
+        public static DataTable getTablaRolXs(String X, // "CLIENTES" / "CHOFERES" / "USUARIOS" / "NO_CLIENTES" / "NO_CHOFERES"
+                                                String nombre,
+                                                String apellido,
+                                                decimal DNI,
+                                                byte rol)
+        {
+            return DB.correrFuncionDeTabla("GET_TABLA_ROL_" + X ,
+                                            "nombre", nombre,
+                                            "apellido", apellido,
+                                            "DNI", DNI,
+                                            "rol", rol);
+        }
+        
         public static void inhabilitar(String tipoDeUsuario, int id)
         {
             DB.correrProcedimiento(tipoDeUsuario + "_INHABILITAR",
@@ -98,6 +111,14 @@ namespace UberFrba.Dominio
                                     "fechaNac", fechaNac,
                                     "nombreDeUsuario", nombreDeUsuario,
                                     "contrasenia", contrasenia);
+        }
+
+        public static void rolUpdate(int idUsuario, byte idRol, Boolean habilitado)
+        {
+            DB.correrProcedimiento("USUARIO_ROL_UPDATE",
+                                    "idUsuario", idUsuario,
+                                    "idRol", idRol,
+                                    "habilitado", habilitado);
         }
     }
 }

@@ -26,7 +26,6 @@ namespace UberFrba.Abm_Rol
             InitializeComponent();
             funcionalidades = Funcionalidad.getTablaDe(0);
             dataGridViewFuncionalidades.DataSource = funcionalidades;
-            dataGridViewFuncionalidades.Columns["func_id"].Visible = false;
             dataGridViewFuncionalidades.Columns["Descripcion"].ReadOnly = true;
         }
 

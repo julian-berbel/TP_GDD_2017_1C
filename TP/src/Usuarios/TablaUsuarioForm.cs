@@ -73,7 +73,7 @@ namespace UberFrba.Usuarios
             dataGridViewUsuario.Columns["usua_id"].Visible = false;
         }
 
-        protected void CargarTabla()
+        protected virtual void CargarTabla()
         {
             dataGridViewUsuario.DataSource = Usuario.getXsConFiltros(usuariosABuscar(),
                                                                         Nombre,
