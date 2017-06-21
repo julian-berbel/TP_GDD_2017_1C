@@ -189,11 +189,23 @@ IF OBJECT_ID('LOS_MODERADAMENTE_ADECUADOS.FACTURA_GET') IS NOT NULL
 IF OBJECT_ID('LOS_MODERADAMENTE_ADECUADOS.FACTURA_GET_VIAJES') IS NOT NULL
     DROP FUNCTION LOS_MODERADAMENTE_ADECUADOS.FACTURA_GET_VIAJES;
 
-IF OBJECT_ID('LOS_MODERADAMENTE_ADECUADOS.VIAJES_GET') IS NOT NULL
-    DROP FUNCTION LOS_MODERADAMENTE_ADECUADOS.VIAJES_GET;
+IF OBJECT_ID('LOS_MODERADAMENTE_ADECUADOS.VIAJES_GET_DE_CLIENTE') IS NOT NULL
+    DROP FUNCTION LOS_MODERADAMENTE_ADECUADOS.VIAJES_GET_DE_CLIENTE;
+
+IF OBJECT_ID('LOS_MODERADAMENTE_ADECUADOS.VIAJES_GET_DE_CHOFER') IS NOT NULL
+    DROP FUNCTION LOS_MODERADAMENTE_ADECUADOS.VIAJES_GET_DE_CHOFER;
 
 IF OBJECT_ID('LOS_MODERADAMENTE_ADECUADOS.FUNCIONALIDADES_GET_TABLA_DE_ROL') IS NOT NULL
     DROP FUNCTION LOS_MODERADAMENTE_ADECUADOS.FUNCIONALIDADES_GET_TABLA_DE_ROL;
+
+IF OBJECT_ID('LOS_MODERADAMENTE_ADECUADOS.RENDICION_GET') IS NOT NULL
+    DROP FUNCTION LOS_MODERADAMENTE_ADECUADOS.RENDICION_GET;
+
+IF OBJECT_ID('LOS_MODERADAMENTE_ADECUADOS.RENDICION_GET_VIAJES') IS NOT NULL
+    DROP FUNCTION LOS_MODERADAMENTE_ADECUADOS.RENDICION_GET_VIAJES;
+
+IF OBJECT_ID('LOS_MODERADAMENTE_ADECUADOS.RENDICION_GENERAR') IS NOT NULL
+    DROP PROCEDURE LOS_MODERADAMENTE_ADECUADOS.RENDICION_GENERAR;
 
 IF TYPE_ID(N'LOS_MODERADAMENTE_ADECUADOS.TABLA_ROL_X_FUNCIONALIDAD') IS NOT NULL
 	DROP TYPE LOS_MODERADAMENTE_ADECUADOS.TABLA_ROL_X_FUNCIONALIDAD;
@@ -268,7 +280,7 @@ CREATE TABLE LOS_MODERADAMENTE_ADECUADOS.Turno(
 	turn_habilitado BIT NOT NULL);
 
 CREATE TABLE LOS_MODERADAMENTE_ADECUADOS.Rendicion(
-	rend_numero INT PRIMARY KEY,
+	rend_numero INT IDENTITY PRIMARY KEY,
     rend_turno TINYINT NOT NULL FOREIGN KEY REFERENCES LOS_MODERADAMENTE_ADECUADOS.Turno(turn_id),
 	rend_chofer INT NOT NULL FOREIGN KEY REFERENCES LOS_MODERADAMENTE_ADECUADOS.Chofer(chof_id),
 	rend_fecha DATETIME NOT NULL,
@@ -425,6 +437,8 @@ INSERT LOS_MODERADAMENTE_ADECUADOS.Turno (turn_descripcion, turn_hora_inicio, tu
 	
 --Rendicion
 
+SET IDENTITY_INSERT LOS_MODERADAMENTE_ADECUADOS.Rendicion ON
+
 INSERT LOS_MODERADAMENTE_ADECUADOS.Rendicion (rend_numero, rend_turno, rend_chofer, rend_fecha, rend_porcentaje, rend_importe_total)
 	SELECT Rendicion_Nro, t.turn_id, c.usua_id, Rendicion_Fecha, 0.3, sum(Rendicion_Importe) 
 	FROM gd_esquema.Maestra m 
@@ -432,6 +446,8 @@ INSERT LOS_MODERADAMENTE_ADECUADOS.Rendicion (rend_numero, rend_turno, rend_chof
 		JOIN LOS_MODERADAMENTE_ADECUADOS.Turno t ON m.Turno_Descripcion = t.turn_descripcion
 	WHERE Rendicion_Nro IS NOT NULL
 	GROUP BY Rendicion_Nro, t.turn_id, c.usua_id, Rendicion_Fecha
+
+SET IDENTITY_INSERT LOS_MODERADAMENTE_ADECUADOS.Rendicion OFF
 
 --Marca
 
@@ -983,6 +999,27 @@ BEGIN
 END
 GO
 
+CREATE PROC LOS_MODERADAMENTE_ADECUADOS.RENDICION_GENERAR(@idChofer INT,
+														@fecha DATETIME,
+														@turno TINYINT,
+														@porcentaje NUMERIC(2,2),
+														@importeTotal NUMERIC(18,2))
+AS
+BEGIN
+	INSERT LOS_MODERADAMENTE_ADECUADOS.Rendicion VALUES
+		(@turno, @idChofer, @fecha, @porcentaje, @importeTotal)
+
+	DECLARE @idRendicion INT = SCOPE_IDENTITY()
+
+	INSERT LOS_MODERADAMENTE_ADECUADOS.Item_Rendicion (cod_rend, cod_viaje)
+		SELECT @idRendicion, viaj_id
+		FROM LOS_MODERADAMENTE_ADECUADOS.Viaje
+		WHERE CONVERT(DATE, viaj_inicio) = CONVERT(DATE, @fecha) AND
+			viaj_turno = @turno AND
+			viaj_chofer = @idChofer
+END
+GO
+
 CREATE FUNCTION LOS_MODERADAMENTE_ADECUADOS.GET_AUTOS_CON_FILTROS (@modelo varchar(255),			
 																 @patente varchar(10),
 																 @marca varchar(255),
@@ -1278,8 +1315,8 @@ AS
 			WHERE cod_factura = @idFactura)
 GO
 
-CREATE FUNCTION LOS_MODERADAMENTE_ADECUADOS.VIAJES_GET(	@idCliente INT,
-														@fecha DATETIME)
+CREATE FUNCTION LOS_MODERADAMENTE_ADECUADOS.VIAJES_GET_DE_CLIENTE(	@idCliente INT,
+																	@fecha DATETIME)
 RETURNS TABLE
 AS 
 	RETURN	(SELECT chofer.usua_apellido AS Apellido_Chofer,
@@ -1300,6 +1337,33 @@ AS
 			WHERE viaj_cliente = @idCliente AND
 				MONTH(viaj_inicio) = MONTH(@fecha) AND
 				YEAR(viaj_inicio) = YEAR(@fecha))
+				
+GO
+
+CREATE FUNCTION LOS_MODERADAMENTE_ADECUADOS.VIAJES_GET_DE_CHOFER(	@idChofer INT,
+																	@fecha DATETIME,
+																	@turno TINYINT)
+RETURNS TABLE
+AS 
+	RETURN	(SELECT cliente.usua_apellido AS Apellido_Cliente,
+					cliente.usua_nombre AS Nombre_Cliente,
+					cliente.usua_dni AS DNI_Cliente,
+					vehi_patente AS Patente,
+					viaj_inicio AS Inicio,
+					viaj_fin AS Fin,
+					turn_descripcion AS Turno,
+					viaj_kms AS Kms,
+					turn_precio_base AS Precio_Base,
+					turn_valor_kilometro AS Valor_Kilometro,
+					(turn_valor_kilometro * viaj_kms + turn_precio_base) AS Monto
+			FROM LOS_MODERADAMENTE_ADECUADOS.Viaje
+				JOIN LOS_MODERADAMENTE_ADECUADOS.Vehiculo ON viaj_vehiculo = vehi_id
+				JOIN LOS_MODERADAMENTE_ADECUADOS.Usuario cliente ON cliente.usua_id = viaj_cliente
+				JOIN LOS_MODERADAMENTE_ADECUADOS.Turno ON viaj_turno = turn_id
+			WHERE viaj_chofer = @idChofer AND
+				CONVERT(DATE, viaj_inicio) = CONVERT(DATE, @fecha) AND
+				viaj_turno = @turno)
+				
 GO
 
 CREATE FUNCTION LOS_MODERADAMENTE_ADECUADOS.FUNCIONALIDADES_GET_TABLA_DE_ROL(@idRol TINYINT)
@@ -1312,4 +1376,42 @@ AS
 																							ELSE 0 
 																						END)
 			FROM LOS_MODERADAMENTE_ADECUADOS.Funcionalidad f)
+GO
+
+CREATE FUNCTION LOS_MODERADAMENTE_ADECUADOS.RENDICION_GET(@idChofer INT,
+														@fecha DATETIME,
+														@turno TINYINT)
+RETURNS TABLE
+AS 
+	RETURN	(SELECT rend_numero,
+					rend_fecha,
+					rend_turno,
+					rend_importe_total,
+					rend_porcentaje
+			FROM LOS_MODERADAMENTE_ADECUADOS.Rendicion
+			WHERE rend_chofer = @idChofer
+				AND CONVERT(DATE, @fecha) = CONVERT(DATE, rend_fecha)
+				AND rend_turno = @turno)
+GO
+
+CREATE FUNCTION LOS_MODERADAMENTE_ADECUADOS.RENDICION_GET_VIAJES(@idRendicion INT)
+RETURNS TABLE
+AS 
+	RETURN	(SELECT cliente.usua_apellido AS Apellido_Cliente,
+					cliente.usua_nombre AS Nombre_Cliente,
+					cliente.usua_dni AS DNI_Cliente,
+					vehi_patente AS Patente,
+					viaj_inicio AS Inicio,
+					viaj_fin AS Fin,
+					turn_descripcion AS Turno,
+					viaj_kms AS Kms,
+					turn_precio_base AS Precio_Base,
+					turn_valor_kilometro AS Valor_Kilometro,
+					(turn_valor_kilometro * viaj_kms + turn_precio_base) AS Monto
+			FROM LOS_MODERADAMENTE_ADECUADOS.Item_Rendicion
+				JOIN LOS_MODERADAMENTE_ADECUADOS.Viaje ON cod_viaje = viaj_id
+				JOIN LOS_MODERADAMENTE_ADECUADOS.Vehiculo ON viaj_vehiculo = vehi_id
+				JOIN LOS_MODERADAMENTE_ADECUADOS.Usuario cliente ON cliente.usua_id = viaj_cliente
+				JOIN LOS_MODERADAMENTE_ADECUADOS.Turno ON viaj_turno = turn_id
+			WHERE cod_rend = @idRendicion)
 GO

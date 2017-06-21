@@ -97,11 +97,11 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(219, 160);
             this.Controls.Add(this.buttonRegistrar);
-            this.Controls.Add(this.label1);
-            this.Controls.Add(this.labelUsuario);
             this.Controls.Add(this.textBoxContrasenia);
             this.Controls.Add(this.textBoxUsuario);
             this.Controls.Add(this.buttonLogin);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.labelUsuario);
             this.MaximizeBox = false;
             this.Name = "LoginForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;

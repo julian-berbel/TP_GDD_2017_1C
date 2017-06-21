@@ -1,6 +1,6 @@
-﻿namespace UberFrba.Facturacion
+﻿namespace UberFrba.Rendicion_Viajes
 {
-    partial class FacturaEfectuadaForm
+    partial class RendicionEfectuadaForm
     {
         /// <summary>
         /// Required designer variable.
@@ -29,7 +29,8 @@
         private void InitializeComponent()
         {
             this.buttonVolver = new System.Windows.Forms.Button();
-            this.labelFacturaNro = new System.Windows.Forms.Label();
+            this.labelRendicionNro = new System.Windows.Forms.Label();
+            this.labelPorcentaje = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // buttonVolver
@@ -42,25 +43,36 @@
             this.buttonVolver.UseVisualStyleBackColor = true;
             this.buttonVolver.Click += new System.EventHandler(this.buttonVolver_Click);
             // 
-            // labelFacturaNro
+            // labelRendicionNro
             // 
-            this.labelFacturaNro.AutoSize = true;
-            this.labelFacturaNro.Location = new System.Drawing.Point(16, 232);
-            this.labelFacturaNro.Name = "labelFacturaNro";
-            this.labelFacturaNro.Size = new System.Drawing.Size(69, 13);
-            this.labelFacturaNro.TabIndex = 15;
-            this.labelFacturaNro.Text = "Factura Nro: ";
+            this.labelRendicionNro.AutoSize = true;
+            this.labelRendicionNro.Location = new System.Drawing.Point(16, 232);
+            this.labelRendicionNro.Name = "labelRendicionNro";
+            this.labelRendicionNro.Size = new System.Drawing.Size(81, 13);
+            this.labelRendicionNro.TabIndex = 15;
+            this.labelRendicionNro.Text = "Rendicion Nro: ";
             // 
-            // FacturaEfectuadaForm
+            // labelPorcentaje
+            // 
+            this.labelPorcentaje.Location = new System.Drawing.Point(411, 253);
+            this.labelPorcentaje.Name = "labelPorcentaje";
+            this.labelPorcentaje.Size = new System.Drawing.Size(106, 23);
+            this.labelPorcentaje.TabIndex = 16;
+            this.labelPorcentaje.Text = "Porcentaje: ";
+            this.labelPorcentaje.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // RendicionEfectuadaForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.ClientSize = new System.Drawing.Size(528, 285);
             this.Controls.Add(this.buttonVolver);
-            this.Controls.Add(this.labelFacturaNro);
-            this.Name = "FacturaEfectuadaForm";
+            this.Controls.Add(this.labelPorcentaje);
+            this.Controls.Add(this.labelRendicionNro);
+            this.Name = "RendicionEfectuadaForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Consultar Factura";
-            this.Controls.SetChildIndex(this.labelFacturaNro, 0);
+            this.Text = "Consultar Rendicion";
+            this.Controls.SetChildIndex(this.labelRendicionNro, 0);
+            this.Controls.SetChildIndex(this.labelPorcentaje, 0);
             this.Controls.SetChildIndex(this.buttonVolver, 0);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -70,6 +82,7 @@
         #endregion
 
         private System.Windows.Forms.Button buttonVolver;
-        private System.Windows.Forms.Label labelFacturaNro;
+        private System.Windows.Forms.Label labelRendicionNro;
+        private System.Windows.Forms.Label labelPorcentaje;
     }
 }

@@ -15,7 +15,7 @@ namespace UberFrba.Facturacion
         public FacturaNoEfectuadaForm(ReturningForm caller, Cliente cliente, DateTime fecha) : base(caller, cliente)
         {
             InitializeComponent();
-            DataTable viajes = Viaje.get(cliente.id, fecha);
+            DataTable viajes = Viaje.getDeCliente(cliente.id, fecha);
             DataGridViewFactura.DataSource = viajes;
             FechaInicio = new DateTime(fecha.Year, fecha.Month, 1);
             FechaFin = new DateTime(fecha.Year, fecha.Month, DateTime.DaysInMonth(fecha.Year, fecha.Month));

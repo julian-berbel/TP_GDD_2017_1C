@@ -111,10 +111,10 @@
             this.Controls.Add(this.buttonVolver);
             this.Controls.Add(this.buttonFacturar);
             this.Controls.Add(this.dateTimePickerFecha);
-            this.Controls.Add(this.label5);
             this.Controls.Add(this.buttonSeleccionarCliente);
-            this.Controls.Add(this.label7);
             this.Controls.Add(this.textBoxCliente);
+            this.Controls.Add(this.label5);
+            this.Controls.Add(this.label7);
             this.MaximizeBox = false;
             this.Name = "FacturacionForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;

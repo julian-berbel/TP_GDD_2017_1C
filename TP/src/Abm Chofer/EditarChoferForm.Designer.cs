@@ -204,6 +204,7 @@
             this.Controls.Add(this.textBoxApellido);
             this.Controls.Add(this.textBoxDNI);
             this.Controls.Add(this.textBoxNombre);
+            this.Controls.Add(this.dateTimePickerFechaNac);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.label5);
@@ -211,7 +212,6 @@
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.dateTimePickerFechaNac);
             this.MaximizeBox = false;
             this.Name = "EditarChoferForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;

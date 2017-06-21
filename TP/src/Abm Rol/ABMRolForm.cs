@@ -9,7 +9,7 @@ using UberFrba.Dominio;
 
 namespace UberFrba.Abm_Rol
 {
-    public partial class ABMRolForm : TablaRolForm
+    public partial class ABMRolForm : ReturningForm
     {
         public ABMRolForm(ReturningForm caller) : base(caller)
         {
@@ -28,7 +28,7 @@ namespace UberFrba.Abm_Rol
 
         private void buttonEditar_Click(object sender, EventArgs e)
         {
-            DataRow fila = ((DataRowView)DataGridViewRol.SelectedRows[0].DataBoundItem).Row;
+            DataRow fila = ((DataRowView)dataGridViewRol.SelectedRows[0].DataBoundItem).Row;
             new EditarRolForm(this, new Rol(fila)).abrir();
         }
 
@@ -39,8 +39,19 @@ namespace UberFrba.Abm_Rol
 
         private void buttonBaja_Click(object sender, EventArgs e)
         {
-            Rol.inhabilitar((byte)DataGridViewRol.SelectedRows[0].Cells["rol_id"].Value);
+            Rol.inhabilitar((byte)dataGridViewRol.SelectedRows[0].Cells["rol_id"].Value);
             CargarTabla();
+        }
+
+        public override void Refrescar()
+        {
+            CargarTabla();
+            dataGridViewRol.Columns["rol_id"].Visible = false;
+        }
+
+        protected void CargarTabla()
+        {
+            dataGridViewRol.DataSource = Rol.getRoles();
         }
     }
 }

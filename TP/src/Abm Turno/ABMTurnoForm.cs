@@ -9,14 +9,9 @@ using UberFrba.Dominio;
 
 namespace UberFrba.Abm_Turno
 {
-    public partial class ABMTurnoForm : TablaTurnoForm
+    public partial class ABMTurnoForm : ReturningForm
     {
         public ABMTurnoForm(ReturningForm caller) : base(caller)
-        {
-            InitializeComponent();
-        }
-
-        public ABMTurnoForm()
         {
             InitializeComponent();
         }
@@ -28,7 +23,7 @@ namespace UberFrba.Abm_Turno
 
         private void buttonEditar_Click(object sender, EventArgs e)
         {
-            DataRow fila = ((DataRowView)DataGridViewTurno.SelectedRows[0].DataBoundItem).Row;
+            DataRow fila = ((DataRowView)dataGridViewTurno.SelectedRows[0].DataBoundItem).Row;
             new EditarTurnoForm(this, new Turno(fila)).abrir();
         }
 
@@ -39,8 +34,19 @@ namespace UberFrba.Abm_Turno
 
         private void buttonBaja_Click(object sender, EventArgs e)
         {
-            Turno.inhabilitar((byte)DataGridViewTurno.SelectedRows[0].Cells["turn_id"].Value);
+            Turno.inhabilitar((byte)dataGridViewTurno.SelectedRows[0].Cells["turn_id"].Value);
             CargarTabla();
+        }
+
+        public override void Refrescar()
+        {
+            CargarTabla();
+            dataGridViewTurno.Columns["turn_id"].Visible = false;
+        }
+
+        protected void CargarTabla()
+        {
+             dataGridViewTurno.DataSource = Turno.getTurnos();
         }
     }
 }

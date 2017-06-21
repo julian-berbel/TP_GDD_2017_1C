@@ -125,11 +125,11 @@
             this.Controls.Add(this.dataGridViewFuncionalidades);
             this.Controls.Add(this.textBoxDescripcion);
             this.Controls.Add(this.textBoxNombre);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.label1);
             this.Controls.Add(this.checkBoxHabilitado);
             this.Controls.Add(this.buttonCancelar);
             this.Controls.Add(this.buttonAceptar);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.label1);
             this.Name = "EditarRolForm";
             this.Text = "Editar Rol";
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewFuncionalidades)).EndInit();

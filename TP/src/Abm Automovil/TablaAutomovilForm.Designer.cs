@@ -154,13 +154,13 @@
             this.Controls.Add(this.comboBoxMarca);
             this.Controls.Add(this.buttonFiltrar);
             this.Controls.Add(this.textBoxChofer);
-            this.Controls.Add(this.label4);
             this.Controls.Add(this.textBoxPatente);
             this.Controls.Add(this.textBoxModelo);
+            this.Controls.Add(this.dataGridViewAutomovil);
             this.Controls.Add(this.label3);
+            this.Controls.Add(this.label4);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.dataGridViewAutomovil);
             this.Name = "TablaAutomovilForm";
             this.Text = "TablaAutomovilForm";
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewAutomovil)).EndInit();

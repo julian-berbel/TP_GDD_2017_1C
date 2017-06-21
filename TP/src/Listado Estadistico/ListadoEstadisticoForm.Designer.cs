@@ -166,14 +166,14 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(526, 271);
             this.Controls.Add(this.buttonVolver);
-            this.Controls.Add(this.label3);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.label1);
             this.Controls.Add(this.buttonCalcular);
             this.Controls.Add(this.numericUpDownAnio);
             this.Controls.Add(this.numericUpDownTrimestre);
             this.Controls.Add(this.comboBoxEstadisticas);
             this.Controls.Add(this.dataGridViewEstadistica);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.label1);
             this.MaximizeBox = false;
             this.Name = "ListadoEstadisticoForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;

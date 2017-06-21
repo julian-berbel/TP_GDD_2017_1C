@@ -235,7 +235,6 @@
             this.ClientSize = new System.Drawing.Size(231, 433);
             this.Controls.Add(this.buttonSeleccionarUsuario);
             this.Controls.Add(this.textBoxCodigoPostal);
-            this.Controls.Add(this.label6);
             this.Controls.Add(this.buttonCancelar);
             this.Controls.Add(this.buttonAceptar);
             this.Controls.Add(this.checkBoxHabilitado);
@@ -245,6 +244,8 @@
             this.Controls.Add(this.textBoxApellido);
             this.Controls.Add(this.textBoxDNI);
             this.Controls.Add(this.textBoxNombre);
+            this.Controls.Add(this.dateTimePickerFechaNac);
+            this.Controls.Add(this.label6);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.label5);
@@ -252,7 +253,6 @@
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.dateTimePickerFechaNac);
             this.MaximizeBox = false;
             this.Name = "NuevoClienteForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;

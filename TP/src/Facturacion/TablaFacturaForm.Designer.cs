@@ -103,12 +103,12 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(528, 285);
+            this.Controls.Add(this.dataGridViewFactura);
             this.Controls.Add(this.labelFechaFin);
             this.Controls.Add(this.labelFechaInicio);
             this.Controls.Add(this.labelCliente);
             this.Controls.Add(this.labelTotal);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.dataGridViewFactura);
             this.Name = "TablaFacturaForm";
             this.Text = "TablaFacturaForm";
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewFactura)).EndInit();

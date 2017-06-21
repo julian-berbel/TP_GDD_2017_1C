@@ -61,6 +61,7 @@ namespace UberFrba.Facturacion
         {
             try
             {
+                if (Cliente == null) throw new CampoVacioException("Cliente");
                 DataTable tabla = Factura.get(Cliente.id, Fecha);
 
                 if(tabla == null || tabla.Rows.Count == 0)

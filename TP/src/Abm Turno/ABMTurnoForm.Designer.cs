@@ -32,6 +32,8 @@
             this.buttonEditar = new System.Windows.Forms.Button();
             this.buttonVolver = new System.Windows.Forms.Button();
             this.buttonNuevo = new System.Windows.Forms.Button();
+            this.dataGridViewTurno = new System.Windows.Forms.DataGridView();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewTurno)).BeginInit();
             this.SuspendLayout();
             // 
             // buttonBaja
@@ -74,20 +76,34 @@
             this.buttonNuevo.UseVisualStyleBackColor = true;
             this.buttonNuevo.Click += new System.EventHandler(this.buttonNuevo_Click);
             // 
+            // dataGridViewTurno
+            // 
+            this.dataGridViewTurno.AllowUserToAddRows = false;
+            this.dataGridViewTurno.AllowUserToDeleteRows = false;
+            this.dataGridViewTurno.AllowUserToResizeRows = false;
+            this.dataGridViewTurno.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
+            this.dataGridViewTurno.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewTurno.Location = new System.Drawing.Point(14, 12);
+            this.dataGridViewTurno.MultiSelect = false;
+            this.dataGridViewTurno.Name = "dataGridViewTurno";
+            this.dataGridViewTurno.ReadOnly = true;
+            this.dataGridViewTurno.RowHeadersVisible = false;
+            this.dataGridViewTurno.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dataGridViewTurno.Size = new System.Drawing.Size(501, 180);
+            this.dataGridViewTurno.TabIndex = 31;
+            // 
             // ABMTurnoForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.ClientSize = new System.Drawing.Size(528, 234);
+            this.Controls.Add(this.dataGridViewTurno);
             this.Controls.Add(this.buttonBaja);
             this.Controls.Add(this.buttonEditar);
             this.Controls.Add(this.buttonVolver);
             this.Controls.Add(this.buttonNuevo);
             this.Name = "ABMTurnoForm";
             this.Text = "ABM Turno";
-            this.Controls.SetChildIndex(this.buttonNuevo, 0);
-            this.Controls.SetChildIndex(this.buttonVolver, 0);
-            this.Controls.SetChildIndex(this.buttonEditar, 0);
-            this.Controls.SetChildIndex(this.buttonBaja, 0);
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewTurno)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -98,5 +114,6 @@
         private System.Windows.Forms.Button buttonEditar;
         private System.Windows.Forms.Button buttonVolver;
         private System.Windows.Forms.Button buttonNuevo;
+        private System.Windows.Forms.DataGridView dataGridViewTurno;
     }
 }

@@ -32,6 +32,8 @@
             this.buttonEditar = new System.Windows.Forms.Button();
             this.buttonVolver = new System.Windows.Forms.Button();
             this.buttonNuevo = new System.Windows.Forms.Button();
+            this.dataGridViewRol = new System.Windows.Forms.DataGridView();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewRol)).BeginInit();
             this.SuspendLayout();
             // 
             // buttonBaja
@@ -74,20 +76,33 @@
             this.buttonNuevo.UseVisualStyleBackColor = true;
             this.buttonNuevo.Click += new System.EventHandler(this.buttonNuevo_Click);
             // 
+            // dataGridViewRol
+            // 
+            this.dataGridViewRol.AllowUserToAddRows = false;
+            this.dataGridViewRol.AllowUserToDeleteRows = false;
+            this.dataGridViewRol.AllowUserToResizeRows = false;
+            this.dataGridViewRol.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
+            this.dataGridViewRol.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewRol.Location = new System.Drawing.Point(13, 12);
+            this.dataGridViewRol.MultiSelect = false;
+            this.dataGridViewRol.Name = "dataGridViewRol";
+            this.dataGridViewRol.ReadOnly = true;
+            this.dataGridViewRol.RowHeadersVisible = false;
+            this.dataGridViewRol.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dataGridViewRol.Size = new System.Drawing.Size(501, 180);
+            this.dataGridViewRol.TabIndex = 27;
+            // 
             // ABMRolForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.ClientSize = new System.Drawing.Size(527, 231);
+            this.Controls.Add(this.dataGridViewRol);
             this.Controls.Add(this.buttonBaja);
             this.Controls.Add(this.buttonEditar);
             this.Controls.Add(this.buttonVolver);
             this.Controls.Add(this.buttonNuevo);
             this.Name = "ABMRolForm";
             this.Text = "ABM Rol";
-            this.Controls.SetChildIndex(this.buttonNuevo, 0);
-            this.Controls.SetChildIndex(this.buttonVolver, 0);
-            this.Controls.SetChildIndex(this.buttonEditar, 0);
-            this.Controls.SetChildIndex(this.buttonBaja, 0);
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewRol)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -98,5 +113,6 @@
         private System.Windows.Forms.Button buttonEditar;
         private System.Windows.Forms.Button buttonVolver;
         private System.Windows.Forms.Button buttonNuevo;
+        private System.Windows.Forms.DataGridView dataGridViewRol;
     }
 }

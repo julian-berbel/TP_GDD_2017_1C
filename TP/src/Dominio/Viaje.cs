@@ -27,11 +27,19 @@ namespace UberFrba.Dominio
                                     "fin", fin);
         }
 
-        public static DataTable get(int idCliente, DateTime fecha)
+        public static DataTable getDeCliente(int idCliente, DateTime fecha)
         {
-            return DB.correrFuncionDeTabla( "VIAJES_GET",
+            return DB.correrFuncionDeTabla( "VIAJES_GET_DE_CLIENTE",
                                             "idCliente", idCliente,
                                             "fecha", fecha);
+        }
+
+        public static DataTable getDeChofer(int idChofer, DateTime fecha, byte idturno)
+        {
+            return DB.correrFuncionDeTabla("VIAJES_GET_DE_CHOFER",
+                                            "idChofer", idChofer,
+                                            "fecha", fecha,
+                                            "turno", idturno);
         }
     }
 }

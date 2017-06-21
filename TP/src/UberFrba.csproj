@@ -160,12 +160,6 @@
     <Compile Include="Abm Rol\EditarRolForm.Designer.cs">
       <DependentUpon>EditarRolForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Abm Rol\TablaRolForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Abm Rol\TablaRolForm.Designer.cs">
-      <DependentUpon>TablaRolForm.cs</DependentUpon>
-    </Compile>
     <Compile Include="Abm Turno\ABMTurnoForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -178,18 +172,6 @@
     <Compile Include="Abm Turno\EditarTurnoForm.Designer.cs">
       <DependentUpon>EditarTurnoForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Abm Turno\SeleccionarTurnoForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Abm Turno\SeleccionarTurnoForm.Designer.cs">
-      <DependentUpon>SeleccionarTurnoForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Abm Turno\TablaTurnoForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Abm Turno\TablaTurnoForm.Designer.cs">
-      <DependentUpon>TablaTurnoForm.cs</DependentUpon>
-    </Compile>
     <Compile Include="Dominio\Automovil.cs" />
     <Compile Include="Dominio\Cliente.cs" />
     <Compile Include="Dominio\Chofer.cs" />
@@ -197,6 +179,7 @@
     <Compile Include="Dominio\Error.cs" />
     <Compile Include="Dominio\Exceptions\UsuarioNoSeleccionadoException.cs" />
     <Compile Include="Dominio\Exceptions\CampoVacioException.cs" />
+    <Compile Include="Dominio\Rendicion.cs" />
     <Compile Include="Dominio\Factura.cs" />
     <Compile Include="Dominio\Funcionalidad.cs" />
     <Compile Include="Dominio\RepoFuncionalidades.cs" />
@@ -223,6 +206,30 @@
     </Compile>
     <Compile Include="Facturacion\TablaFacturaForm.Designer.cs">
       <DependentUpon>TablaFacturaForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Rendicion Viajes\RendicionForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Rendicion Viajes\RendicionForm.Designer.cs">
+      <DependentUpon>RendicionForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Rendicion Viajes\RendicionEfectuadaForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Rendicion Viajes\RendicionEfectuadaForm.Designer.cs">
+      <DependentUpon>RendicionEfectuadaForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Rendicion Viajes\RendicionNoEfectuadaForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Rendicion Viajes\RendicionNoEfectuadaForm.Designer.cs">
+      <DependentUpon>RendicionNoEfectuadaForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Rendicion Viajes\TablaRendicion.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Rendicion Viajes\TablaRendicion.Designer.cs">
+      <DependentUpon>TablaRendicion.cs</DependentUpon>
     </Compile>
     <Compile Include="Usuarios\NuevoUsuarioForm.cs">
       <SubType>Form</SubType>
@@ -262,12 +269,6 @@
     </Compile>
     <Compile Include="Registro Viajes\RegistroViajeForm.Designer.cs">
       <DependentUpon>RegistroViajeForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Rendicion Viajes\RendicionForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Rendicion Viajes\RendicionForm.Designer.cs">
-      <DependentUpon>RendicionForm.cs</DependentUpon>
     </Compile>
     <Compile Include="SeleccionarFuncionalidad\SeleccionarFuncionalidadForm.cs">
       <SubType>Form</SubType>
@@ -329,20 +330,11 @@
     <EmbeddedResource Include="Abm Rol\EditarRolForm.resx">
       <DependentUpon>EditarRolForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Abm Rol\TablaRolForm.resx">
-      <DependentUpon>TablaRolForm.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Abm Turno\ABMTurnoForm.resx">
       <DependentUpon>ABMTurnoForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Abm Turno\EditarTurnoForm.resx">
       <DependentUpon>EditarTurnoForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Abm Turno\SeleccionarTurnoForm.resx">
-      <DependentUpon>SeleccionarTurnoForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Abm Turno\TablaTurnoForm.resx">
-      <DependentUpon>TablaTurnoForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Facturacion\FacturaEfectuadaForm.resx">
       <DependentUpon>FacturaEfectuadaForm.cs</DependentUpon>
@@ -352,6 +344,18 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Facturacion\TablaFacturaForm.resx">
       <DependentUpon>TablaFacturaForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Rendicion Viajes\RendicionForm.resx">
+      <DependentUpon>RendicionForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Rendicion Viajes\RendicionEfectuadaForm.resx">
+      <DependentUpon>RendicionEfectuadaForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Rendicion Viajes\RendicionNoEfectuadaForm.resx">
+      <DependentUpon>RendicionNoEfectuadaForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Rendicion Viajes\TablaRendicion.resx">
+      <DependentUpon>TablaRendicion.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Usuarios\NuevoUsuarioForm.resx">
       <DependentUpon>NuevoUsuarioForm.cs</DependentUpon>
@@ -379,9 +383,6 @@
     </Compile>
     <EmbeddedResource Include="Registro Viajes\RegistroViajeForm.resx">
       <DependentUpon>RegistroViajeForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Rendicion Viajes\RendicionForm.resx">
-      <DependentUpon>RendicionForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SeleccionarFuncionalidad\SeleccionarFuncionalidadForm.resx">
       <DependentUpon>SeleccionarFuncionalidadForm.cs</DependentUpon>

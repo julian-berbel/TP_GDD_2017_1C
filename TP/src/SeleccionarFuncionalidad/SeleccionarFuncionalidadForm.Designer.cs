@@ -77,10 +77,10 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(268, 114);
-            this.Controls.Add(this.label1);
             this.Controls.Add(this.comboBoxFuncionalidades);
             this.Controls.Add(this.buttonAtras);
             this.Controls.Add(this.buttonContinuar);
+            this.Controls.Add(this.label1);
             this.MaximizeBox = false;
             this.Name = "SeleccionarFuncionalidadForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;

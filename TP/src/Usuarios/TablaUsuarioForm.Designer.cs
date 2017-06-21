@@ -134,10 +134,10 @@
             this.Controls.Add(this.textBoxDNI);
             this.Controls.Add(this.textBoxApellido);
             this.Controls.Add(this.textBoxNombre);
+            this.Controls.Add(this.dataGridViewUsuario);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.dataGridViewUsuario);
             this.Name = "TablaUsuarioForm";
             this.Text = "TablaUsuarioForm";
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewUsuario)).EndInit();
