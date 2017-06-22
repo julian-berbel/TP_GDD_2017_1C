@@ -20,9 +20,10 @@ namespace UberFrba.SeleccionarRol
         {
             InitializeComponent();
         }
-
-        private void SeleccionarRolForm_Load(object sender, EventArgs e)
+        
+        public override void Refrescar()
         {
+            comboBoxRoles.Items.Clear();
             Usuario.getRoles().ForEach(r => comboBoxRoles.Items.Add(r));
         }
 
@@ -33,8 +34,10 @@ namespace UberFrba.SeleccionarRol
 
         private void buttonContinuar_Click(object sender, EventArgs e)
         {
-            Rol.rolSeleccionado = (Rol)comboBoxRoles.SelectedItem;
-            new SeleccionarFuncionalidadForm(this).abrir();
+            if (comboBoxRoles.SelectedItem != null) { 
+                Rol.rolSeleccionado = (Rol)comboBoxRoles.SelectedItem;
+                new SeleccionarFuncionalidadForm(this).abrir();
+            }
         }
     }
 }

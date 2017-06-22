@@ -110,6 +110,7 @@
             this.Controls.Add(this.labelTotal);
             this.Controls.Add(this.label1);
             this.Name = "TablaRendicionForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "TablaRendicionForm";
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewRendicion)).EndInit();
             this.ResumeLayout(false);

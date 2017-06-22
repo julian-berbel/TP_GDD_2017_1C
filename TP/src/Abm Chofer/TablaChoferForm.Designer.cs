@@ -28,7 +28,18 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
+            this.SuspendLayout();
+            // 
+            // TablaChoferForm
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.ClientSize = new System.Drawing.Size(529, 290);
+            this.Name = "TablaChoferForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "TablaChoferForm";
+            this.ResumeLayout(false);
+            this.PerformLayout();
+
         }
 
         #endregion

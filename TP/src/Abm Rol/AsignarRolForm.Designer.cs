@@ -47,6 +47,8 @@
             this.ClientSize = new System.Drawing.Size(529, 290);
             this.Controls.Add(this.buttonVolver);
             this.Name = "AsignarRolForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "Asignar Rol";
             this.Controls.SetChildIndex(this.buttonVolver, 0);
             this.ResumeLayout(false);
             this.PerformLayout();

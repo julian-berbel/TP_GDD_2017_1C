@@ -131,6 +131,7 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Name = "EditarRolForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Editar Rol";
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewFuncionalidades)).EndInit();
             this.ResumeLayout(false);

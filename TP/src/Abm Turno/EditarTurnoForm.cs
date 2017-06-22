@@ -144,7 +144,11 @@ namespace UberFrba.Abm_Turno
             catch (SqlException) { }
             catch (Exception exception)
             {
-                if (exception is FormatException || exception is CampoVacioException) Error.show(exception.Message);
+                if (exception is FormatException || 
+                    exception is CampoVacioException ||
+                    exception is ValorNegativoException ||
+                    exception is TurnoHorarioErroneoException ||
+                    exception is HorarioFueraDeRangoException) Error.show(exception.Message);
                 else throw;
             }
         }
@@ -156,7 +160,13 @@ namespace UberFrba.Abm_Turno
             if (string.IsNullOrWhiteSpace(Descripcion)) throw new CampoVacioException("Descripcion");
             if (string.IsNullOrWhiteSpace(textBoxValorKilometro.Text)) throw new CampoVacioException("Valor Kilometro");
             if (string.IsNullOrWhiteSpace(textBoxPrecioBase.Text)) throw new CampoVacioException("Precio Base");
-    }
+            if (HoraInicio < 0) throw new ValorNegativoException("Hora Inicio");
+            if (HoraFin < 0) throw new ValorNegativoException("Hora Fin");
+            if (ValorKilometro < 0) throw new ValorNegativoException("Valor Kilometro");
+            if (PrecioBase < 0) throw new ValorNegativoException("Precio Base");
+            if (HoraInicio >= HoraFin) throw new TurnoHorarioErroneoException();
+            if (HoraInicio >= 24 || HoraFin > 24) throw new HorarioFueraDeRangoException();
+        }
 
         private void buttonCancelar_Click(object sender, EventArgs e)
         {

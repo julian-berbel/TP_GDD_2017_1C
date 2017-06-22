@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace UberFrba.Dominio.Exceptions
 {
-    public class KilometrosNegativosException : Exception
+    public class HorarioFueraDeRangoException : Exception
     {
-        public KilometrosNegativosException()
-            : base("La cantidad de kilómetros debe ser mayor a 0!")
+        public HorarioFueraDeRangoException()
+            : base("Las horas de inicio y de fin deben estar entre 0 y 24!")
         { }
     }
 }

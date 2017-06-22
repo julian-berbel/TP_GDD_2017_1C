@@ -117,7 +117,9 @@ namespace UberFrba.Usuarios
             catch (SqlException) { }
             catch (Exception exception)
             {
-                if (exception is FormatException || exception is CampoVacioException) Error.show(exception.Message);
+                if (exception is FormatException || 
+                    exception is CampoVacioException ||
+                    exception is ValorNegativoException) Error.show(exception.Message);
                 else throw;
             } 
         }
@@ -129,8 +131,11 @@ namespace UberFrba.Usuarios
             if (string.IsNullOrWhiteSpace(Nombre)) throw new CampoVacioException("Nombre");
             if (string.IsNullOrWhiteSpace(Apellido)) throw new CampoVacioException("Apellido");
             if (string.IsNullOrWhiteSpace(textBoxDNI.Text)) throw new CampoVacioException("DNI");
+            if (DNI <= 0) throw new ValorNegativoException("DNI");
             if (string.IsNullOrWhiteSpace(Domicilio)) throw new CampoVacioException("Domicilio");
             if (string.IsNullOrWhiteSpace(textBoxTelefono.Text)) throw new CampoVacioException("Telefono");
+            if (Telefono <= 0) throw new ValorNegativoException("Telefono");
+
             if (dateTimePickerFechaNac.Value == null) throw new CampoVacioException("Fecha de Nacimiento");
         }
 

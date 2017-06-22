@@ -111,7 +111,10 @@ namespace UberFrba.Abm_Cliente
             catch (SqlException) { }
             catch (Exception exception)
             {
-                if (exception is FormatException || exception is CampoVacioException || exception is UsuarioNoSeleccionadoException) Error.show(exception.Message);
+                if (exception is FormatException || 
+                    exception is CampoVacioException || 
+                    exception is UsuarioNoSeleccionadoException ||
+                    exception is ValorNegativoException) Error.show(exception.Message);
                 else throw;
             }
         }
@@ -120,6 +123,7 @@ namespace UberFrba.Abm_Cliente
         {
             if (usuarioSeleccionado == null) throw new UsuarioNoSeleccionadoException();
             if (string.IsNullOrWhiteSpace(textBoxCodigoPostal.Text)) throw new CampoVacioException("Codigo Postal");
+            if (CodigoPostal <= 0) throw new ValorNegativoException("Codigo Postal");
         }
 
         private void buttonCancelar_Click(object sender, EventArgs e)

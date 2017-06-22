@@ -113,6 +113,7 @@
             this.Controls.Add(this.buttonVolver);
             this.Controls.Add(this.buttonNuevo);
             this.Name = "ABMRolForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "ABM Rol";
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewRol)).EndInit();
             this.ResumeLayout(false);

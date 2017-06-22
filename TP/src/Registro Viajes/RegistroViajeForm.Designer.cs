@@ -50,14 +50,13 @@
             // 
             // dateTimePickerFechaHoraFin
             // 
-            this.dateTimePickerFechaHoraFin.CustomFormat = "dd/MM/yyyy hh:mm:ss";
+            this.dateTimePickerFechaHoraFin.CustomFormat = "dd/MM/yyyy HH:mm:ss";
             this.dateTimePickerFechaHoraFin.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.dateTimePickerFechaHoraFin.Location = new System.Drawing.Point(36, 219);
             this.dateTimePickerFechaHoraFin.Name = "dateTimePickerFechaHoraFin";
             this.dateTimePickerFechaHoraFin.ShowUpDown = true;
             this.dateTimePickerFechaHoraFin.Size = new System.Drawing.Size(127, 20);
             this.dateTimePickerFechaHoraFin.TabIndex = 38;
-            this.dateTimePickerFechaHoraFin.ValueChanged += new System.EventHandler(this.dateTimePickerFechaHoraFin_ValueChanged);
             // 
             // buttonSeleccionarCliente
             // 
@@ -203,7 +202,7 @@
             // 
             // dateTimePickerFechaHoraInicio
             // 
-            this.dateTimePickerFechaHoraInicio.CustomFormat = "dd/MM/yyyy hh:mm:ss";
+            this.dateTimePickerFechaHoraInicio.CustomFormat = "dd/MM/yyyy HH:mm:ss";
             this.dateTimePickerFechaHoraInicio.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.dateTimePickerFechaHoraInicio.Location = new System.Drawing.Point(36, 180);
             this.dateTimePickerFechaHoraInicio.Name = "dateTimePickerFechaHoraInicio";

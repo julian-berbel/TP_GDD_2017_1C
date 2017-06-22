@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using UberFrba.Dominio;
+using UberFrba.Dominio.Exceptions;
 
 namespace UberFrba.Usuarios
 {
@@ -42,16 +43,8 @@ namespace UberFrba.Usuarios
             get
             {
                 if (string.IsNullOrWhiteSpace(textBoxDNI.Text)) return 0;
-                decimal resultado = 0;
-                try
-                {
-                    resultado = decimal.Parse(textBoxDNI.Text);
-                }
-                catch (Exception e)
-                {
-                    Error.show(e.Message);
-                }
-                return resultado;
+
+                return decimal.Parse(textBoxDNI.Text);
             }
         }
         public string Apellido
@@ -83,7 +76,16 @@ namespace UberFrba.Usuarios
 
         private void buttonFiltrar_Click(object sender, EventArgs e)
         {
-            CargarTabla();
+            try
+            {
+                validar();
+                CargarTabla();
+            }
+            catch (Exception ex)
+            {
+                if (ex is FormatException || ex is ValorNegativoException) Error.show(ex.Message);
+                else throw;
+            }
         }
 
         private void buttonLimpiar_Click(object sender, EventArgs e)
@@ -92,6 +94,11 @@ namespace UberFrba.Usuarios
             textBoxApellido.Text = "";
             textBoxDNI.Text = "";
             CargarTabla();
+        }
+
+        private void validar()
+        {
+            if (DNI < 0) throw new ValorNegativoException("DNI");
         }
     }
 }

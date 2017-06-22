@@ -139,6 +139,7 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Name = "TablaUsuarioForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "TablaUsuarioForm";
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewUsuario)).EndInit();
             this.ResumeLayout(false);

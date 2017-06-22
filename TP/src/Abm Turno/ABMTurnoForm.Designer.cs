@@ -145,6 +145,7 @@
             this.Controls.Add(this.buttonVolver);
             this.Controls.Add(this.buttonNuevo);
             this.Name = "ABMTurnoForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "ABM Turno";
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewTurno)).EndInit();
             this.ResumeLayout(false);

@@ -2,12 +2,14 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using UberFrba.Dominio;
+using UberFrba.Dominio.Exceptions;
 
 namespace UberFrba.Abm_Automovil
 {
@@ -32,15 +34,7 @@ namespace UberFrba.Abm_Automovil
         public int Chofer {
             get {
                 if (string.IsNullOrWhiteSpace(textBoxChofer.Text)) return 0;
-                int resultado = 0;
-                try
-                {
-                    resultado = int.Parse(textBoxChofer.Text);
-                }catch(Exception e)
-                {
-                    Error.show(e.Message);
-                }
-                return resultado;
+                return int.Parse(textBoxChofer.Text);
             }
         }
         public string Modelo {
@@ -80,7 +74,15 @@ namespace UberFrba.Abm_Automovil
 
         private void buttonFiltrar_Click(object sender, EventArgs e)
         {
-            CargarTabla();
+            try {
+                validar();
+                CargarTabla();
+            }
+            catch (Exception ex)
+            {
+                if (ex is FormatException || ex is ValorNegativoException) Error.show(ex.Message);
+                else throw;
+            }
         }
 
         private void buttonLimpiar_Click(object sender, EventArgs e)
@@ -90,6 +92,11 @@ namespace UberFrba.Abm_Automovil
             textBoxPatente.Text = "";
             comboBoxMarca.SelectedItem = "";
             CargarTabla();
+        }
+
+        private void validar()
+        {
+            if (Chofer < 0) throw new ValorNegativoException("DNI Chofer");
         }
     }
 }

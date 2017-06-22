@@ -171,7 +171,9 @@ namespace UberFrba.Abm_Cliente
             catch (SqlException) { }
             catch (Exception exception)
             {
-                if (exception is FormatException || exception is CampoVacioException) Error.show(exception.Message);
+                if (exception is FormatException || 
+                    exception is CampoVacioException ||
+                    exception is ValorNegativoException) Error.show(exception.Message);
                 else throw;
             }
         }
@@ -180,11 +182,15 @@ namespace UberFrba.Abm_Cliente
         {
             if (string.IsNullOrWhiteSpace(Nombre)) throw new CampoVacioException("Nombre");
             if (string.IsNullOrWhiteSpace(Apellido)) throw new CampoVacioException("Apellido");
-            if (DNI == 0) throw new CampoVacioException("DNI");
+            if (string.IsNullOrWhiteSpace(textBoxDNI.Text)) throw new CampoVacioException("DNI");
             if (string.IsNullOrWhiteSpace(Domicilio)) throw new CampoVacioException("Domicilio");
-            if (Telefono == 0) throw new CampoVacioException("Telefono");
+            if (string.IsNullOrWhiteSpace(textBoxTelefono.Text)) throw new CampoVacioException("Telefono");
             if (FechaNac == null) throw new CampoVacioException("FechaNac");
-            if (CodigoPostal == 0) throw new CampoVacioException("Codigo Postal");
+            if (string.IsNullOrWhiteSpace(textBoxCodigoPostal.Text)) throw new CampoVacioException("Codigo Postal");
+
+            if (DNI <= 0) throw new ValorNegativoException("DNI");
+            if (Telefono <= 0) throw new ValorNegativoException("Telefono");
+            if (CodigoPostal <= 0) throw new ValorNegativoException("Telefono");
         }
 
         private void buttonCancelar_Click(object sender, EventArgs e)

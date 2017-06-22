@@ -110,6 +110,7 @@
             this.Controls.Add(this.labelTotal);
             this.Controls.Add(this.label1);
             this.Name = "TablaFacturaForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "TablaFacturaForm";
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewFactura)).EndInit();
             this.ResumeLayout(false);

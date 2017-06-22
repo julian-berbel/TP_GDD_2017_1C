@@ -234,6 +234,7 @@
             this.Controls.Add(this.label1);
             this.MaximizeBox = false;
             this.Name = "EditarClienteForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Editar Cliente";
             this.ResumeLayout(false);
             this.PerformLayout();

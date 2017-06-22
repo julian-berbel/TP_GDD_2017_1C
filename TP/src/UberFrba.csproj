@@ -184,7 +184,12 @@
     <Compile Include="Dominio\Chofer.cs" />
     <Compile Include="Dominio\DB.cs" />
     <Compile Include="Dominio\Error.cs" />
-    <Compile Include="Dominio\Exceptions\KilometrosNegativosException.cs" />
+    <Compile Include="Dominio\Exceptions\TurnoHorarioErroneoException.cs" />
+    <Compile Include="Dominio\Exceptions\HorarioFueraDeRangoException.cs" />
+    <Compile Include="Dominio\Exceptions\HorarioSeleccionadoFueraDeTurnoException.cs" />
+    <Compile Include="Dominio\Exceptions\FechaDeFinAnteriorAFechaDeInicioException.cs" />
+    <Compile Include="Dominio\Exceptions\ViajeTerminaEnFechaDistintaException.cs" />
+    <Compile Include="Dominio\Exceptions\ValorNegativoException.cs" />
     <Compile Include="Dominio\Exceptions\UsuarioNoSeleccionadoException.cs" />
     <Compile Include="Dominio\Exceptions\CampoVacioException.cs" />
     <Compile Include="Dominio\Rendicion.cs" />
@@ -320,6 +325,9 @@
     <EmbeddedResource Include="Abm Chofer\SeleccionarChoferForm.resx">
       <DependentUpon>SeleccionarChoferForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Abm Chofer\TablaChoferForm.resx">
+      <DependentUpon>TablaChoferForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Abm Cliente\ABMClienteForm.resx">
       <DependentUpon>ABMClienteForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -331,6 +339,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Abm Cliente\SeleccionarClienteForm.resx">
       <DependentUpon>SeleccionarClienteForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Abm Cliente\TablaClienteForm.resx">
+      <DependentUpon>TablaClienteForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Abm Rol\ABMRolForm.resx">
       <DependentUpon>ABMRolForm.cs</DependentUpon>

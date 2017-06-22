@@ -23,8 +23,7 @@ namespace UberFrba.Registro_Viajes
             dateTimePickerFechaHoraInicio.Value = Program.FechaEjecucion.AddMinutes(-10);
             dateTimePickerFechaHoraFin.Value = Program.FechaEjecucion;
             dateTimePickerFechaHoraFin.MaxDate = Program.FechaEjecucion;
-            dateTimePickerFechaHoraFin.MinDate = dateTimePickerFechaHoraInicio.Value;
-            dateTimePickerFechaHoraInicio.MaxDate = dateTimePickerFechaHoraFin.Value;
+            dateTimePickerFechaHoraInicio.MaxDate = Program.FechaEjecucion;
         }
 
         private Chofer chofer;
@@ -154,7 +153,10 @@ namespace UberFrba.Registro_Viajes
             {
                 if (exception is FormatException ||
                     exception is CampoVacioException ||
-                    exception is KilometrosNegativosException) Error.show(exception.Message);
+                    exception is ValorNegativoException ||
+                    exception is HorarioSeleccionadoFueraDeTurnoException ||
+                    exception is ViajeTerminaEnFechaDistintaException ||
+                    exception is FechaDeFinAnteriorAFechaDeInicioException) Error.show(exception.Message);
                 else throw;
             }
         }
@@ -163,18 +165,16 @@ namespace UberFrba.Registro_Viajes
         {
             if (Chofer == null) throw new CampoVacioException("Chofer");
             if (string.IsNullOrWhiteSpace(textBoxCantidadKms.Text)) throw new CampoVacioException("Cantidad de Kilómetros");
-            if (CantidadKms <= 0) throw new KilometrosNegativosException();
+            if (CantidadKms <= 0) throw new ValorNegativoException("Cantidad de Kilómetros");
             if (Cliente == null) throw new CampoVacioException("Cliente");
+            if (dateTimePickerFechaHoraInicio.Value.Date != dateTimePickerFechaHoraFin.Value.Date) throw new ViajeTerminaEnFechaDistintaException();
+            if (dateTimePickerFechaHoraFin.Value.CompareTo(dateTimePickerFechaHoraInicio.Value) <= 0) throw new FechaDeFinAnteriorAFechaDeInicioException();
+            if (dateTimePickerFechaHoraInicio.Value.Hour < Turno.horaInicio || dateTimePickerFechaHoraFin.Value.AddSeconds(-1).Hour >= Turno.horaFin) throw new HorarioSeleccionadoFueraDeTurnoException(Turno);
         }
 
         private void dateTimePickerFechaHoraInicio_ValueChanged(object sender, EventArgs e)
         {
-            dateTimePickerFechaHoraFin.MinDate = dateTimePickerFechaHoraInicio.Value;
-        }
 
-        private void dateTimePickerFechaHoraFin_ValueChanged(object sender, EventArgs e)
-        {
-            dateTimePickerFechaHoraInicio.MaxDate = dateTimePickerFechaHoraFin.Value;
         }
     }
 }
