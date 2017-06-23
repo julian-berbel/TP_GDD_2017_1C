@@ -21,7 +21,7 @@ namespace UberFrba.Dominio
             this.ventanaAAbrir = ventanaAAbrir;
         }
 
-        public void elegir(Form caller)
+        public void elegir(Form caller) // elijo una funcionalidad y abro su ventana correspondiente
         {
             ReturningForm ventana = (ReturningForm) Activator.CreateInstance(ventanaAAbrir, caller);
             ventana.abrir();
@@ -32,7 +32,7 @@ namespace UberFrba.Dominio
             return descripcion;
         }
 
-        public static DataTable getTablaDe(byte idRol)
+        public static DataTable getTablaDe(byte idRol)  // obtengo la tabla de funcionalidades de un rol
         {
             return DB.correrFuncionDeTabla( "FUNCIONALIDADES_GET_TABLA_DE_ROL",
                                             "idRol", idRol);

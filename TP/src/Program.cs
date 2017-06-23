@@ -21,9 +21,9 @@ namespace UberFrba
         [STAThread]
         static void Main()
         {
-            DB.miConexion = new SqlConnection(ConfigurationManager.ConnectionStrings["UberFrba.Properties.Settings.GD1C2017ConnectionString"].ConnectionString);
+            DB.miConexion = new SqlConnection(ConfigurationManager.ConnectionStrings["UberFrba.Properties.Settings.GD1C2017ConnectionString"].ConnectionString);    // preparo conexion a base de datos
             Application.EnableVisualStyles();
-            Application.Run(new LoginForm());
+            Application.Run(new LoginForm());   // abro la ventana de login
         }
     }
 }

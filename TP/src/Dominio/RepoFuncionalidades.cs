@@ -8,7 +8,7 @@ namespace UberFrba.Dominio
 {
     public static class RepoFuncionalidades
     {
-        public static List<Funcionalidad> repoFuncionalidades = new List<Funcionalidad>() {
+        public static List<Funcionalidad> repoFuncionalidades = new List<Funcionalidad>() { // creo una lista de las funcionalidades
             new Funcionalidad(1, typeof(Abm_Rol.ABMRolForm)),
             new Funcionalidad(2, typeof(Abm_Cliente.ABMClienteForm)),
             new Funcionalidad(3, typeof(Abm_Automovil.ABMAutomovilForm)),
@@ -19,7 +19,7 @@ namespace UberFrba.Dominio
             new Funcionalidad(8, typeof(Rendicion_Viajes.RendicionForm)),
             new Funcionalidad(9, typeof(Listado_Estadistico.ListadoEstadisticoForm))};
 
-        public static Funcionalidad get(byte idFuncionalidad)
+        public static Funcionalidad get(byte idFuncionalidad)                               // obtengo una funcionalidad
         {
             return repoFuncionalidades.Find(f => f.id == idFuncionalidad);
         }

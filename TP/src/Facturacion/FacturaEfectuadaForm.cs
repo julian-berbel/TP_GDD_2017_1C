@@ -14,8 +14,8 @@ namespace UberFrba.Facturacion
         public FacturaEfectuadaForm(ReturningForm caller, Cliente cliente, Factura factura) : base(caller, cliente)
         {
             InitializeComponent();
-            DataGridViewFactura.DataSource = Factura.getItems(factura.numero);
-            FechaInicio = factura.fechaInicio;
+            DataGridViewFactura.DataSource = Factura.getItems(factura.numero);      // obtengo los viajes de la factura
+            FechaInicio = factura.fechaInicio;                                      // cargo los campos con los datos de la factura
             FechaFin = factura.fechaFin;
             ImporteTotal = factura.importeTotal;
             labelFacturaNro.Text += factura.numero.ToString();

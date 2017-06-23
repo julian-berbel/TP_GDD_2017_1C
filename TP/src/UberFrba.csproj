@@ -77,18 +77,6 @@
     <Compile Include="Abm Automovil\EditarAutomovilForm.Designer.cs">
       <DependentUpon>EditarAutomovilForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Abm Automovil\SeleccionarAutomovilForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Abm Automovil\SeleccionarAutomovilForm.Designer.cs">
-      <DependentUpon>SeleccionarAutomovilForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Abm Automovil\TablaAutomovilForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Abm Automovil\TablaAutomovilForm.Designer.cs">
-      <DependentUpon>TablaAutomovilForm.cs</DependentUpon>
-    </Compile>
     <Compile Include="Abm Chofer\ABMChoferForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -306,12 +294,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Abm Automovil\EditarAutomovilForm.resx">
       <DependentUpon>EditarAutomovilForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Abm Automovil\SeleccionarAutomovilForm.resx">
-      <DependentUpon>SeleccionarAutomovilForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Abm Automovil\TablaAutomovilForm.resx">
-      <DependentUpon>TablaAutomovilForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Abm Chofer\ABMChoferForm.resx">
       <DependentUpon>ABMChoferForm.cs</DependentUpon>

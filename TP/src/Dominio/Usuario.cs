@@ -42,30 +42,19 @@ namespace UberFrba.Dominio
             fechaNac = (DateTime)data["Fecha_Nac"];
         }
 
-        public static Usuario get(int id)
-        {
-            return new Usuario(DB.correrFuncionDeTabla("USUARIO_GET",
-                                                        "id", id).Rows[0]);
-        }
-
         public static int? usuarioSeleccionado;
-
-        public static byte cantidadDeRoles()
-        {
-            return (byte) DB.correrFuncion("USUARIO_CANTIDAD_DE_ROLES", "usuario", usuarioSeleccionado);
-        }
-
-        public static byte[] encriptar(string texto)
+        
+        public static byte[] encriptar(string texto)    // encripto una contraseña
         {
             return new SHA256Managed().ComputeHash(Encoding.UTF8.GetBytes(texto), 0, Encoding.UTF8.GetByteCount(texto));
         }
 
-        public static void cargar(String username)
+        public static void cargar(String username)      // cargo usuario seleccionado por username
         {
             usuarioSeleccionado = (int)DB.correrFuncion("USUARIO_GET_ID", "usuario", username);
         }
 
-        public static List<Rol> getRoles()
+        public static List<Rol> getRoles()              // obtengo los roles del usuario seleccionado
         {
             DataTable data = DB.correrFuncionDeTabla("USUARIO_GET_ROLES", "usuarioId", usuarioSeleccionado);
 
@@ -77,7 +66,7 @@ namespace UberFrba.Dominio
         public static DataTable getXsConFiltros( String X, // "CLIENTES" / "CHOFERES" / "USUARIOS" / "NO_CLIENTES" / "NO_CHOFERES"
                                                 String nombre,
                                                 String apellido,
-                                                decimal DNI)
+                                                decimal DNI)        // obtengo un tipo de usuarios que cumplen con los filtros
         {
             return DB.correrFuncionDeTabla("GET_"+ X +"_CON_FILTROS",
                                             "nombre", nombre,
@@ -89,7 +78,7 @@ namespace UberFrba.Dominio
                                                 String nombre,
                                                 String apellido,
                                                 decimal DNI,
-                                                byte rol)
+                                                byte rol)           // obtengo un tipo de usuarios que cumplen con los filtros y tienen un rol determinado
         {
             return DB.correrFuncionDeTabla("GET_TABLA_ROL_" + X ,
                                             "nombre", nombre,
@@ -98,13 +87,13 @@ namespace UberFrba.Dominio
                                             "rol", rol);
         }
         
-        public static void inhabilitar(String tipoDeUsuario, int id)
+        public static void inhabilitar(String tipoDeUsuario, int id)    // inhabilito un usuario
         {
             DB.correrProcedimiento(tipoDeUsuario + "_INHABILITAR",
                                             "id", id);
         }
 
-        public void nuevo()
+        public void nuevo()                                             // persisto un usuario nuevo
         {
             DB.correrProcedimiento("USUARIO_NUEVO",
                                     "nombre", nombre,
@@ -118,7 +107,7 @@ namespace UberFrba.Dominio
                                     "contrasenia", contrasenia);
         }
 
-        public static void rolUpdate(int idUsuario, byte idRol, Boolean habilitado)
+        public static void rolUpdate(int idUsuario, byte idRol, Boolean habilitado) // modifico el acceso de un usuario a un rol
         {
             DB.correrProcedimiento("USUARIO_ROL_UPDATE",
                                     "idUsuario", idUsuario,

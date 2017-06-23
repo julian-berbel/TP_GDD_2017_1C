@@ -16,11 +16,11 @@ namespace UberFrba.Abm_Rol
         public AsignarRolForm(ReturningForm caller, Rol rolAAsignar) : base(caller)
         {
             InitializeComponent();
-            DataGridViewUsuario.ReadOnly = false;
+            DataGridViewUsuario.ReadOnly = false;       // habilito edicion de gridView para poder cambiar el checkbox desde ahi
             this.rolAAsignar = rolAAsignar;
-            DataGridViewUsuario.CellValueChanged += new DataGridViewCellEventHandler(this.cellValueChanged);
+            DataGridViewUsuario.CellValueChanged += new DataGridViewCellEventHandler(this.cellValueChanged);    // agrego evento para cuando cambia valor del checkbox
 
-            switch (rolAAsignar.id)
+            switch (rolAAsignar.id)                     // seteo tipo de usuario a buscar
             {
                 case 2:
                     _usuariosABuscar = "CLIENTES";
@@ -36,12 +36,12 @@ namespace UberFrba.Abm_Rol
 
         protected override void CargarTabla()
         {
-            DataGridViewUsuario.DataSource = Usuario.getTablaRolXs(usuariosABuscar(),
+            DataGridViewUsuario.DataSource = Usuario.getTablaRolXs(usuariosABuscar(),   // obtengo tabla de usuarios filtrada
                                                                     Nombre,
                                                                     Apellido,
                                                                     DNI,
                                                                     rolAAsignar.id);
-            DataGridViewUsuario.Columns["Nombre"].ReadOnly = true;
+            DataGridViewUsuario.Columns["Nombre"].ReadOnly = true;                      // seteo columnas que no quiero editables como de solo lectura
             DataGridViewUsuario.Columns["Apellido"].ReadOnly = true;
             DataGridViewUsuario.Columns["DNI"].ReadOnly = true;
         }
@@ -53,8 +53,8 @@ namespace UberFrba.Abm_Rol
 
         protected void cellValueChanged(object sender, EventArgs e)
         {
-            DataRow fila = ((DataRowView)DataGridViewUsuario.SelectedRows[0].DataBoundItem).Row;
-            Usuario.rolUpdate((int) fila["usua_id"], rolAAsignar.id, (Boolean) fila["Habilitado"]);
+            DataRow fila = ((DataRowView)DataGridViewUsuario.SelectedRows[0].DataBoundItem).Row;    // obtengo la fila seleccionada
+            Usuario.rolUpdate((int) fila["usua_id"], rolAAsignar.id, (Boolean) fila["Habilitado"]); // cambio estado del rol para el usuario seleccionado
         }
     }
 }

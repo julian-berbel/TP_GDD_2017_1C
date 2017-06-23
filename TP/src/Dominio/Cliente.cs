@@ -19,13 +19,7 @@ namespace UberFrba.Dominio
             codigoPostal = (decimal)data["Codigo_Postal"];
         }
 
-        new public static Cliente get(int id)
-        {
-            return new Cliente(DB.correrFuncionDeTabla("CLIENTE_GET",
-                                                        "id", id).Rows[0]);
-        }
-
-        public void editar()
+        public void editar()                                            // persisto los cambios
         {
             DB.correrProcedimiento("Cliente_UPDATE",
                                         "id", id,
@@ -40,7 +34,7 @@ namespace UberFrba.Dominio
                                          "habilitado", habilitado);
         }
 
-        public static void nuevo(int id, decimal codigoPostal, Boolean habilitado)
+        public static void nuevo(int id, decimal codigoPostal, Boolean habilitado)  // persisto un cliente nuevo
         {
             DB.correrProcedimiento("Cliente_NUEVO",
                                          "id", id,
@@ -48,7 +42,7 @@ namespace UberFrba.Dominio
                                          "habilitado", habilitado);
         }
 
-        public static void inhabilitar(int id)
+        public static void inhabilitar(int id)                                      // inhabilito el cliente
         {
             Usuario.inhabilitar("CLIENTE", id);
         }

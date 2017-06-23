@@ -24,7 +24,7 @@ namespace UberFrba.Dominio
             porcentaje = (decimal)data["rend_porcentaje"];
         }
 
-        public static DataTable get(int idCliente, DateTime fecha, byte turno)
+        public static DataTable get(int idCliente, DateTime fecha, byte turno)  // obtengo una rendicion
         {
             return DB.correrFuncionDeTabla( "RENDICION_GET",
                                             "idCliente", idCliente,
@@ -32,13 +32,13 @@ namespace UberFrba.Dominio
                                             "turno", turno);
         }
 
-        public static DataTable getItems(int idRendicion)
+        public static DataTable getItems(int idRendicion)                       // obtengo los viajes de una rendicion
         {
             return DB.correrFuncionDeTabla( "RENDICION_GET_VIAJES",
                                             "idRendicion", idRendicion);
         }
 
-        public static void generar(int idChofer, DateTime fecha, byte turno, decimal importeTotal, decimal porcentaje)
+        public static void generar(int idChofer, DateTime fecha, byte turno, decimal importeTotal, decimal porcentaje)  // genero una rendicion
         {
             DB.correrProcedimiento( "RENDICION_GENERAR",
                                     "idChofer", idChofer,

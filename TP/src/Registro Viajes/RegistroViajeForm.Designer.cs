@@ -209,7 +209,6 @@
             this.dateTimePickerFechaHoraInicio.ShowUpDown = true;
             this.dateTimePickerFechaHoraInicio.Size = new System.Drawing.Size(127, 20);
             this.dateTimePickerFechaHoraInicio.TabIndex = 39;
-            this.dateTimePickerFechaHoraInicio.ValueChanged += new System.EventHandler(this.dateTimePickerFechaHoraInicio_ValueChanged);
             // 
             // RegistroViajeForm
             // 

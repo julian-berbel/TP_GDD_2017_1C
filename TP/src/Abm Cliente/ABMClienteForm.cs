@@ -18,8 +18,8 @@ namespace UberFrba.Abm_Cliente
 
         private void buttonEditar_Click(object sender, EventArgs e)
         {
-            DataRow fila = ((DataRowView)DataGridViewUsuario.SelectedRows[0].DataBoundItem).Row;
-            new EditarClienteForm(this, new Cliente(fila)).abrir();
+            DataRow fila = ((DataRowView)DataGridViewUsuario.SelectedRows[0].DataBoundItem).Row;    // Obtengo fila seleccionada
+            new EditarClienteForm(this, new Cliente(fila)).abrir();                                 // Construyo un cliente de la fila y se lo paso a la ventada de edición
         }
 
         private void buttonVolver_Click(object sender, EventArgs e)
@@ -34,7 +34,7 @@ namespace UberFrba.Abm_Cliente
 
         private void buttonBaja_Click(object sender, EventArgs e)
         {
-            Cliente.inhabilitar((int)DataGridViewUsuario.SelectedRows[0].Cells["usua_id"].Value);
+            Cliente.inhabilitar((int)DataGridViewUsuario.SelectedRows[0].Cells["usua_id"].Value);   // Obtengo el id del cliente seleccionado y lo inhabilito
             CargarTabla();
         }
     }

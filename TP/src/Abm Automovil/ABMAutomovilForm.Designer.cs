@@ -32,6 +32,18 @@
             this.buttonEditar = new System.Windows.Forms.Button();
             this.buttonVolver = new System.Windows.Forms.Button();
             this.buttonNuevo = new System.Windows.Forms.Button();
+            this.buttonLimpiar = new System.Windows.Forms.Button();
+            this.comboBoxMarca = new System.Windows.Forms.ComboBox();
+            this.buttonFiltrar = new System.Windows.Forms.Button();
+            this.textBoxDNIChofer = new System.Windows.Forms.TextBox();
+            this.textBoxPatente = new System.Windows.Forms.TextBox();
+            this.textBoxModelo = new System.Windows.Forms.TextBox();
+            this.dataGridViewAutomovil = new System.Windows.Forms.DataGridView();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewAutomovil)).BeginInit();
             this.SuspendLayout();
             // 
             // buttonBaja
@@ -74,22 +86,131 @@
             this.buttonNuevo.UseVisualStyleBackColor = true;
             this.buttonNuevo.Click += new System.EventHandler(this.buttonNuevo_Click);
             // 
+            // buttonLimpiar
+            // 
+            this.buttonLimpiar.Location = new System.Drawing.Point(441, 34);
+            this.buttonLimpiar.Name = "buttonLimpiar";
+            this.buttonLimpiar.Size = new System.Drawing.Size(75, 23);
+            this.buttonLimpiar.TabIndex = 33;
+            this.buttonLimpiar.Text = "Limpiar";
+            this.buttonLimpiar.UseVisualStyleBackColor = true;
+            this.buttonLimpiar.Click += new System.EventHandler(this.buttonLimpiar_Click);
+            // 
+            // comboBoxMarca
+            // 
+            this.comboBoxMarca.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxMarca.FormattingEnabled = true;
+            this.comboBoxMarca.Location = new System.Drawing.Point(66, 5);
+            this.comboBoxMarca.Name = "comboBoxMarca";
+            this.comboBoxMarca.Size = new System.Drawing.Size(150, 21);
+            this.comboBoxMarca.Sorted = true;
+            this.comboBoxMarca.TabIndex = 32;
+            // 
+            // buttonFiltrar
+            // 
+            this.buttonFiltrar.Location = new System.Drawing.Point(441, 5);
+            this.buttonFiltrar.Name = "buttonFiltrar";
+            this.buttonFiltrar.Size = new System.Drawing.Size(75, 23);
+            this.buttonFiltrar.TabIndex = 31;
+            this.buttonFiltrar.Text = "Filtrar";
+            this.buttonFiltrar.UseVisualStyleBackColor = true;
+            this.buttonFiltrar.Click += new System.EventHandler(this.buttonFiltrar_Click);
+            // 
+            // textBoxDNIChofer
+            // 
+            this.textBoxDNIChofer.Location = new System.Drawing.Point(291, 34);
+            this.textBoxDNIChofer.Name = "textBoxDNIChofer";
+            this.textBoxDNIChofer.Size = new System.Drawing.Size(134, 20);
+            this.textBoxDNIChofer.TabIndex = 30;
+            // 
+            // textBoxPatente
+            // 
+            this.textBoxPatente.Location = new System.Drawing.Point(291, 6);
+            this.textBoxPatente.Name = "textBoxPatente";
+            this.textBoxPatente.Size = new System.Drawing.Size(134, 20);
+            this.textBoxPatente.TabIndex = 28;
+            // 
+            // textBoxModelo
+            // 
+            this.textBoxModelo.Location = new System.Drawing.Point(66, 34);
+            this.textBoxModelo.Name = "textBoxModelo";
+            this.textBoxModelo.Size = new System.Drawing.Size(150, 20);
+            this.textBoxModelo.TabIndex = 27;
+            // 
+            // dataGridViewAutomovil
+            // 
+            this.dataGridViewAutomovil.AllowUserToAddRows = false;
+            this.dataGridViewAutomovil.AllowUserToDeleteRows = false;
+            this.dataGridViewAutomovil.AllowUserToResizeRows = false;
+            this.dataGridViewAutomovil.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
+            this.dataGridViewAutomovil.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewAutomovil.Location = new System.Drawing.Point(15, 68);
+            this.dataGridViewAutomovil.MultiSelect = false;
+            this.dataGridViewAutomovil.Name = "dataGridViewAutomovil";
+            this.dataGridViewAutomovil.ReadOnly = true;
+            this.dataGridViewAutomovil.RowHeadersVisible = false;
+            this.dataGridViewAutomovil.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dataGridViewAutomovil.Size = new System.Drawing.Size(501, 180);
+            this.dataGridViewAutomovil.TabIndex = 23;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(222, 9);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(47, 13);
+            this.label5.TabIndex = 26;
+            this.label5.Text = "Patente:";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(222, 37);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(63, 13);
+            this.label6.TabIndex = 29;
+            this.label6.Text = "DNI Chofer:";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(13, 37);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(45, 13);
+            this.label7.TabIndex = 25;
+            this.label7.Text = "Modelo:";
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(13, 9);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(40, 13);
+            this.label8.TabIndex = 24;
+            this.label8.Text = "Marca:";
+            // 
             // ABMAutomovilForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.ClientSize = new System.Drawing.Size(528, 286);
+            this.Controls.Add(this.buttonLimpiar);
+            this.Controls.Add(this.comboBoxMarca);
+            this.Controls.Add(this.buttonFiltrar);
+            this.Controls.Add(this.textBoxDNIChofer);
+            this.Controls.Add(this.textBoxPatente);
+            this.Controls.Add(this.textBoxModelo);
+            this.Controls.Add(this.dataGridViewAutomovil);
+            this.Controls.Add(this.label5);
+            this.Controls.Add(this.label6);
+            this.Controls.Add(this.label7);
+            this.Controls.Add(this.label8);
             this.Controls.Add(this.buttonBaja);
             this.Controls.Add(this.buttonEditar);
             this.Controls.Add(this.buttonVolver);
             this.Controls.Add(this.buttonNuevo);
             this.MaximizeBox = false;
             this.Name = "ABMAutomovilForm";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "ABM Automovil";
-            this.Controls.SetChildIndex(this.buttonNuevo, 0);
-            this.Controls.SetChildIndex(this.buttonVolver, 0);
-            this.Controls.SetChildIndex(this.buttonEditar, 0);
-            this.Controls.SetChildIndex(this.buttonBaja, 0);
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewAutomovil)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -101,5 +222,16 @@
         private System.Windows.Forms.Button buttonEditar;
         private System.Windows.Forms.Button buttonVolver;
         private System.Windows.Forms.Button buttonNuevo;
+        private System.Windows.Forms.Button buttonLimpiar;
+        private System.Windows.Forms.ComboBox comboBoxMarca;
+        private System.Windows.Forms.Button buttonFiltrar;
+        private System.Windows.Forms.TextBox textBoxDNIChofer;
+        private System.Windows.Forms.TextBox textBoxPatente;
+        private System.Windows.Forms.TextBox textBoxModelo;
+        private System.Windows.Forms.DataGridView dataGridViewAutomovil;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label label8;
     }
 }

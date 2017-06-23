@@ -22,8 +22,8 @@ namespace UberFrba.Registro_Viajes
             InitializeComponent();
             dateTimePickerFechaHoraInicio.Value = Program.FechaEjecucion.AddMinutes(-10);
             dateTimePickerFechaHoraFin.Value = Program.FechaEjecucion;
-            dateTimePickerFechaHoraFin.MaxDate = Program.FechaEjecucion;
-            dateTimePickerFechaHoraInicio.MaxDate = Program.FechaEjecucion;
+            dateTimePickerFechaHoraFin.MaxDate = Program.FechaEjecucion;    // seteo fecha maxima para elegir como la fecha actual
+            dateTimePickerFechaHoraInicio.MaxDate = Program.FechaEjecucion; 
         }
 
         private Chofer chofer;
@@ -113,12 +113,12 @@ namespace UberFrba.Registro_Viajes
 
         private void buttonSeleccionarChofer_Click(object sender, EventArgs e)
         {
-            Chofer seleccionado = new SeleccionarChoferForm(this).getChofer();
-            if (seleccionado != null)
+            Chofer seleccionado = new SeleccionarChoferForm(this).getChofer();  // selecciono chofer
+            if (seleccionado != null)                                           // si no es null...
             {
                 try {
-                    Automovil = Automovil.getAutomovilDe(seleccionado.id);
-                    Chofer = seleccionado;
+                    Automovil = Automovil.getAutomovilDe(seleccionado.id);      // obtengo su auto (si no tiene un auto habilitado tira excepcion y catcheo)
+                    Chofer = seleccionado;                                      // cargo campos
                     Turno = automovil.turno;
                 }
                 catch (IndexOutOfRangeException)
@@ -135,16 +135,16 @@ namespace UberFrba.Registro_Viajes
 
         private void buttonSeleccionarCliente_Click(object sender, EventArgs e)
         {
-            Cliente seleccionado = new SeleccionarClienteForm(this).getCliente();
-            if (seleccionado != null) Cliente = seleccionado;
+            Cliente seleccionado = new SeleccionarClienteForm(this).getCliente();   // selecciono cliente
+            if (seleccionado != null) Cliente = seleccionado;                       // si no es null cargo campos
         }
 
         private void buttonAceptar_Click(object sender, EventArgs e)
         {
             try
             {
-                validar();
-                Viaje.registrar(Chofer.id, Automovil.id, Cliente.id, Turno.id, CantidadKms, FechaHoraInicio, FechaHoraFin);
+                validar();                                                          // valido datos ingresados
+                Viaje.registrar(Chofer.id, Automovil.id, Cliente.id, Turno.id, CantidadKms, FechaHoraInicio, FechaHoraFin); // registro viaje
 
                 this.Close();
             }
@@ -161,7 +161,7 @@ namespace UberFrba.Registro_Viajes
             }
         }
 
-        private void validar()
+        private void validar()                                          // valido datos ingresados
         {
             if (Chofer == null) throw new CampoVacioException("Chofer");
             if (string.IsNullOrWhiteSpace(textBoxCantidadKms.Text)) throw new CampoVacioException("Cantidad de Kilómetros");
@@ -170,11 +170,6 @@ namespace UberFrba.Registro_Viajes
             if (dateTimePickerFechaHoraInicio.Value.Date != dateTimePickerFechaHoraFin.Value.Date) throw new ViajeTerminaEnFechaDistintaException();
             if (dateTimePickerFechaHoraFin.Value.CompareTo(dateTimePickerFechaHoraInicio.Value) <= 0) throw new FechaDeFinAnteriorAFechaDeInicioException();
             if (dateTimePickerFechaHoraInicio.Value.Hour < Turno.horaInicio || dateTimePickerFechaHoraFin.Value.AddSeconds(-1).Hour >= Turno.horaFin) throw new HorarioSeleccionadoFueraDeTurnoException(Turno);
-        }
-
-        private void dateTimePickerFechaHoraInicio_ValueChanged(object sender, EventArgs e)
-        {
-
         }
     }
 }

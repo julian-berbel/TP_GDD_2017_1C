@@ -188,6 +188,7 @@
             this.textBoxContrasenia.Name = "textBoxContrasenia";
             this.textBoxContrasenia.Size = new System.Drawing.Size(200, 20);
             this.textBoxContrasenia.TabIndex = 21;
+            this.textBoxContrasenia.UseSystemPasswordChar = true;
             // 
             // textBoxNombreDeUsuario
             // 

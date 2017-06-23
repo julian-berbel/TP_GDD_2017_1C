@@ -18,13 +18,13 @@ namespace UberFrba.Dominio
 
         public Chofer() {}
 
-        new public static Chofer get(int id)
+        public static Chofer get(int id)                                    // obtengo un chofer de un id
         {
             return new Chofer(DB.correrFuncionDeTabla("CHOFER_GET",
                                                         "id", id).Rows[0]);
         }
 
-        public void editar()
+        public void editar()                                                // persisto los cambios
         {
             DB.correrProcedimiento("CHOFER_UPDATE",
                                         "id", id,
@@ -38,14 +38,14 @@ namespace UberFrba.Dominio
                                          "habilitado", habilitado);
         }
 
-        public static void nuevo(int id, Boolean habilitado)
+        public static void nuevo(int id, Boolean habilitado)                // persisto un chofer nuevo
         {
             DB.correrProcedimiento("CHOFER_NUEVO",
                                          "id", id,
                                          "habilitado", habilitado);
         }
 
-        public static void inhabilitar(int id)
+        public static void inhabilitar(int id)                              // inhabilito el chofer
         {
             Usuario.inhabilitar("CHOFER", id);
         }

@@ -24,9 +24,10 @@ namespace UberFrba.Abm_Rol
         {
             rolAEditar = new Rol();
             InitializeComponent();
-            funcionalidades = Funcionalidad.getTablaDe(0);
-            dataGridViewFuncionalidades.DataSource = funcionalidades;
-            dataGridViewFuncionalidades.Columns["Descripcion"].ReadOnly = true;
+            funcionalidades = Funcionalidad.getTablaDe(0);                      // ninguna funcionalidad asignada
+            dataGridViewFuncionalidades.DataSource = funcionalidades;           
+            dataGridViewFuncionalidades.Columns["func_id"].Visible = false;     // oculto columna que no quiero mostrar
+            dataGridViewFuncionalidades.Columns["Descripcion"].ReadOnly = true; // seteo columna que no quiero que sea editable como de solo lectura
         }
 
         public EditarRolForm(ReturningForm caller, Rol rolAEditar) : base(caller)
@@ -34,12 +35,12 @@ namespace UberFrba.Abm_Rol
             edicion = true;
             this.rolAEditar = rolAEditar;
             InitializeComponent();
-            funcionalidades = Funcionalidad.getTablaDe(rolAEditar.id);
+            funcionalidades = Funcionalidad.getTablaDe(rolAEditar.id);          // cargo la tabla de funcionalidades del rol
             dataGridViewFuncionalidades.DataSource = funcionalidades;
-            dataGridViewFuncionalidades.Columns["func_id"].Visible = false;
-            dataGridViewFuncionalidades.Columns["Descripcion"].ReadOnly = true;
+            dataGridViewFuncionalidades.Columns["func_id"].Visible = false;     // oculto columna que no quiero mostrar
+            dataGridViewFuncionalidades.Columns["Descripcion"].ReadOnly = true; // seteo columna que no quiero que sea editable como de solo lectura
 
-            Nombre = rolAEditar.nombre;
+            Nombre = rolAEditar.nombre;                                         // cargo los campos con los datos del rol
             Descripcion = rolAEditar.detalle;
             Habilitado = rolAEditar.habilitado;
         }
@@ -88,18 +89,18 @@ namespace UberFrba.Abm_Rol
         {
             try
             {
-                validar();
-                rolAEditar.nombre = Nombre;
+                validar();                                              // valido los datos ingresados
+                rolAEditar.nombre = Nombre;                             // edito el rol
                 rolAEditar.detalle = Descripcion;
                 rolAEditar.habilitado = Habilitado;
 
                 if (edicion)
                 {
-                    rolAEditar.editar(funcionalidades);
+                    rolAEditar.editar(funcionalidades);                 // persisto los cambios
                 }
                 else
                 {
-                    rolAEditar.nuevo(funcionalidades);
+                    rolAEditar.nuevo(funcionalidades);                  // persisto el nuevo rol
                 }
                 this.Close();
             }
@@ -109,7 +110,7 @@ namespace UberFrba.Abm_Rol
             }
         }
 
-        private void validar()
+        private void validar()                                          // valido los datos ingresados
         {
             if (string.IsNullOrWhiteSpace(Nombre)) throw new CampoVacioException("Nombre");
         }

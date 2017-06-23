@@ -30,13 +30,13 @@ namespace UberFrba.Dominio
 
         public Turno() { }
 
-        public static DataTable getTurnosConFiltros(String descripcion)
+        public static DataTable getTurnosConFiltros(String descripcion)     // obtengo los turnos que cumplen con los filtros
         {
             return DB.correrFuncionDeTabla("GET_TURNOS_CON_FILTROS",
                                             "descripcion", descripcion);
         }
 
-        public static List<Turno> getListaTurnos()
+        public static List<Turno> getListaTurnos()                          // obtengo todos los turnos
         {
             return getTurnosConFiltros("")
                 .AsEnumerable()
@@ -44,13 +44,13 @@ namespace UberFrba.Dominio
                 .ToList();
         }
 
-        public static void inhabilitar(byte id)
+        public static void inhabilitar(byte id)                             // inhabilito un turno
         {
             DB.correrProcedimiento("Turno_INHABILITAR",
                                     "id", id);
         }
 
-        public void editar()
+        public void editar()                                                // persisto los cambios
         {
             DB.correrProcedimiento( "TURNO_UPDATE",
                                     "id", id,
@@ -62,7 +62,7 @@ namespace UberFrba.Dominio
                                     "habilitado", habilitado);
         }
 
-        public void nuevo()
+        public void nuevo()                                                 // persisto un nuevo turno
         {
             DB.correrProcedimiento( "TURNO_NUEVO",
                                     "horaInicio", horaInicio,
@@ -73,7 +73,7 @@ namespace UberFrba.Dominio
                                     "habilitado", habilitado);
         }
 
-        public static Turno get(byte id)
+        public static Turno get(byte id)                                    // obtengo un turno por id
         {
             DataRow fila = DB.correrFuncionDeTabla( "TURNO_GET",
                                                     "id", id).Rows[0];

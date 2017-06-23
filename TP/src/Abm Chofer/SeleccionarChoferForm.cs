@@ -25,22 +25,22 @@ namespace UberFrba.Abm_Chofer
 
         private void buttonSeleccionar_Click(object sender, EventArgs e)
         {
-            DataRow fila = ((DataRowView)DataGridViewUsuario.SelectedRows[0].DataBoundItem).Row;
+            DataRow fila = ((DataRowView)DataGridViewUsuario.SelectedRows[0].DataBoundItem).Row;    // obtengo la fila seleccionada
 
-            if (!(Boolean)fila["Chofer_Habilitado"])
+            if (!(Boolean)fila["Chofer_Habilitado"])    // si el chofer no está habilitado...
             {
                 Error.show("No se puede seleccionar un chofer inhabilitado!");
                 return;
             }
 
-            choferSeleccionado = new Chofer(fila);
+            choferSeleccionado = new Chofer(fila);      // creo un chofer de la fila seleccionada
             this.Close();
         }
 
         public Chofer getChofer()
         {
             abrir();
-            return choferSeleccionado;
+            return choferSeleccionado;                  // devuelvo el chofer seleccionado
         }
     }
 }

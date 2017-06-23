@@ -25,17 +25,17 @@ namespace UberFrba.SeleccionarFuncionalidad
 
         public override void Refrescar()
         {
-            comboBoxFuncionalidades.Items.Clear();
-            Rol.rolSeleccionado.getFuncionalidades()
+            comboBoxFuncionalidades.Items.Clear();                      // saco los items del combobox
+            Rol.rolSeleccionado.getFuncionalidades()                    // obtengo y cargo los nuevos
                 .ForEach(f => comboBoxFuncionalidades.Items.Add(f));
         }
 
         private void buttonContinuar_Click(object sender, EventArgs e)
         {
-            if (comboBoxFuncionalidades.SelectedItem != null)
+            if (comboBoxFuncionalidades.SelectedItem != null)   // si hay una funcionalidad seleccionada...
             {
                 Funcionalidad funcionalidadSeleccionada = (Funcionalidad)comboBoxFuncionalidades.SelectedItem;
-                funcionalidadSeleccionada.elegir(this);
+                funcionalidadSeleccionada.elegir(this);         // la elijo
             }
         }
 

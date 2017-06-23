@@ -99,8 +99,8 @@ namespace UberFrba.Usuarios
         {
             try
             {
-                validar();
-                usuarioAEditar.nombreDeUsuario = NombreDeUsuario;
+                validar();                                          // valido los datos ingresados
+                usuarioAEditar.nombreDeUsuario = NombreDeUsuario;   // edito el usuario
                 usuarioAEditar.contrasenia = Contrasenia;
                 usuarioAEditar.nombre = Nombre;
                 usuarioAEditar.apellido = Apellido;
@@ -110,7 +110,7 @@ namespace UberFrba.Usuarios
                 usuarioAEditar.mail = Mail;
                 usuarioAEditar.fechaNac = FechaNac;
 
-                usuarioAEditar.nuevo();
+                usuarioAEditar.nuevo();                             // persisto el usuario nuevo
 
                 this.Close();
             }
@@ -124,7 +124,7 @@ namespace UberFrba.Usuarios
             } 
         }
 
-        private void validar()
+        private void validar()      // valido los datos ingresados
         {
             if (string.IsNullOrWhiteSpace(NombreDeUsuario)) throw new CampoVacioException("Nombre de Usuario");
             if (string.IsNullOrWhiteSpace(textBoxContrasenia.Text)) throw new CampoVacioException("Contraseña");

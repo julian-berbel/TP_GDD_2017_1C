@@ -14,7 +14,7 @@ namespace UberFrba.Abm_Cliente
     {
         public TablaClienteForm(ReturningForm caller) : base(caller)
         {
-            _usuariosABuscar = "CLIENTES";
+            _usuariosABuscar = "CLIENTES";              // seteo tipo de usuarios a buscar
             InitializeComponent();
         }
 
@@ -26,8 +26,8 @@ namespace UberFrba.Abm_Cliente
         public override void Refrescar()
         {
             base.Refrescar();
-            DataGridViewUsuario.Columns["Usuario_Habilitado"].Visible = false;
-            DataGridViewUsuario.Columns["Cliente_Habilitado"].HeaderText = "Habilitado";
+            DataGridViewUsuario.Columns["Usuario_Habilitado"].Visible = false;              // oculto columna que no quiero mostrar
+            DataGridViewUsuario.Columns["Cliente_Habilitado"].HeaderText = "Habilitado";    // cambio nombre visible de columna
         }
     }
 }

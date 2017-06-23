@@ -91,8 +91,8 @@ namespace UberFrba.Abm_Chofer
         {
             try
             {
-                if (usuarioSeleccionado == null) throw new UsuarioNoSeleccionadoException();
-                else Chofer.nuevo(usuarioSeleccionado.id, checkBoxHabilitado.Checked);
+                if (usuarioSeleccionado == null) throw new UsuarioNoSeleccionadoException();    // valido los datos ingresados
+                else Chofer.nuevo(usuarioSeleccionado.id, checkBoxHabilitado.Checked);          // persisto el nuevo chofer
 
                 this.Close();
             }
@@ -111,10 +111,10 @@ namespace UberFrba.Abm_Chofer
 
         private void buttonSeleccionarUsuario_Click(object sender, EventArgs e)
         {
-            Usuario seleccionado = new SeleccionarUsuarioForm(this).getNoChofer();
-            if(seleccionado != null)
+            Usuario seleccionado = new SeleccionarUsuarioForm(this).getNoChofer();  // Selecciono un chofer
+            if(seleccionado != null)                                                // Si es null(porque cancelaron) no hago nada
             {
-                usuarioSeleccionado = seleccionado;
+                usuarioSeleccionado = seleccionado;                                 // en caso contrario lleno los campos
                 Nombre = seleccionado.nombre;
                 Apellido = seleccionado.apellido;
                 DNI = seleccionado.dni;

@@ -20,7 +20,7 @@ namespace UberFrba.Facturacion
         {
             InitializeComponent();
             dateTimePickerFecha.Value = Program.FechaEjecucion.AddMonths(-1);
-            dateTimePickerFecha.MaxDate = Program.FechaEjecucion.AddMonths(-1);
+            dateTimePickerFecha.MaxDate = Program.FechaEjecucion.AddMonths(-1); // la facturacion solo se puede realizar una vez terminado el mes
         }
 
         private Cliente cliente;
@@ -53,29 +53,29 @@ namespace UberFrba.Facturacion
 
         private void buttonSeleccionarCliente_Click(object sender, EventArgs e)
         {
-            Cliente seleccionado = new SeleccionarClienteForm(this).getCliente();
-            if (seleccionado != null) Cliente = seleccionado;
+            Cliente seleccionado = new SeleccionarClienteForm(this).getCliente();   // selecciono cliente
+            if (seleccionado != null) Cliente = seleccionado;                       // si no es null lleno el campo
         }
 
         private void buttonFacturar_Click(object sender, EventArgs e)
         {
             try
             {
-                if (Cliente == null) throw new CampoVacioException("Cliente");
-                DataTable tabla = Factura.get(Cliente.id, Fecha);
+                if (Cliente == null) throw new CampoVacioException("Cliente");      // valido los datos ingresados
+                DataTable tabla = Factura.get(Cliente.id, Fecha);                   // obtengo la factura de ese cliente y esa fecha
 
-                if(tabla == null || tabla.Rows.Count == 0)
+                if(tabla == null || tabla.Rows.Count == 0)                          // si no hubo resultado...
                 {
-                    new FacturaNoEfectuadaForm(this, Cliente, Fecha).abrir();
+                    new FacturaNoEfectuadaForm(this, Cliente, Fecha).abrir();       // abro la ventana de factura no efectuada
                 }
-                else
+                else                                                                // caso contrario...
                 {
                     var confirmResult = MessageBox.Show("La Factura indicada ya fue efectuada, desea consultar el resultado?",
                                      "Factura",
                                      MessageBoxButtons.YesNo);
                     if (confirmResult == DialogResult.Yes)
                     {
-                        new FacturaEfectuadaForm(this, Cliente, new Factura(tabla.Rows[0])).abrir();
+                        new FacturaEfectuadaForm(this, Cliente, new Factura(tabla.Rows[0])).abrir();    // abro la ventana de factura efectuada
                     }
                 }
             }

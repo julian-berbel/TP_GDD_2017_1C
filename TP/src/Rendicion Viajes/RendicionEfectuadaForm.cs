@@ -14,8 +14,8 @@ namespace UberFrba.Rendicion_Viajes
         public RendicionEfectuadaForm(ReturningForm caller, Chofer chofer, Rendicion rendicion) : base(caller, chofer, rendicion.fecha)
         {
             InitializeComponent();
-            DataGridViewRendicion.DataSource = Rendicion.getItems(rendicion.numero);
-            ImporteTotal = rendicion.importeTotal;
+            DataGridViewRendicion.DataSource = Rendicion.getItems(rendicion.numero);    // obtengo los viajes de la rendicion
+            ImporteTotal = rendicion.importeTotal;                                      // cargo campos
             labelRendicionNro.Text += rendicion.numero.ToString();
             labelPorcentaje.Text += (rendicion.porcentaje * 100).ToString() + "%";
             Turno = rendicion.turno;

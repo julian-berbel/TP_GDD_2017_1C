@@ -132,8 +132,8 @@ namespace UberFrba.Abm_Automovil
             edicion = false;
             autoAEditar = new Automovil();
             InitializeComponent();
-            Automovil.getMarcas().ForEach(marca => comboBoxMarca.Items.Add(marca));
-            Turno.getListaTurnos().ForEach(turno => comboBoxTurno.Items.Add(turno));
+            Automovil.getMarcas().ForEach(marca => comboBoxMarca.Items.Add(marca)); // cargo el combobox de marcas
+            Turno.getListaTurnos().ForEach(turno => comboBoxTurno.Items.Add(turno));// cargo el combobox de turnos
         }
 
         public EditarAutomovilForm(ReturningForm caller, Automovil autoAEditar) : base(caller)
@@ -142,9 +142,9 @@ namespace UberFrba.Abm_Automovil
             this.autoAEditar = autoAEditar;
             InitializeComponent();
 
-            Automovil.getMarcas().ForEach(marca => comboBoxMarca.Items.Add(marca));
-            Turno.getListaTurnos().ForEach(turno => comboBoxTurno.Items.Add(turno));
-            Chofer = autoAEditar.chofer;
+            Automovil.getMarcas().ForEach(marca => comboBoxMarca.Items.Add(marca)); // cargo el combobox de marcas
+            Turno.getListaTurnos().ForEach(turno => comboBoxTurno.Items.Add(turno));// cargo el combobox de turnos
+            Chofer = autoAEditar.chofer;                                            // cargo los campos con los datos del auto
             Patente = autoAEditar.patente;
             Licencia = autoAEditar.licencia;
             Rodado = autoAEditar.rodado;
@@ -158,8 +158,8 @@ namespace UberFrba.Abm_Automovil
         {
             try
             {
-                validar();
-                autoAEditar.chofer = Chofer;
+                validar();                              // valido los datos ingresados
+                autoAEditar.chofer = Chofer;            // modifico el automovil
                 autoAEditar.patente = Patente;
                 autoAEditar.licencia = Licencia;
                 autoAEditar.rodado = Rodado;
@@ -170,11 +170,11 @@ namespace UberFrba.Abm_Automovil
 
                 if (edicion)
                 {
-                    autoAEditar.editar();
+                    autoAEditar.editar();               // Persisto los cambios
                 }
                 else
                 {
-                    autoAEditar.nuevo();
+                    autoAEditar.nuevo();                // Persisto el nuevo automovil
                 }
                 this.Close();
             }
@@ -185,7 +185,7 @@ namespace UberFrba.Abm_Automovil
             }
         }
 
-        private void validar()
+        private void validar() // Valido los datos ingresados
         {
             if (Chofer == null) throw new CampoVacioException("Chofer");
             if (string.IsNullOrWhiteSpace(Patente)) throw new CampoVacioException("Patente");
@@ -202,8 +202,8 @@ namespace UberFrba.Abm_Automovil
 
         private void buttonSeleccionarChofer_Click(object sender, EventArgs e)
         {
-            Chofer seleccionado = new SeleccionarChoferForm(this).getChofer();
-            if (seleccionado != null) Chofer = seleccionado;
+            Chofer seleccionado = new SeleccionarChoferForm(this).getChofer();  // Selecciono un chofer
+            if (seleccionado != null) Chofer = seleccionado;                    // Si es null (porque apretaron el botón cancelar) no hago nada, sino, me lo quedo
         }
     }
 }

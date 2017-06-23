@@ -15,11 +15,11 @@ namespace UberFrba.Facturacion
         public FacturaNoEfectuadaForm(ReturningForm caller, Cliente cliente, DateTime fecha) : base(caller, cliente)
         {
             InitializeComponent();
-            DataTable viajes = Viaje.getDeCliente(cliente.id, fecha);
+            DataTable viajes = Viaje.getDeCliente(cliente.id, fecha);   // obtengo los viajes del cliente en ese mes
             DataGridViewFactura.DataSource = viajes;
-            FechaInicio = new DateTime(fecha.Year, fecha.Month, 1);
+            FechaInicio = new DateTime(fecha.Year, fecha.Month, 1);     // lleno los campos
             FechaFin = new DateTime(fecha.Year, fecha.Month, DateTime.DaysInMonth(fecha.Year, fecha.Month));
-            ImporteTotal = viajes.AsEnumerable().Sum(f => (decimal)f["Monto"]);
+            ImporteTotal = viajes.AsEnumerable().Sum(f => (decimal)f["Monto"]); // calculo el total
         }
 
         private void buttonVolver_Click(object sender, EventArgs e)
@@ -29,7 +29,7 @@ namespace UberFrba.Facturacion
 
         private void buttonGenerarFactura_Click(object sender, EventArgs e)
         {
-            Factura.generar(Cliente.id, FechaInicio, FechaFin, ImporteTotal);
+            Factura.generar(Cliente.id, FechaInicio, FechaFin, ImporteTotal);   // genero la factura
             this.Close();
         }
     }

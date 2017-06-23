@@ -103,9 +103,9 @@ namespace UberFrba.Abm_Cliente
         {
             try
             {
-                validar();
+                validar();                                                                          // valido los datos ingresados
 
-                Cliente.nuevo(usuarioSeleccionado.id, CodigoPostal, checkBoxHabilitado.Checked);
+                Cliente.nuevo(usuarioSeleccionado.id, CodigoPostal, checkBoxHabilitado.Checked);    // persisto el nuevo cliente
                 this.Close();
             }
             catch (SqlException) { }
@@ -119,7 +119,7 @@ namespace UberFrba.Abm_Cliente
             }
         }
 
-        private void validar()
+        private void validar()          // valido los datos ingresados
         {
             if (usuarioSeleccionado == null) throw new UsuarioNoSeleccionadoException();
             if (string.IsNullOrWhiteSpace(textBoxCodigoPostal.Text)) throw new CampoVacioException("Codigo Postal");
@@ -131,12 +131,12 @@ namespace UberFrba.Abm_Cliente
             this.Close();
         }
 
-        private void buttonSeleccionarUsuario_Click(object sender, EventArgs e)
+        private void buttonSeleccionarUsuario_Click(object sender, EventArgs e)     // Selecciono un cliente
         {
-            Usuario seleccionado = new SeleccionarUsuarioForm(this).getNoCliente();
+            Usuario seleccionado = new SeleccionarUsuarioForm(this).getNoCliente(); // Si es null(porque cancelaron) no hago nada
             if (seleccionado != null)
             {
-                usuarioSeleccionado = seleccionado;
+                usuarioSeleccionado = seleccionado;                                 // en caso contrario lleno los campos
                 Nombre = seleccionado.nombre;
                 Apellido = seleccionado.apellido;
                 DNI = seleccionado.dni;

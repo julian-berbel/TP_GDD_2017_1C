@@ -14,7 +14,7 @@ namespace UberFrba.Dominio
 
         private static String esquema = "[LOS_MODERADAMENTE_ADECUADOS].";
         
-        private static String queryFuncion(String prefijo, String nombre, params object[] args)
+        private static String queryFuncion(String prefijo, String nombre, params object[] args) // creo el query de una funcion
         {
             String query = prefijo + esquema + nombre + "(";
 
@@ -26,12 +26,12 @@ namespace UberFrba.Dominio
             return query += ")";
         }
 
-        private static String queryProcedimiento(String nombre)
+        private static String queryProcedimiento(String nombre)                                 // creo el query de un procedimiento
         {
             return esquema + nombre;
         }
 
-        private static SqlCommand nuevoComando(String query, params object[] args)
+        private static SqlCommand nuevoComando(String query, params object[] args)              // creo el comando y agrego los parametros
         {
             SqlCommand comando = new SqlCommand(query, miConexion);
 
@@ -43,7 +43,7 @@ namespace UberFrba.Dominio
             return comando;
         }
         
-        public static SqlCommand nuevoProcedimiento(String nombre, params object[] args)
+        public static SqlCommand nuevoProcedimiento(String nombre, params object[] args)        // creo un comando de procedimiento
         {
             String query = queryProcedimiento(nombre);
 
@@ -54,42 +54,42 @@ namespace UberFrba.Dominio
             return comando;
         }
 
-        private static SqlCommand nuevaFuncion(String prefijo, String nombre, params object[] args)
+        private static SqlCommand nuevaFuncion(String prefijo, String nombre, params object[] args) // creo un comando de funcion
         {
             String query = queryFuncion(prefijo, nombre, args);
 
             return nuevoComando(query, args);
         }
 
-        public static void correrProcedimiento(String nombre, params object[] args)
+        public static void correrProcedimiento(String nombre, params object[] args)                 // creo y ejecuto un procedimiento
         {
             SqlCommand comando = nuevoProcedimiento(nombre, args);
 
             ejecutarProcedimiento(comando);
         }
 
-        public static object correrFuncion(String nombre, params object[] args)
+        public static object correrFuncion(String nombre, params object[] args)                     // creo y ejecuto una funcion escalar
         {
             SqlCommand comando = nuevaFuncion("SELECT ", nombre, args);
 
             return ejecutarFuncion(comando);
         }
 
-        public static DataTable correrFuncionDeTabla(String nombre, params object[] args)
+        public static DataTable correrFuncionDeTabla(String nombre, params object[] args)           // creo y ejecuto una funcion de tabla
         {
             SqlCommand comando = nuevaFuncion("SELECT * FROM ", nombre, args);
 
             return ejecutarComandoDeTabla(comando);
         }
 
-        public static DataTable correrQuery(String query)
+        public static DataTable correrQuery(String query)                                           // creo y ejecuto un query
         {
             SqlCommand comando = new SqlCommand(query, miConexion);
 
             return ejecutarComandoDeTabla(comando);
         }
 
-        public static void ejecutarProcedimiento(SqlCommand comando)
+        public static void ejecutarProcedimiento(SqlCommand comando)    // ejecuto un procedimiento
         {
             try{
                 miConexion.Open();
@@ -103,7 +103,7 @@ namespace UberFrba.Dominio
             miConexion.Close();
         }
 
-        private static object ejecutarFuncion(SqlCommand comando)
+        private static object ejecutarFuncion(SqlCommand comando)   // ejecuto una funcion
         {
             object resultado = null;
 
@@ -122,9 +122,8 @@ namespace UberFrba.Dominio
             miConexion.Close();
             return resultado;
         }
-
-        //anteriormente "ejecutarFuncionDeTabla" --- puede ser una funcion o un procedimiento
-        private static DataTable ejecutarComandoDeTabla(SqlCommand comando)
+        
+        private static DataTable ejecutarComandoDeTabla(SqlCommand comando) // ejecuto una funcion de tabla o un query
         {
             DataTable tabla = new DataTable();
 

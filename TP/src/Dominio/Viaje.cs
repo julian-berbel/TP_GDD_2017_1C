@@ -9,7 +9,7 @@ namespace UberFrba.Dominio
 {
     public static class Viaje
     {
-        public static void registrar(   int chofer, 
+        public static void registrar(   int chofer,     // registro un viaje
                                         int vehiculo, 
                                         int cliente, 
                                         int turno, 
@@ -27,14 +27,14 @@ namespace UberFrba.Dominio
                                     "fin", fin);
         }
 
-        public static DataTable getDeCliente(int idCliente, DateTime fecha)
+        public static DataTable getDeCliente(int idCliente, DateTime fecha) // obtengo los viajes de un cliente en un mes determinado
         {
             return DB.correrFuncionDeTabla( "VIAJES_GET_DE_CLIENTE",
                                             "idCliente", idCliente,
                                             "fecha", fecha);
         }
 
-        public static DataTable getDeChofer(int idChofer, DateTime fecha, byte idturno, decimal porcentaje)
+        public static DataTable getDeChofer(int idChofer, DateTime fecha, byte idturno, decimal porcentaje) // obtengo los viajes de un chofer en una fecha y turno determinados
         {
             return DB.correrFuncionDeTabla("VIAJES_GET_DE_CHOFER",
                                             "idChofer", idChofer,

@@ -14,15 +14,15 @@ namespace UberFrba.Abm_Chofer
     {
         public TablaChoferForm(ReturningForm caller) : base(caller)
         {
-            _usuariosABuscar = "CHOFERES";
+            _usuariosABuscar = "CHOFERES";      // seteo tipo de usuarios a buscar
             InitializeComponent();
         }
 
         public override void Refrescar()
         {
             base.Refrescar();
-            DataGridViewUsuario.Columns["Usuario_Habilitado"].Visible = false;
-            DataGridViewUsuario.Columns["Chofer_Habilitado"].HeaderText = "Habilitado";
+            DataGridViewUsuario.Columns["Usuario_Habilitado"].Visible = false;  // oculto columna que no quiero mostrar
+            DataGridViewUsuario.Columns["Chofer_Habilitado"].HeaderText = "Habilitado"; //  cambio nombre visible de columna
         }
 
         public TablaChoferForm()

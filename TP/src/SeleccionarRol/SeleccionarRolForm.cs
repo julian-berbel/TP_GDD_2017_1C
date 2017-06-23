@@ -23,8 +23,8 @@ namespace UberFrba.SeleccionarRol
         
         public override void Refrescar()
         {
-            comboBoxRoles.Items.Clear();
-            Usuario.getRoles().ForEach(r => comboBoxRoles.Items.Add(r));
+            comboBoxRoles.Items.Clear();                                    // saco los items del combobox
+            Usuario.getRoles().ForEach(r => comboBoxRoles.Items.Add(r));    // obtengo y agrego los nuevos
         }
 
         private void buttonAtras_Click(object sender, EventArgs e)
@@ -34,9 +34,9 @@ namespace UberFrba.SeleccionarRol
 
         private void buttonContinuar_Click(object sender, EventArgs e)
         {
-            if (comboBoxRoles.SelectedItem != null) { 
+            if (comboBoxRoles.SelectedItem != null) {   // si hay un rol seleccionado...
                 Rol.rolSeleccionado = (Rol)comboBoxRoles.SelectedItem;
-                new SeleccionarFuncionalidadForm(this).abrir();
+                new SeleccionarFuncionalidadForm(this).abrir();     // lo elijo y busco sus funcionalidades
             }
         }
     }

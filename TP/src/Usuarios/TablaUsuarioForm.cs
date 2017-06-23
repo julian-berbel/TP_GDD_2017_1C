@@ -14,7 +14,7 @@ namespace UberFrba.Usuarios
 {
     public partial class TablaUsuarioForm : ReturningForm
     {
-        public String _usuariosABuscar = "USUARIOS";
+        public String _usuariosABuscar = "USUARIOS";    // seteo el tipo de usuarios a buscar
 
         public TablaUsuarioForm(ReturningForm caller) : base(caller)
         {
@@ -63,12 +63,12 @@ namespace UberFrba.Usuarios
         public override void Refrescar()
         {
             CargarTabla();
-            dataGridViewUsuario.Columns["usua_id"].Visible = false;
+            dataGridViewUsuario.Columns["usua_id"].Visible = false; // oculto columnas que no quiero mostar
         }
 
         protected virtual void CargarTabla()
         {
-            dataGridViewUsuario.DataSource = Usuario.getXsConFiltros(usuariosABuscar(),
+            dataGridViewUsuario.DataSource = Usuario.getXsConFiltros(usuariosABuscar(), // obtengo los usuarios y los cargo en la tabla
                                                                         Nombre,
                                                                         Apellido,
                                                                         DNI);
@@ -78,8 +78,8 @@ namespace UberFrba.Usuarios
         {
             try
             {
-                validar();
-                CargarTabla();
+                validar();                                                                      // valido los datos ingresados
+                CargarTabla();                                                                  // cargo la tabla
             }
             catch (Exception ex)
             {
@@ -90,13 +90,13 @@ namespace UberFrba.Usuarios
 
         private void buttonLimpiar_Click(object sender, EventArgs e)
         {
-            textBoxNombre.Text = "";
+            textBoxNombre.Text = "";                                                            // borro los campos de filtros
             textBoxApellido.Text = "";
             textBoxDNI.Text = "";
-            CargarTabla();
+            CargarTabla();                                                                      // cargo la tabla
         }
 
-        private void validar()
+        private void validar()                                                                  // valido los datos ingresados
         {
             if (DNI < 0) throw new ValorNegativoException("DNI");
         }

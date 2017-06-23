@@ -18,7 +18,7 @@ namespace UberFrba.Rendicion_Viajes
         public RendicionNoEfectuadaForm(ReturningForm caller, Chofer chofer, DateTime fecha, Turno turno) : base(caller, chofer, fecha)
         {
             InitializeComponent();
-            this.chofer = chofer;
+            this.chofer = chofer;   // cargo campos
             this.fecha = fecha;
             this.turno = turno;
             Cargar();
@@ -41,15 +41,15 @@ namespace UberFrba.Rendicion_Viajes
 
         private void buttonGenerarRendicion_Click(object sender, EventArgs e)
         {
-            Rendicion.generar(Chofer.id, Fecha, Turno.id, ImporteTotal, Porcentaje);
+            Rendicion.generar(Chofer.id, Fecha, Turno.id, ImporteTotal, Porcentaje);        // genero la rendicion
             this.Close();
         }
 
         private void Cargar()
         {
-            DataTable viajes = Viaje.getDeChofer(chofer.id, fecha, turno.id, Porcentaje);
-            DataGridViewRendicion.DataSource = viajes;
-            ImporteTotal = viajes.AsEnumerable().Sum(f => (decimal)f["Monto"]);
+            DataTable viajes = Viaje.getDeChofer(chofer.id, fecha, turno.id, Porcentaje);   // obtengo los viajes
+            DataGridViewRendicion.DataSource = viajes;                                      // cargo la tabla
+            ImporteTotal = viajes.AsEnumerable().Sum(f => (decimal)f["Monto"]);             // calculo el total
         }
 
         private void numericUpDownPorcentaje_ValueChanged(object sender, EventArgs e)

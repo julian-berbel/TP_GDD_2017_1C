@@ -35,7 +35,7 @@ namespace UberFrba.Dominio
 
         public Automovil(){ }
 
-        public static List<String> getMarcas()
+        public static List<String> getMarcas()                                  // obtengo las marcas
         {
             return DB.correrQuery(@"SELECT marc_nombre
                                     FROM LOS_MODERADAMENTE_ADECUADOS.Marca")
@@ -44,7 +44,7 @@ namespace UberFrba.Dominio
                     .ToList();
         }
 
-        public static DataTable getAutomovilesConFiltro(int choferId,
+        public static DataTable getAutomovilesConFiltro(int choferId,           // obtengo los automoviles que cumplen con los filtros
                                                 String modelo,
                                                 String patente,
                                                 String marca)
@@ -56,7 +56,7 @@ namespace UberFrba.Dominio
                                             "choferID", choferId);
         }
 
-        public void editar()
+        public void editar()                                                    // persisto los cambios
         {
             DB.correrProcedimiento("AUTOMOVIL_UPDATE",
                                         "automovilId", id,
@@ -70,7 +70,7 @@ namespace UberFrba.Dominio
                                         "habilitado", habilitado);
         }
 
-        public void nuevo()
+        public void nuevo()                                                     // persisto automovil nuevo
         {
             DB.correrProcedimiento("AUTOMOVIL_NUEVO",
                                         "chofer", chofer.id,
@@ -83,13 +83,13 @@ namespace UberFrba.Dominio
                                         "habilitado", habilitado);
         }
 
-        public static void inhabilitar (int idAutomovil)
+        public static void inhabilitar (int idAutomovil)                        // inhabilito automovil
         {
             DB.correrProcedimiento("AUTOMOVIL_INHABILITAR",
                                    "idAutomovil", idAutomovil);
         }
 
-        public static Automovil getAutomovilDe(int idChofer)
+        public static Automovil getAutomovilDe(int idChofer)                    // obtengo el automovil de un chofer
         {
             DataRow fila = DB.correrFuncionDeTabla("AUTOMOVIL_GET_DE",
                                                     "idChofer", idChofer).Rows[0];

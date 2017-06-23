@@ -20,15 +20,15 @@ namespace UberFrba.Abm_Cliente
 
         private void buttonSeleccionar_Click(object sender, EventArgs e)
         {
-            DataRow fila = ((DataRowView)DataGridViewUsuario.SelectedRows[0].DataBoundItem).Row;
+            DataRow fila = ((DataRowView)DataGridViewUsuario.SelectedRows[0].DataBoundItem).Row;    // obtengo la fila seleccionada
 
-            if (!(Boolean)fila["Cliente_Habilitado"])
+            if (!(Boolean)fila["Cliente_Habilitado"])                                               // si el cliente no está habilitado...
             {
                 Error.show("No se puede seleccionar un cliente inhabilitado!");
                 return;
             }
 
-            clienteSeleccionado = new Cliente(fila);
+            clienteSeleccionado = new Cliente(fila);                                                // creo un cliente de la fila seleccionada
             this.Close();
         }
 
@@ -40,7 +40,7 @@ namespace UberFrba.Abm_Cliente
         public Cliente getCliente()
         {
             abrir();
-            return clienteSeleccionado;
+            return clienteSeleccionado;                                                             // devuelvo el cliente seleccionado
         }
     }
 }

@@ -111,7 +111,7 @@ namespace UberFrba.Abm_Turno
             this.turnoAEditar = turnoAEditar;
             InitializeComponent();
 
-            HoraInicio = turnoAEditar.horaInicio;
+            HoraInicio = turnoAEditar.horaInicio;           // cargo los campos con los datos del turno
             HoraFin = turnoAEditar.horaFin;
             Descripcion = turnoAEditar.descripcion;
             ValorKilometro = turnoAEditar.valorKilometro;
@@ -123,8 +123,8 @@ namespace UberFrba.Abm_Turno
         {
             try
             {
-                validar();
-                turnoAEditar.horaInicio = HoraInicio;
+                validar();                                      // valido los datos ingresados
+                turnoAEditar.horaInicio = HoraInicio;           // edito el turno
                 turnoAEditar.horaFin = HoraFin;
                 turnoAEditar.descripcion = Descripcion;
                 turnoAEditar.valorKilometro = ValorKilometro;
@@ -133,11 +133,11 @@ namespace UberFrba.Abm_Turno
 
                 if (edicion)
                 {
-                    turnoAEditar.editar();
+                    turnoAEditar.editar();                      // persisto los cambios
                 }
                 else
                 {
-                    turnoAEditar.nuevo();
+                    turnoAEditar.nuevo();                       // persisto el nuevo turno
                 }
                 this.Close();
             }
@@ -153,7 +153,7 @@ namespace UberFrba.Abm_Turno
             }
         }
 
-        private void validar()
+        private void validar()      // valido los datos ingresados
         {
             if (string.IsNullOrWhiteSpace(textBoxHoraInicio.Text)) throw new CampoVacioException("Hora Inicio");
             if (string.IsNullOrWhiteSpace(textBoxHoraFin.Text)) throw new CampoVacioException("Hora Fin");

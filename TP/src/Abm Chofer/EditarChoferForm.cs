@@ -20,7 +20,7 @@ namespace UberFrba.Abm_Chofer
             this.choferAEditar = choferAEditar;
             InitializeComponent();
 
-            Nombre = choferAEditar.nombre;
+            Nombre = choferAEditar.nombre;      // cargo los campos con los datos del chofer
             Apellido = choferAEditar.apellido;
             DNI = choferAEditar.dni;
             Domicilio = choferAEditar.domicilio;
@@ -140,8 +140,8 @@ namespace UberFrba.Abm_Chofer
         {
             try
             {
-                validar();
-                choferAEditar.nombre = Nombre;
+                validar();                              //valido los datos ingresados
+                choferAEditar.nombre = Nombre;          //edito el chofer
                 choferAEditar.apellido = Apellido;
                 choferAEditar.dni = DNI;
                 choferAEditar.domicilio = Domicilio;
@@ -150,7 +150,7 @@ namespace UberFrba.Abm_Chofer
                 choferAEditar.fechaNac = FechaNac;
                 choferAEditar.habilitado = Habilitado;
 
-                choferAEditar.editar();
+                choferAEditar.editar();                 //persisto los cambios
 
                 this.Close();
             }
@@ -164,7 +164,7 @@ namespace UberFrba.Abm_Chofer
             }
         }
 
-        private void validar()
+        private void validar()  // valido los datos ingresados
         {
             if (string.IsNullOrWhiteSpace(Nombre)) throw new CampoVacioException("Nombre");
             if (string.IsNullOrWhiteSpace(Apellido)) throw new CampoVacioException("Apellido");

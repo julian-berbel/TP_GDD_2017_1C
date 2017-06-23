@@ -31,7 +31,7 @@ namespace UberFrba.Dominio
             return nombre;
         }
 
-        public List<Funcionalidad> getFuncionalidades()
+        public List<Funcionalidad> getFuncionalidades() // obtengo las funcionalidades de un rol
         {
             DataTable data = DB.correrFuncionDeTabla("ROL_GET_FUNCIONALIDADES", "rolId", id);
 
@@ -40,7 +40,7 @@ namespace UberFrba.Dominio
                         .ToList();
         }
 
-        public static DataTable getRoles()
+        public static DataTable getRoles()              // obtengo todos los roles
         {
             return DB.correrQuery(@"SELECT  rol_id,
                                             rol_nombre AS Nombre,
@@ -49,13 +49,13 @@ namespace UberFrba.Dominio
                                     FROM LOS_MODERADAMENTE_ADECUADOS.Rol");
         }
 
-        public static void inhabilitar(byte id)
+        public static void inhabilitar(byte id)         // inhabilito un rol
         {
             DB.correrProcedimiento("ROL_INHABILITAR",
                                     "rol", id);
         }
 
-        public void editar(DataTable funcionalidades)
+        public void editar(DataTable funcionalidades)                                           // persisto los cambios
         {
 
             SqlCommand comando = DB.nuevoProcedimiento( "ROL_UPDATE",
@@ -63,20 +63,20 @@ namespace UberFrba.Dominio
                                                         "nombre", nombre,
                                                         "detalle", detalle,
                                                         "habilitado", habilitado);
-            SqlParameter parametroFuncionalidades = new SqlParameter("@funcionalidades", SqlDbType.Structured);
+            SqlParameter parametroFuncionalidades = new SqlParameter("@funcionalidades", SqlDbType.Structured); // dado que uno de los parametros es una tabla tengo que hacer un poco de magia
             parametroFuncionalidades.TypeName = "LOS_MODERADAMENTE_ADECUADOS.TABLA_ROL_X_FUNCIONALIDAD";
             parametroFuncionalidades.Value = funcionalidades;
             comando.Parameters.Add(parametroFuncionalidades);
             DB.ejecutarProcedimiento(comando);
         }
 
-        public void nuevo(DataTable funcionalidades)
+        public void nuevo(DataTable funcionalidades)                                           // persisto el nuevo rol
         {
             SqlCommand comando = DB.nuevoProcedimiento( "ROL_NUEVO",
                                                         "nombre", nombre,
                                                         "detalle", detalle,
                                                         "habilitado", habilitado);
-            SqlParameter parametroFuncionalidades = new SqlParameter("@funcionalidades", SqlDbType.Structured);
+            SqlParameter parametroFuncionalidades = new SqlParameter("@funcionalidades", SqlDbType.Structured); // dado que uno de los parametros es una tabla tengo que hacer un poco de magia
             parametroFuncionalidades.TypeName = "LOS_MODERADAMENTE_ADECUADOS.TABLA_ROL_X_FUNCIONALIDAD";
             parametroFuncionalidades.Value = funcionalidades;
             comando.Parameters.Add(parametroFuncionalidades);

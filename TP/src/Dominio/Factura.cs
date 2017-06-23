@@ -22,20 +22,20 @@ namespace UberFrba.Dominio
             importeTotal = (decimal)data["fact_importe_total"];
         }
 
-        public static DataTable get(int idCliente, DateTime fecha)
+        public static DataTable get(int idCliente, DateTime fecha)  // obtengo una factura
         {
             return DB.correrFuncionDeTabla( "FACTURA_GET",
                                             "idCliente", idCliente,
                                             "fecha", fecha);
         }
 
-        public static DataTable getItems(int idFactura)
+        public static DataTable getItems(int idFactura)             // obtengo los viajes de una factura
         {
             return DB.correrFuncionDeTabla( "FACTURA_GET_VIAJES",
                                             "idFactura", idFactura);
         }
 
-        public static void generar(int idCliente, DateTime fechaInicio, DateTime fechaFin, decimal importeTotal)
+        public static void generar(int idCliente, DateTime fechaInicio, DateTime fechaFin, decimal importeTotal)    // genero una factura
         {
             DB.correrProcedimiento( "FACTURA_GENERAR",
                                     "idCliente", idCliente,

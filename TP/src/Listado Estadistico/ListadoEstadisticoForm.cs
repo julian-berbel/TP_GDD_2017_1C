@@ -18,7 +18,7 @@ namespace UberFrba.Listado_Estadistico
         public ListadoEstadisticoForm(ReturningForm caller) : base(caller)
         {
             InitializeComponent();
-            comboBoxEstadisticas.Items.Add("Chofer con Mayor Recaudacion");
+            comboBoxEstadisticas.Items.Add("Chofer con Mayor Recaudacion");             // agrego estadisticas al combobox
             comboBoxEstadisticas.Items.Add("Chofer con Viaje Más Largo");
             comboBoxEstadisticas.Items.Add("Cliente con Mayor Consumo");
             comboBoxEstadisticas.Items.Add("Cliente con Mayor Uso del Mismo Vehiculo");
@@ -49,9 +49,9 @@ namespace UberFrba.Listado_Estadistico
         {
             try
             {
-                if (comboBoxEstadisticas.SelectedItem == null) throw new CampoVacioException("Estadistica Seleccionada");
+                if (comboBoxEstadisticas.SelectedItem == null) throw new CampoVacioException("Estadistica Seleccionada");   // valido datos ingresados
 
-                dataGridViewEstadistica.DataSource = getEstadistica();
+                dataGridViewEstadistica.DataSource = getEstadistica();                                                      // calculo estadistica
             }
             catch (SqlException) { }
             catch (Exception exception)
@@ -68,7 +68,7 @@ namespace UberFrba.Listado_Estadistico
             switch (comboBoxEstadisticas.SelectedIndex)
             {
                 case 0:
-                    estadistica = "ESTADISTICA_CHOFER_MAYOR_RECAUDACION";
+                    estadistica = "ESTADISTICA_CHOFER_MAYOR_RECAUDACION";               // consigo el nombre en la base de datos de la estadistica seleccionada
                     break;
                 case 1:
                     estadistica = "ESTADISTICA_CHOFER_VIAJE_MAS_LARGO";
@@ -81,7 +81,7 @@ namespace UberFrba.Listado_Estadistico
                     break;
             }
 
-            return DB.correrFuncionDeTabla(estadistica,
+            return DB.correrFuncionDeTabla(estadistica,                                 // calculo la estadistica
                                             "anio", Anio,
                                             "trimestre", Trimestre);
         }

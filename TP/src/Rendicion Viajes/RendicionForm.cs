@@ -20,9 +20,9 @@ namespace UberFrba.Rendicion_Viajes
         public RendicionForm(ReturningForm caller) : base(caller)
         {
             InitializeComponent();
-            dateTimePickerFecha.Value = Program.FechaEjecucion.AddDays(-1);
+            dateTimePickerFecha.Value = Program.FechaEjecucion.AddDays(-1);     // la rendicion se puede calcular si el dia ya paso
             dateTimePickerFecha.MaxDate = Program.FechaEjecucion.AddDays(-1);
-            Turno.getListaTurnos().ForEach(turno => comboBoxTurnos.Items.Add(turno));
+            Turno.getListaTurnos().ForEach(turno => comboBoxTurnos.Items.Add(turno));   // cargo combobox de turnos
         }
 
         private Chofer chofer;
@@ -63,30 +63,30 @@ namespace UberFrba.Rendicion_Viajes
 
         private void buttonSeleccionarChofer_Click(object sender, EventArgs e)
         {
-            Chofer seleccionado = new SeleccionarChoferForm(this).getChofer();
-            if (seleccionado != null) Chofer = seleccionado;
+            Chofer seleccionado = new SeleccionarChoferForm(this).getChofer();  // selecciono chofer
+            if (seleccionado != null) Chofer = seleccionado;                    // si no es null cargo los campos
         }
 
         private void buttonEfectuar_Click(object sender, EventArgs e)
         {
             try
             {
-                if (Chofer == null) throw new CampoVacioException("Chofer");
+                if (Chofer == null) throw new CampoVacioException("Chofer");    // valido los datos ingresados
                 if (Turno == null) throw new CampoVacioException("Turno");
-                DataTable tabla = Rendicion.get(Chofer.id, Fecha, Turno.id);
+                DataTable tabla = Rendicion.get(Chofer.id, Fecha, Turno.id);    // obtengo la rendicion
 
-                if (tabla == null || tabla.Rows.Count == 0)
+                if (tabla == null || tabla.Rows.Count == 0)                     // si no existe...
                 {
-                    new RendicionNoEfectuadaForm(this, Chofer, Fecha, Turno).abrir();
+                    new RendicionNoEfectuadaForm(this, Chofer, Fecha, Turno).abrir();   // abro la ventana de rendicion no efectuada
                 }
-                else
+                else                                                                    // caso contrario...
                 {
                     var confirmResult = MessageBox.Show("La Rendicion indicada ya fue efectuada, desea consultar el resultado?",
                                      "Rendicion",
                                      MessageBoxButtons.YesNo);
                     if (confirmResult == DialogResult.Yes)
                     {
-                        new RendicionEfectuadaForm(this, Chofer, new Rendicion(tabla.Rows[0])).abrir();
+                        new RendicionEfectuadaForm(this, Chofer, new Rendicion(tabla.Rows[0])).abrir(); // abro la ventana de rendicion efectuada
                     }
                 }
             }

@@ -18,8 +18,8 @@ namespace UberFrba.Abm_Chofer
 
         private void buttonEditar_Click(object sender, EventArgs e)
         {
-            DataRow fila = ((DataRowView)DataGridViewUsuario.SelectedRows[0].DataBoundItem).Row;
-            new EditarChoferForm(this, new Chofer(fila)).abrir();
+            DataRow fila = ((DataRowView)DataGridViewUsuario.SelectedRows[0].DataBoundItem).Row; // Obtengo fila seleccionada
+            new EditarChoferForm(this, new Chofer(fila)).abrir();                               // Construyo un chofer de la fila y se lo paso a la ventada de edición
         }
 
         private void buttonVolver_Click(object sender, EventArgs e)
@@ -34,7 +34,7 @@ namespace UberFrba.Abm_Chofer
 
         private void buttonBaja_Click(object sender, EventArgs e)
         {
-            Chofer.inhabilitar((int)DataGridViewUsuario.SelectedRows[0].Cells["usua_id"].Value);
+            Chofer.inhabilitar((int)DataGridViewUsuario.SelectedRows[0].Cells["usua_id"].Value);    // Obtengo el id del chofer seleccionado y lo inhabilito
             CargarTabla();
         }
     }
